@@ -1,24 +1,22 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('Users', [
+    return queryInterface.bulkInsert('Songs', [
       {
-        email: 'demo@user.io',
-        username: 'Demo-lition',
-        hashedPassword: bcrypt.hashSync('password')
+        title: 'Shiki No Uta',
+        releaseDate: '2004-06-23',
+        artist: "Nujabes",
+        imagePath:"https://m.media-amazon.com/images/I/61X2ffoFa1L.jpg",
+        user_id: 1,
+        albumName: "Samurai Champloo Music Record: Departure",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+
       },
-      {
-        email: 'user1@user.io',
-        username: 'FakeUser1',
-        hashedPassword: bcrypt.hashSync('password2')
-      },
-      {
-        email: 'user2@user.io',
-        username: 'FakeUser2',
-        hashedPassword: bcrypt.hashSync('password3')
-      }
+
     ], {});
   },
 
   down: (queryInterface, Sequelize) => {
+  }
 
-};
+}

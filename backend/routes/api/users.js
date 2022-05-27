@@ -2,9 +2,11 @@ const express = require('express')
 const asyncHandler = require('express-async-handler');
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User } = require('../../db/models');
+const { User, Song } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
+
+const { user } = require('pg/lib/defaults');
 
 const router = express.Router();
 
@@ -39,6 +41,73 @@ router.post('/', validateSignup, asyncHandler(async (req, res) => {
     });
 })
 );
+
+router.get('/songs', requireAuth, asyncHandler(async(req,res)=>{
+  const songs = await Song.findAll(
+    {where:req.user.id}
+  )
+  res.json({songs})
+
+}));
+
+router.post('/songs', requireAuth, asyncHandler(async(req,res)=>{
+  const {title, releaseDate, artist, songPath, imagePath, albumName} = req.body
+  let newSong = await Song.create({
+    title,
+    releaseDate,
+    artist,
+    songPath,
+    imagePath,
+    albumName
+
+  })
+
+
+
+
+}))
+
+
+router.put('/songs/:songid', requireAuth, asyncHandler(async(req,res)=>{
+
+
+
+
+}))
+
+router.delete('/songs/:songId', requireAuth, asyncHandler(async(req,res)=>{
+
+}))
+
+
+router.get('/playlist', requireAuth, asyncHandler(async(req,res)=>{
+  const playlists = await Playlist.findAll(
+    {where:req.user.id}
+  )
+  res.json({playlists})
+
+}));
+
+router.post('/playlists', requireAuth, asyncHandler(async(req,res)=>{
+  const {name} = req.body
+
+
+
+
+}))
+
+
+router.put('/playlists/:playlistId', requireAuth, asyncHandler(async(req,res)=>{
+
+
+
+
+}))
+
+router.delete('/playlists/:playlistId', requireAuth, asyncHandler(async(req,res)=>{
+
+}))
+
 
 
 

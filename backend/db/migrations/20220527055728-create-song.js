@@ -1,7 +1,9 @@
 'use strict';
+
+
 module.exports = {
-  async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Songs', {
+   up: (queryInterface, Sequelize) => {
+   return queryInterface.createTable('Songs', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -14,7 +16,7 @@ module.exports = {
       },
       releaseDate: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATEONLY
       },
       artist: {
         allowNull: false,
@@ -29,18 +31,19 @@ module.exports = {
       },
       user_id: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {model:'Users'}
       },
       albumName: {
         type: Sequelize.STRING(200)
       },
       album_id: {
-        allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {model:'Albums'}
       },
       playlist_id: {
-        allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {model:'Playlists'}
       },
       createdAt: {
         allowNull: false,
@@ -52,7 +55,7 @@ module.exports = {
       }
     });
   },
-  async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Songs');
+  down: (queryInterface, Sequelize) => {
+    return queryInterface.dropTable('Songs');
   }
 };
