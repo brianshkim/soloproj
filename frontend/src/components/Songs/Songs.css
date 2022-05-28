@@ -1,0 +1,30 @@
+#image-div{
+    justify-content:center;
+
+    background-image:url("https://c1.wallpaperflare.com/preview/601/574/492/black-player-record-vinyl.jpg");
+    height: 500px;
+    width: 950px
+}
+main {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+
+.navigation{
+
+
+    height: 50px;
+    width: 950px;
+
+    background-color: black;
+
+}
+.navigation .nav1 {
+    display: flex;
+    justify-content: flex-end;
+    width: 950px;
+
+
+}
