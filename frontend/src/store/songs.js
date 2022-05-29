@@ -31,7 +31,7 @@ const load = (list) => ({
     console.log("TOP OF THUNK IN STORE - data -> ", data);
     try {
       const response = await fetch(`/api/songs`, {
-        method: "post",
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },

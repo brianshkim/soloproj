@@ -11,15 +11,32 @@ import * as songActions from "../../store/songs";
 function ViewSongs() {
     const dispatch = useDispatch();
     const [isLoaded, setIsLoaded] = useState(false);
+    const [isUser, setIsUser] = useState(false)
+    const [showForm, setShowForm] = useState(false)
+
     useEffect(() => {
         dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
     }, [dispatch]);
 
     useEffect(()=>{
         dispatch(songActions.getSongs())
-    })
+    }, [dispatch])
 
     let currentUser = useSelector((state)=>state.session.user)
+
+
+    useEffect(()=>{
+    if(currentUser !== undefined){
+        setIsUser(true)
+    }
+    else{
+        setIsUser(false)
+    }
+},[currentUser])
+
+
+console.log(currentUser)
+
 
     return (
         <main>
@@ -37,10 +54,10 @@ function ViewSongs() {
                         </Switch>
                     )}
                 </div>
-                <div className="navigation1">
-                {!!currentUser && {
+                <div className="user-home">
 
-                }}
+
+
 
 
 

@@ -28,6 +28,8 @@ function Navigation({ isLoaded }){
         <NavLink exact to="/">Home</NavLink>
         {isLoaded && sessionLinks}
         <NavLink to='/songs'>My songs</NavLink>
+        <NavLink to='/upload'>Upload</NavLink>
+
 
       </div>
 
