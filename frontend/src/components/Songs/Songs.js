@@ -6,6 +6,7 @@ import Navigation from "../Navigation";
 import SignupFormPage from "../SignupFormPage";
 
 import * as sessionActions from "../../store/session";
+import * as songActions from "../../store/songs";
 
 function ViewSongs() {
     const dispatch = useDispatch();
@@ -13,6 +14,12 @@ function ViewSongs() {
     useEffect(() => {
         dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
     }, [dispatch]);
+
+    useEffect(()=>{
+        dispatch(songActions.getSongs())
+    })
+
+    let currentUser = useSelector((state)=>state.session.user)
 
     return (
         <main>
@@ -30,12 +37,16 @@ function ViewSongs() {
                         </Switch>
                     )}
                 </div>
+                <div className="navigation1">
+                {!!currentUser && {
+
+                }}
 
 
+
+
+                </div>
             </div>
-
-
-
 
         </main>
 

@@ -50,34 +50,7 @@ router.get('/songs', requireAuth, asyncHandler(async(req,res)=>{
 
 }));
 
-router.post('/songs', requireAuth, asyncHandler(async(req,res)=>{
-  const {title, releaseDate, artist, songPath, imagePath, albumName} = req.body
-  let newSong = await Song.create({
-    title,
-    releaseDate,
-    artist,
-    songPath,
-    imagePath,
-    albumName
 
-  })
-
-
-
-
-}))
-
-
-router.put('/songs/:songid', requireAuth, asyncHandler(async(req,res)=>{
-
-
-
-
-}))
-
-router.delete('/songs/:songId', requireAuth, asyncHandler(async(req,res)=>{
-
-}))
 
 
 router.get('/playlist', requireAuth, asyncHandler(async(req,res)=>{

@@ -11,6 +11,9 @@ function App() {
   return (
     <>
       <Songs />
+      <Switch>
+       <Route path="/songs"></Route>
+      </Switch>
 
 
 
