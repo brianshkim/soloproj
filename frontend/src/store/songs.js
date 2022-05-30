@@ -1,6 +1,7 @@
 import { ValidationError } from "../utils/validationError"
+import { csrfFetch } from './csrf';
 const LOAD = "song/LOAD";
-const LOAD_TYPES = "song/LOAD_TYPES";
+const SEARCH = "song/Search";
 const ADD = "song/ADD";
 
 
@@ -19,6 +20,26 @@ const load = (list) => ({
     }
   };
 
+  export const getSearch = (payload) => async(dispatch) =>{
+    const response = await csrfFetch('api/search',{
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+
+
+    if (response.ok) {
+      const list = await response.json();
+     return dispatch(load(list));
+    }
+
+
+  }
+
+
   const addSong= (song) => {
     console.log('IN ADD_ONE_POKEMON ACTION - POKEMON -> ', song)
     return {
@@ -30,7 +51,7 @@ const load = (list) => ({
   export const createSong = (data) => async (dispatch) => {
     console.log("TOP OF THUNK IN STORE - data -> ", data);
     try {
-      const response = await fetch(`/api/songs`, {
+      const response = await csrfFetch(`/api/songs`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

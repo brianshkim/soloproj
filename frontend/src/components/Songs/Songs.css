@@ -1,15 +1,56 @@
 #image-div{
-    justify-content:center;
+    display: flex;
+    position: relative;
+    height: 100%;
+
+
+    margin-left: 18%;
 
     background-image:url("https://c1.wallpaperflare.com/preview/601/574/492/black-player-record-vinyl.jpg");
     height: 500px;
-    width: 950px
+    width: 950px;
 }
-main {
+
+app{
+    display: block;
+}
+
+.searchinput{
+margin-left: 10px;
+
+}
+
+.SearchBar{
     display: flex;
     justify-content: center;
-    align-content: center;
+
+
+    margin-left: 18%;
+    width: 950px;
+
+
+
+
 }
+.headerSearch{
+    margin-top: 60px;
+
+
+    height: 30px;
+    width: 600px;
+}
+
+.searchSubmit{
+    height: 30px;
+    background-color: orange;
+    border-radius: 50%;
+    position: relative;
+    left: -33px;
+
+
+}
+
+
 
 
 .navigation{

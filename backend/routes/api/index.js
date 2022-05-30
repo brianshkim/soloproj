@@ -7,6 +7,7 @@ const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
 const songsRouter = require('./songs.js')
 const albumsRouter = require('./albums.js')
+const searchRouter = require('./search.js')
 
 
 
@@ -14,6 +15,7 @@ router.use('/session', sessionRouter);
 router.use('/users', usersRouter);
 router.use('/songs', songsRouter)
 router.use('/albums', albumsRouter)
+router.use('/search', searchRouter);
 
 
 
@@ -42,5 +44,7 @@ router.get('/restore-user', restoreUser, (req, res) => {
 router.post('/test', function (req, res) {
   res.json({ requestBody: req.body });
 });
+
+
 
 module.exports = router;

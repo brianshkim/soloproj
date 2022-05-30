@@ -5,6 +5,9 @@ import { createSong } from "../store/songs"
 import ErrorMessage from "./ErrorMessage";
 import * as sessionActions from "../store/session";
 import { ValidationError } from "../utils/validationError";
+import Navigation from "./Navigation"
+import SignupFormPage from "./SignupFormPage";
+import { Navlink, Route, useParams, Switch } from 'react-router-dom'
 
 const CreateSongForm = () => {
   const dispatch = useDispatch()
@@ -20,7 +23,7 @@ const CreateSongForm = () => {
   const [imagePath, setImagePath] = useState("")
   const [userId, setUserId] = useState(0)
   const [albumName, setAlbumName] = useState("")
-  const [albumId, setAlbumId] = useState(0)
+  const [albumId, setAlbumId] = useState(null)
   const [playlistId, setPlaylistId] = useState(0)
   const [isLoaded, setIsLoaded] = useState(false)
 
@@ -30,7 +33,7 @@ const CreateSongForm = () => {
   const updateReleaseDate = (e) => setReleaseDate(e.target.value)
   const updateSongPath = (e) => setSongPath(e.target.value);
   const updateImagePath = (e) => setImagePath(e.target.value);
-  const updateUserId = (e) => setUserId(e.target.value);
+
   const updateAlbumName = (e) => setAlbumName(e.target.value);
   const updateAlbumId = (e) => setAlbumId(e.target.value);
   const updatePlaylistId = (e) => setPlaylistId(e.target.value);
@@ -41,10 +44,14 @@ const CreateSongForm = () => {
 
   const sessionUser = useSelector((state) => state.session.user);
 
+
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    setUserId(sessionUser.id)
+
+
 
     const payload = {
       title,
@@ -52,7 +59,7 @@ const CreateSongForm = () => {
       releaseDate,
       songPath,
       imagePath,
-      userId,
+      userId: sessionUser.id,
       albumName,
       albumId,
     };
@@ -73,12 +80,26 @@ const CreateSongForm = () => {
   };
 
 
-
   return (
+  <div>
+    <div className="navigation">
+       <Navigation isLoaded={isLoaded} />
+       {isLoaded && (
+           <Switch>
+               <Route path="/signup">
+                   <SignupFormPage />
+               </Route>
+               <Route path="/" exact>
+
+               </Route>
+           </Switch>
+       )}
+       </div>
     <div className="new-form-holder centered middled">
       <ErrorMessage message={errorMessages.overall} />
       <form className="create-song" onSubmit={handleSubmit}>
-      <label>Song Title: </label>
+
+        <label>Song Title: </label>
         <input
           type="text"
           placeholder="Song Title"
@@ -103,8 +124,6 @@ const CreateSongForm = () => {
         <input
           type="date"
           placeholder="Release Date"
-          min="0"
-          max="100"
           required
           value={releaseDate}
           onChange={updateReleaseDate}
@@ -141,7 +160,9 @@ const CreateSongForm = () => {
 
       </form>
     </div>
+  </div>
   );
+
 };
 
 export default CreateSongForm

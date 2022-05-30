@@ -21,7 +21,6 @@ module.exports = {
       artist: {
         allowNull: false,
         type: Sequelize.STRING(200),
-        unique: true
       },
       songPath: {
         type: Sequelize.STRING
@@ -30,7 +29,6 @@ module.exports = {
         type: Sequelize.STRING
       },
       user_id: {
-        allowNull: false,
         type: Sequelize.INTEGER,
         references: {model:'Users'}
       },

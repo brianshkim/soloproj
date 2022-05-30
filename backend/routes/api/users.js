@@ -42,44 +42,6 @@ router.post('/', validateSignup, asyncHandler(async (req, res) => {
 })
 );
 
-router.get('/songs', requireAuth, asyncHandler(async(req,res)=>{
-  const songs = await Song.findAll(
-    {where:req.user.id}
-  )
-  res.json({songs})
-
-}));
-
-
-
-
-router.get('/playlist', requireAuth, asyncHandler(async(req,res)=>{
-  const playlists = await Playlist.findAll(
-    {where:req.user.id}
-  )
-  res.json({playlists})
-
-}));
-
-router.post('/playlists', requireAuth, asyncHandler(async(req,res)=>{
-  const {name} = req.body
-
-
-
-
-}))
-
-
-router.put('/playlists/:playlistId', requireAuth, asyncHandler(async(req,res)=>{
-
-
-
-
-}))
-
-router.delete('/playlists/:playlistId', requireAuth, asyncHandler(async(req,res)=>{
-
-}))
 
 
 

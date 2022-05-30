@@ -10,11 +10,16 @@ function App() {
 
   return (
     <>
-      <Songs />
+
+
       <Switch>
-       <Route path="/songs"></Route>
+       <Route path={["/", "/songs"]} exact><Songs /></Route>
        <Route path="/upload"><CreateSongForm /></Route>
+
+
       </Switch>
+
+
 
 
 
