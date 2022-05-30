@@ -1,0 +1,20 @@
+.header-container{
+    display:flex;
+    justify-content: center;
+
+
+}
+.left-button{
+    display:inline-block;
+    height: 46px;
+    width: 104px;
+    border-right: 1px solid black;
+    text-align: center;
+    padding: 12px 0;
+    background-color: #111;
+    font-weight: 100;
+    font-size: 14px;
+    font-family: Interstate,Lucida Grande,Arial,sans-serif;
+    line-height: 1.5;
+
+}

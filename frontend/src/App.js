@@ -5,6 +5,7 @@ import CreateSongForm from "./components/SongForm"
 import Songs from "./components/Songs/Songs"
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
+import Home from "./components/Home/Home"
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
 
       <Switch>
        <Route path={["/", "/songs"]} exact><Songs /></Route>
+       <Route path="/home"><Home /></Route>
        <Route path="/upload"><CreateSongForm /></Route>
 
 

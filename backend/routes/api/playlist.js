@@ -5,7 +5,7 @@ const { check } = require('express-validator');
 
 const router = express.Router();
 
-router.get('/playlist', requireAuth, asyncHandler(async(req,res)=>{
+router.get('/', requireAuth, asyncHandler(async(req,res)=>{
     const playlists = await Playlist.findAll(
       {where:{
         user_id: req.user.id
@@ -16,7 +16,7 @@ router.get('/playlist', requireAuth, asyncHandler(async(req,res)=>{
 
   }));
 
-  router.post('/playlists', requireAuth, asyncHandler(async(req,res)=>{
+  router.post('/', requireAuth, asyncHandler(async(req,res)=>{
     const {name} = req.body
     const playlist = await Playlist.create({
         name,

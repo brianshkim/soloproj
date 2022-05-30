@@ -75,7 +75,7 @@ const CreateSongForm = () => {
     }
     if (newSong) {
       setErrorMessages({});
-      history.push(`/song/${newSong.id}`);
+     // history.push(`/song/${newSong.id}`);
     }
   };
 
@@ -95,7 +95,7 @@ const CreateSongForm = () => {
            </Switch>
        )}
        </div>
-    <div className="new-form-holder centered middled">
+    <div className="new-form-holder">
       <ErrorMessage message={errorMessages.overall} />
       <form className="create-song" onSubmit={handleSubmit}>
 
@@ -103,7 +103,6 @@ const CreateSongForm = () => {
         <input
           type="text"
           placeholder="Song Title"
-          min="1"
           required
           value={title}
           onChange={updateTitle}

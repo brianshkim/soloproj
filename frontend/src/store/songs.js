@@ -1,7 +1,6 @@
 import { ValidationError } from "../utils/validationError"
 import { csrfFetch } from './csrf';
 const LOAD = "song/LOAD";
-const SEARCH = "song/Search";
 const ADD = "song/ADD";
 
 
@@ -41,7 +40,7 @@ const load = (list) => ({
 
 
   const addSong= (song) => {
-    console.log('IN ADD_ONE_POKEMON ACTION - POKEMON -> ', song)
+
     return {
       type: ADD,
       song:song,
