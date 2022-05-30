@@ -8,9 +8,10 @@ import { ValidationError } from "../utils/validationError";
 import { createPlaylist } from "../store/playlist";
 
 
-const CreateSongForm = () => {
+const CreatePlaylistForm = () => {
   const dispatch = useDispatch()
   const history = useHistory()
+  const [isLoaded, setIsLoaded] = useState(false)
 
   const [errorMessages, setErrorMessages] = useState({})
   const [name, setName] = useState("")
@@ -44,7 +45,7 @@ const CreateSongForm = () => {
       if (error instanceof ValidationError) setErrorMessages(error.errors);
       else setErrorMessages({ overall: error.toString().slice(7) });
     }
-    if (newSong) {
+    if (playlist) {
       setErrorMessages({});
      // history.push(`/song/${newSong.id}`);
     }
@@ -66,7 +67,9 @@ const CreateSongForm = () => {
 
         <ErrorMessage label={"name"} message={errorMessages.name} />
       </form>
-      <button type="submit">Add new Song</button>
+      <button type="submit">Add new Playlist</button>
     </div>
   )
 }
+
+export default CreatePlaylistForm

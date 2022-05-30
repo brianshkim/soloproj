@@ -13,28 +13,7 @@ import './Home.css'
 const Home = () => {
   const dispatch = useDispatch()
   const history = useHistory()
-  const handleSubmit = async (e) => {
-    e.preventDefault();
 
-    let currentUser = useSelector((state) => state.session.user)
-
-
-
-    const payload = {
-        search
-    }
-
-    let newsearch = await dispatch(getSearch(payload));
-    setSearchObj(newsearch.list.songs)
-    setSearch("")
-
-}
-
-const pressEnter = e =>{
-    if(e.keyCode===13){
-        handleSubmit();
-    }
-}
 
   return (
       <header>
@@ -48,6 +27,9 @@ const pressEnter = e =>{
                       </span>
                       <span>
                           <a class="left-button" href="/upload">Upload</a>
+                      </span>
+                      <span>
+                          <a class="left-button" href="/playlists">Upload</a>
                       </span>
                   </nav>
 

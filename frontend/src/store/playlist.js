@@ -60,13 +60,22 @@ const load = (list) => ({
     }
   };
 
+  const initialState = {list:[]}
+  const sortList = (list) => {
+    return list
+      .sort((a, b) => {
+        return a - b;
+      })
+      .map((song) => song.id);
+  };
+
 
   const PlaylistReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD:
             const Playlists = {};
             action.list.forEach((playlist) => {
-              Playlists[play.id] = song
+              Playlists[playlist.id] = playlist
             });
             return {
               ...Playlists,
@@ -78,10 +87,10 @@ const load = (list) => ({
                 if (!state[action.playlist.id]) {
                   const newState = {
                     ...state,
-                    [action.playlist.id]: playlist,
+                    [action.playlist.id]: action.playlist,
                   };
                   const playlistList = newState.list.map((id) => newState[id]);
-                  songList.push(action.playlist);
+                 playlistList.push(action.playlist);
                   newState.list = sortList(playlistList);
                   return newState;
                 }
