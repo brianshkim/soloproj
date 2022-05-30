@@ -16,9 +16,7 @@ function App() {
 
       <Switch>
        <Route path={["/", "/songs"]} exact><Songs /></Route>
-       <Route path="/home"><Home /></Route>
-       <Route path="/upload"><CreateSongForm /></Route>
-       <Route path="/playlists"><PlaylistForm /></Route>
+       <Route path={["/home",'/upload','/playlists']}><Home /></Route>
 
 
       </Switch>

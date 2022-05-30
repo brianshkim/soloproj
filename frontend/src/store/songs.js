@@ -16,6 +16,7 @@ const load = (list) => ({
     if (response.ok) {
       const list = await response.json();
       dispatch(load(list));
+      return list;
     }
   };
 

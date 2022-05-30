@@ -95,7 +95,7 @@ function ViewSongs() {
                                 onInput={(e) => setSearch(e.target.value)}
 
                             />
-                            <button className="searchSubmit"><i class="fa-solid fa-file-waveform"></i></button>
+                            <button className="searchSubmit"><i className="fa-solid fa-file-waveform"></i></button>
 
                             </form>
 

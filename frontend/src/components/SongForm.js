@@ -73,19 +73,6 @@ const CreateSongForm = () => {
 
   return (
   <div>
-    <div className="navigation">
-       <Navigation isLoaded={isLoaded} />
-       {isLoaded && (
-           <Switch>
-               <Route path="/signup">
-                   <SignupFormPage />
-               </Route>
-               <Route path="/" exact>
-
-               </Route>
-           </Switch>
-       )}
-       </div>
     <div className="new-form-holder">
       <ErrorMessage message={errorMessages.overall} />
       <form className="create-song" onSubmit={handleSubmit}>
