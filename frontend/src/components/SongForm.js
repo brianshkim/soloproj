@@ -15,7 +15,7 @@ const CreateSongForm = () => {
 
 
 
-  const [errorMessages, setErrorMessages] = useState({})
+  const [errorMessages, setErrorMessages] = useState([])
   const [title, setTitle] = useState("")
   const [releaseDate, setReleaseDate] = useState("")
   const [artist, setArtist] = useState("")
@@ -50,34 +50,25 @@ const CreateSongForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-
-
-
     const payload = {
       title,
       artist,
       releaseDate,
       songPath,
       imagePath,
-      userId: sessionUser.id,
+      user_id: sessionUser.id,
       albumName,
       albumId,
     };
 
-    let newSong;
-    try {
-      console.log('COMPONENT TRY BLOCK - BEFORE DISPATCH - THIS IS PAYLOAD ->', payload)
-      newSong = await dispatch(createSong(payload));
-      console.log('COMPONENT TRY BLOCK - AFTER DISPATCH - THIS IS createdPokemon ->', createSong)
-    } catch (error) {
-      if (error instanceof ValidationError) setErrorMessages(error.errors);
-      else setErrorMessages({ overall: error.toString().slice(7) });
-    }
-    if (newSong) {
-      setErrorMessages({});
-     // history.push(`/song/${newSong.id}`);
-    }
+  return dispatch(createSong(payload)).catch(async (res) => {
+    const data = await res.json();
+    if (data && data.errors) setErrorMessages(data.errors);
+  });
+
   };
+
+  console.log(typeof(errorMessages))
 
 
   return (

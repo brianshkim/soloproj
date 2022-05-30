@@ -28,27 +28,21 @@ const CreatePlaylistForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-
-
-
     const payload = {
       name,
       user_id: sessionUser.id
     };
 
     let playlist;
-    try {
-      console.log('COMPONENT TRY BLOCK - BEFORE DISPATCH - THIS IS PAYLOAD ->', payload)
-      playlist = await dispatch(createPlaylist(payload));
+
+      playlist = dispatch(createPlaylist(payload));
       console.log('COMPONENT TRY BLOCK - AFTER DISPATCH - THIS IS createdPokemon ->', createSong)
-    } catch (error) {
-      if (error instanceof ValidationError) setErrorMessages(error.errors);
-      else setErrorMessages({ overall: error.toString().slice(7) });
-    }
+
     if (playlist) {
       setErrorMessages({});
      // history.push(`/song/${newSong.id}`);
     }
+
   };
 
   return (
@@ -66,8 +60,9 @@ const CreatePlaylistForm = () => {
         />
 
         <ErrorMessage label={"name"} message={errorMessages.name} />
+        <button type="submit">Add new Playlist</button>
       </form>
-      <button type="submit">Add new Playlist</button>
+
     </div>
   )
 }

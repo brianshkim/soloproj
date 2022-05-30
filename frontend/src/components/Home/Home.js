@@ -29,8 +29,9 @@ const Home = () => {
                           <a class="left-button" href="/upload">Upload</a>
                       </span>
                       <span>
-                          <a class="left-button" href="/playlists">Upload</a>
+                          <a class="left-button" href="/playlists">Playlists</a>
                       </span>
+
                   </nav>
 
 

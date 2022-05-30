@@ -2,6 +2,7 @@ const express = require('express')
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { User, Song, Playlist } = require('../../db/models');
 const { check } = require('express-validator');
+const asyncHandler = require('express-async-handler');
 
 const router = express.Router();
 
@@ -18,6 +19,7 @@ router.get('/', requireAuth, asyncHandler(async(req,res)=>{
 
   router.post('/', requireAuth, asyncHandler(async(req,res)=>{
     const {name} = req.body
+    console.log(name)
     const playlist = await Playlist.create({
         name,
         user_id: req.user.id

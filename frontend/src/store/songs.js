@@ -49,7 +49,7 @@ const load = (list) => ({
 
   export const createSong = (data) => async (dispatch) => {
     console.log("TOP OF THUNK IN STORE - data -> ", data);
-    try {
+
       const response = await csrfFetch(`/api/songs`, {
         method: "POST",
         headers: {
@@ -59,34 +59,14 @@ const load = (list) => ({
       });
 
 
-    if (!response.ok) {
-        let error;
-        if (response.status === 422) {
-          error = await response.json();
-          throw new ValidationError(error.errors, response.statusText);
-        } else {
-          let errorJSON;
-          error = await response.text();
-          try {
-            // Check if the error is JSON, i.e., from the Pokemon server. If so,
-            // don't throw error yet or it will be caught by the following catch
-            errorJSON = JSON.parse(error);
-          } catch {
-            // Case if server could not be reached
-            throw new Error(error);
-          }
-          throw new Error(`${errorJSON.title}: ${errorJSON.message}`);
-        }
-      }
+
       const song = await response.json();
 
 
 
     dispatch(addSong(song));
     return song;
-  } catch (error) {
-    throw error;
-  }
+
 };
 
 

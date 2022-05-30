@@ -1,5 +1,6 @@
 const express = require('express')
 const asyncHandler = require('express-async-handler');
+const songValidation = require("../../validations/songValidation")
 
 const { setTokenCookie, requireAuth, restoreUser} = require('../../utils/auth');
 const { User, Song, Album } = require('../../db/models');
@@ -17,8 +18,8 @@ router.get('/', asyncHandler(async (req,res)=>{
 )
 
 
-router.post('/', requireAuth, asyncHandler(async(req,res)=>{
-    const {title, releaseDate, artist, songPath, imagePath, albumName, albumReleaseDate} = req.body
+router.post('/', requireAuth, songValidation.validateCreate, asyncHandler(async(req,res)=>{
+    const {title, releaseDate, artist, songPath, imagePath, albumName, user_id} = req.body
 
 
     let newSong = await Song.create({
@@ -28,7 +29,7 @@ router.post('/', requireAuth, asyncHandler(async(req,res)=>{
       songPath,
       imagePath,
       albumName,
-      user_id: req.user.id,
+      user_id,
 
     })
 

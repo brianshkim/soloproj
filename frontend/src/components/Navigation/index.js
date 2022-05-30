@@ -13,8 +13,7 @@ function Navigation({ isLoaded }){
     sessionLinks = (
       <>
       <ProfileButton user={sessionUser} />
-      <NavLink to='/songs'>My songs</NavLink>
-      <NavLink to='/upload'>Playlists</NavLink>
+
        </>
     );
   } else {
