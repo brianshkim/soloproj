@@ -8,6 +8,8 @@ import { ValidationError } from "../../utils/validationError";
 import CreateSongForm from "../SongFormModal/SongForm"
 import AddSongModal from "../SongFormModal";
 import EditSongModal from "../EditSongModal";
+import MusicPlayer from "../MusicPlayer/MusicPlayer"
+
 
 import CreatePlaylistForm from "../AddPlaylistModal/PlaylistForm"
 
@@ -57,6 +59,7 @@ const Home = () => {
 
 
     return (
+        <app>
         <header>
             <div className="header-container">
                 <div className="left-nav-logo">
@@ -106,8 +109,9 @@ const Home = () => {
                     <div className="song-list-area">
                         <div className="tracks">
                             <ul className="tracklist"></ul>
-                            {songList.map(song => (
+                            {songList.map((song) => (
                                 <li id={song.id}>
+                                  {song.title &&
                                     <div className="trackitem">
                                         {song.title}
                                         <span class="track-buttons">
@@ -116,6 +120,7 @@ const Home = () => {
                                         </span>
 
                                     </div>
+}
                                 </li>
                             ))}
 
@@ -124,6 +129,7 @@ const Home = () => {
 
 
                         </div>
+
 
 
 
@@ -144,6 +150,11 @@ const Home = () => {
 
 
         </header>
+        <footer>
+        <MusicPlayer />
+
+        </footer>
+        </app>
     )
 }
 
