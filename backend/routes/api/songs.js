@@ -5,6 +5,7 @@ const songValidation = require("../../validations/songValidation")
 const { setTokenCookie, requireAuth, restoreUser} = require('../../utils/auth');
 const { User, Song, Album } = require('../../db/models');
 const { check } = require('express-validator');
+const { singlePublicFileUpload, singleMulterUpload }= require('../../aws53');
 
 const router = express.Router();
 
@@ -28,6 +29,11 @@ router.get('/home', restoreUser, asyncHandler(async(req,res)=>{
 
 }))
 
+
+router.post('/upload', requireAuth, singleMulterUpload, asyncHandler(async(req,res)=>{
+  const song = await singlePublicFileUpload(req.file);
+  return res.json(song)
+}))
 
 
 router.post('/', requireAuth, songValidation.validateCreate, asyncHandler(async(req,res)=>{

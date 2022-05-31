@@ -6,6 +6,15 @@ const DELETE= "song/DELETE"
 
 
 
+const uploadSong = (payload) =>async dispatch=>{
+  const response = await csrfFetch(`api/songs/upload`, {
+    method: "post",
+    headers: "multipart/form-data"
+  })
+
+
+}
+
 const load = (list) => ({
     type: LOAD,
     list,
@@ -135,6 +144,7 @@ export const deleteSong = (songId)=>async dispatch =>{
 const songReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD:
+          console.log(action.list)
             const Songs = {};
             action.list.forEach((song) => {
               Songs[song.id] = song
