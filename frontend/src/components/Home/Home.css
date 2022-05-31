@@ -4,7 +4,9 @@
 
 
 }
-
+footer{
+    position: sticky;
+}
 header{
     background-color: gainsboro;
 }
