@@ -152,7 +152,8 @@ const Home = () => {
 
         </header>
         <footer>
-        <MusicPlayer />
+            <MusicPlayer />
+
 
         </footer>
         </app>
