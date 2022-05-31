@@ -13,7 +13,7 @@ router.get('/', requireAuth, restoreUser, asyncHandler(async(req,res)=>{
       }
     }
     )
-    res.json({playlists})
+    res.json(playlists)
 
   }));
 

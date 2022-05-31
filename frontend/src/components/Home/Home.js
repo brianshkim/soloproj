@@ -8,8 +8,8 @@ import { ValidationError } from "../../utils/validationError";
 import CreateSongForm from "../SongFormModal/SongForm"
 import AddSongModal from "../SongFormModal";
 import EditSongModal from "../EditSongModal";
-import MusicPlayer from "../MusicPlayer/MusicPlayer"
-import $ from 'jquery'
+import ReactJkMusicPlayer from 'react-jinke-music-player'
+import 'react-jinke-music-player/assets/index.css'
 
 
 import CreatePlaylistForm from "../AddPlaylistModal/PlaylistForm"
@@ -26,34 +26,46 @@ const Home = () => {
     const [isUpload, setIsUpload] = useState(false)
     const [isPlaylist, setIsPlaylist] = useState(false)
 
+    const audioLists = [
+        {
+          name: "Shiki No Uta",
+          singer: "Luis Fonsi",
+          musicSrc:
+            "https://ia800700.us.archive.org/5/items/ShikiNoUta/ShikiNoUta-Minmi.mp3"
+        },
+
+
+      ];
 
     const [playlists, setPlaylists] = useState([])
     const songs = useSelector(state => state.songs)
 
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(getSongsUser())
-    },dispatch)
+    }, dispatch)
 
     useEffect(() => {
         dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
     }, [dispatch]);
+
 
     const songList = Object.values(songs)
     console.log(songList)
 
 
 
-    const uploadclick = (e) =>{
+
+    const uploadclick = (e) => {
         setIsUpload(true)
     }
 
-    const playlistclick=(e)=>{
+    const playlistclick = (e) => {
         setIsPlaylist(true)
     }
 
-    const onDelete = (e)=>{
-       let id= e.target.id
-       let child = e.target
+    const onDelete = (e) => {
+        let id = e.target.id
+        let child = e.target
         dispatch(deleteSong(id))
 
     }
@@ -61,46 +73,46 @@ const Home = () => {
 
     return (
         <app>
-        <header>
-            <div className="header-container">
-                <div className="left-nav-logo">
-                </div>
-                <div className="left-header">
-                    <nav class="leftnav" role="navigation">
-                        <span>
-                            <Link className="left-button" to="/home" >Home</Link>
-                        </span>
-                        <span>
-                            <Link className="left-button" to="/upload">Upload</Link>
-                        </span>
-                        <span>
-                            <Link className="left-button" to="/playlists">Playlists</Link>
-                        </span>
+            <header>
+                <div className="header-container">
+                    <div className="left-nav-logo">
+                    </div>
+                    <div className="left-header">
+                        <nav class="leftnav" role="navigation">
+                            <span>
+                                <Link className="left-button" to="/home" >Home</Link>
+                            </span>
+                            <span>
+                                <Link className="left-button" to="/upload">Upload</Link>
+                            </span>
+                            <span>
+                                <Link className="left-button" to="/playlists">Playlists</Link>
+                            </span>
 
-                    </nav>
+                        </nav>
 
-
-                </div>
-                <div className="middle-header">
-                    <div className="search-header" role="search">
-                        <form className="searchHeader">
-
-                        </form>
 
                     </div>
+                    <div className="middle-header">
+                        <div className="search-header" role="search">
+                            <form className="searchHeader">
+
+                            </form>
+
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div>
+                <div>
 
-            </div>
-            <div className="banner-songs">
-            <h2>Your Songs</h2>
-
+                </div>
+                <div className="banner-songs">
+                    <h2>Your Songs</h2>
 
 
 
 
-            </div>
+
+                </div>
 
                 <div className="background-songs" >
                     <AddSongModal />
@@ -112,16 +124,16 @@ const Home = () => {
                             <ul className="tracklist"></ul>
                             {songList.map((song) => (
                                 <li id={song.id}>
-                                  {song.title &&
-                                    <div className="trackitem">
-                                        {song.title}
-                                        <span class="track-buttons">
-                                            <button class="delete-track" id={song.id} onClick={onDelete}>Delete Song</button>
-                                            <EditSongModal id={song.id}/>
-                                        </span>
+                                    {song.title &&
+                                        <div className="trackitem">
+                                            {song.title}
+                                            <span class="track-buttons">
+                                                <button class="delete-track" id={song.id} onClick={onDelete}>Delete Song</button>
+                                                <EditSongModal id={song.id} />
+                                            </span>
 
-                                    </div>
-}
+                                        </div>
+                                    }
                                 </li>
                             ))}
 
@@ -150,12 +162,14 @@ const Home = () => {
 
 
 
-        </header>
-        <footer>
-            <MusicPlayer />
+            </header>
+            <footer>
+                <ReactJkMusicPlayer
+                    audioLists={audioLists} />
 
 
-        </footer>
+
+            </footer>
         </app>
     )
 }

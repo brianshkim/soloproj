@@ -135,6 +135,7 @@ export const deleteSong = (songId)=>async dispatch =>{
 const songReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD:
+          console.log(action.list)
             const Songs = {};
             action.list.forEach((song) => {
               Songs[song.id] = song

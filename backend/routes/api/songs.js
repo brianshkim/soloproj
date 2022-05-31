@@ -29,6 +29,10 @@ router.get('/home', restoreUser, asyncHandler(async(req,res)=>{
 }))
 
 
+router.post('/upload', requireAuth, asyncHandler(req,res)=>{
+
+})
+
 
 router.post('/', requireAuth, songValidation.validateCreate, asyncHandler(async(req,res)=>{
     const {title, releaseDate, artist, songPath, imagePath, albumName, user_id} = req.body
