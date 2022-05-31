@@ -9,6 +9,7 @@ import CreateSongForm from "../SongFormModal/SongForm"
 import AddSongModal from "../SongFormModal";
 import EditSongModal from "../EditSongModal";
 import MusicPlayer from "../MusicPlayer/MusicPlayer"
+import $ from 'jquery'
 
 
 import CreatePlaylistForm from "../AddPlaylistModal/PlaylistForm"
@@ -151,7 +152,8 @@ const Home = () => {
 
         </header>
         <footer>
-        <MusicPlayer />
+            <MusicPlayer />
+
 
         </footer>
         </app>
