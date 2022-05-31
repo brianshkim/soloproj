@@ -9,13 +9,25 @@ const { check } = require('express-validator');
 const router = express.Router();
 
 
-router.get('/', asyncHandler(async (req,res)=>{
+router.get('/',  asyncHandler(async (req,res)=>{
+
     const songs = await Song.findAll()
 
     res.json(songs)
 
-    })
-)
+    }))
+
+
+router.get('/home', restoreUser, asyncHandler(async(req,res)=>{
+  const songs = await Song.findAll({
+    where:{
+      user_id: req.user.id
+    }
+  })
+  res.json(songs)
+
+}))
+
 
 
 router.post('/', requireAuth, songValidation.validateCreate, asyncHandler(async(req,res)=>{
@@ -42,8 +54,12 @@ router.post('/', requireAuth, songValidation.validateCreate, asyncHandler(async(
 
   router.put('/:songid', requireAuth, asyncHandler(async(req,res)=>{
 
+    const id = parseInt(req.params.songid, 10)
+    console.log(id)
+    const song = await Song.findByPk(id)
+    console.log(song)
     const {title, releaseDate, artist, songPath, imagePath, albumName} = req.body
-    let editSong = await Song.update({
+    await song.update({
       title,
       releaseDate,
       artist,
@@ -52,17 +68,18 @@ router.post('/', requireAuth, songValidation.validateCreate, asyncHandler(async(
       albumName
 
     })
+    await song.save()
 
-    return res.json(editSong)
+    return res.json(song)
 
 
 
   }))
 
   router.delete('/:songId', requireAuth, asyncHandler(async(req,res)=>{
-      let deleted = Song.destroy({
-          where: parseInt(req.params.songId, 10)
-      })
+    const id = req.params.songId
+      let deleted = await Song.findByPk(id)
+      await deleted.destroy()
 
       res.json(deleted)
 

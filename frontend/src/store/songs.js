@@ -2,6 +2,7 @@ import { ValidationError } from "../utils/validationError"
 import { csrfFetch } from './csrf';
 const LOAD = "song/LOAD";
 const ADD = "song/ADD";
+const DELETE= "song/DELETE"
 
 
 
@@ -9,6 +10,25 @@ const load = (list) => ({
     type: LOAD,
     list,
   });
+
+const remove = (songId) =>({
+  type: DELETE,
+  songId
+})
+
+export const deleteSong = (songId)=>async dispatch =>{
+  console.log(songId)
+  const response = await csrfFetch(`api/songs/${songId}`,{
+    method: 'DELETE',
+  })
+
+  if(response.ok){
+
+    dispatch(remove(songId))
+    return songId
+  }
+
+}
 
   export const getSongs = () => async (dispatch) => {
     const response = await fetch(`/api/songs`);
@@ -19,6 +39,18 @@ const load = (list) => ({
       return list;
     }
   };
+
+
+  export const getSongsUser = () => async (dispatch) => {
+    const response = await fetch(`/api/songs/home`);
+
+    if (response.ok) {
+      const list = await response.json();
+      dispatch(load(list));
+      return list;
+    }
+  };
+
 
   export const getSearch = (payload) => async(dispatch) =>{
     const response = await csrfFetch('api/search',{
@@ -40,6 +72,8 @@ const load = (list) => ({
   }
 
 
+
+
   const addSong= (song) => {
 
     return {
@@ -47,6 +81,21 @@ const load = (list) => ({
       song:song,
     };
   };
+
+  export const updateSong = (id, data) => async(dispatch)=>{
+    const response=await csrfFetch(`/api/songs/${id}`, {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    if(response.ok){
+      const song=await response.json()
+      dispatch(addSong(song))
+    }
+  }
 
   export const createSong = (data) => async (dispatch) => {
     console.log("TOP OF THUNK IN STORE - data -> ", data);
@@ -114,8 +163,15 @@ const songReducer = (state = initialState, action) => {
                     ...action.song,
                   },
                 };
+              case DELETE:
+                const newState = {...state};
+                delete newState[action.songId]
+                return newState;
+
 
         default:
             return state;
     }
 }
+
+export default songReducer

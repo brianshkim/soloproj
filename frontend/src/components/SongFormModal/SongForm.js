@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { createSong } from "../store/songs"
-import ErrorMessage from "./ErrorMessage";
-import * as sessionActions from "../store/session";
-import { ValidationError } from "../utils/validationError";
-import Navigation from "./Navigation"
-import SignupFormPage from "./SignupFormPage";
+import { createSong } from "../../store/songs"
+import ErrorMessage from "../ErrorMessage";
+import * as sessionActions from "../../store/session";
+import { ValidationError } from "../../utils/validationError";
+import Navigation from "../Navigation"
+import SignupFormPage from "../SignupFormPage";
 import { Navlink, Route, useParams, Switch } from 'react-router-dom'
 
 const CreateSongForm = () => {
