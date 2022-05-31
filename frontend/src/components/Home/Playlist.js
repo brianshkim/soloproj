@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
-import { createSong, getSongs, deleteSong, getSongsUser } from "../../store/songs"
+import { getPlaylists } from "../../store/playlist"
 import ErrorMessage from "../ErrorMessage";
 import * as sessionActions from "../../store/session";
-import { ValidationError } from "../../utils/validationError";
-import CreateSongForm from "../SongFormModal/SongForm"
-import AddSongModal from "../SongFormModal";
+import AddPlaylistModal from "../AddPlaylistModal"
 
-import CreatePlaylistForm from "../PlaylistForm"
+
+import CreatePlaylistForm from "../AddPlaylistModal/PlaylistForm"
 
 
 import { Navlink, Route, useParams, Switch } from 'react-router-dom'
 import './Home.css'
+import AddPlaylist from "../AddPlaylistModal";
 
 const Playlist = () => {
     const dispatch = useDispatch()
@@ -24,18 +24,17 @@ const Playlist = () => {
 
 
     const [playlists, setPlaylists] = useState([])
-    const songs = useSelector(state => state.songs)
+
 
     useEffect(()=>{
-        dispatch(getSongsUser())
-    },dispatch)
+        dispatch(getPlaylists())
+    },[dispatch])
 
     useEffect(() => {
         dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
     }, [dispatch]);
 
-    const songList = Object.values(songs)
-    console.log(songList)
+
 
 
 
@@ -50,7 +49,7 @@ const Playlist = () => {
     const onDelete = (e)=>{
        let id= e.target.id
        let child = e.target
-        dispatch(deleteSong(id))
+
 
     }
     return (
@@ -96,25 +95,14 @@ const Playlist = () => {
             </div>
 
                 <div className="background-songs" >
-                    <AddSongModal />
+                    <AddPlaylistModal />
                 </div>
 
                 <div className="song-list">
                     <div className="song-list-area">
                         <div className="tracks">
                             <ul className="tracklist"></ul>
-                            {songList.map(song => (
-                                <li id={song.id}>
-                                    <div className="trackitem">
-                                        {song.title}
-                                        <span class="track-buttons">
-                                            <button class="delete-track" id={song.id} onClick={onDelete}>Delete Song</button>
-                                            <button class="edit-track">Edit</button>
-                                        </span>
 
-                                    </div>
-                                </li>
-                            ))}
 
 
 

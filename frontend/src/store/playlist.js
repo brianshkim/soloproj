@@ -20,6 +20,16 @@ const load = (list) => ({
     };
   };
 
+  export const getPlaylists = () => async (dispatch) => {
+    const response = await csrfFetch(`/api/playlists`);
+
+    if (response.ok) {
+      const list = await response.json();
+      dispatch(load(list));
+      return list;
+    }
+  };
+
 
   export const createPlaylist = (data) => async (dispatch) => {
     console.log("TOP OF THUNK IN STORE - data -> ", data);
@@ -106,3 +116,4 @@ const load = (list) => ({
             return state;
     }
 }
+export default PlaylistReducer

@@ -9,7 +9,7 @@ import CreateSongForm from "../SongFormModal/SongForm"
 import AddSongModal from "../SongFormModal";
 import EditSongModal from "../EditSongModal";
 
-import CreatePlaylistForm from "../PlaylistForm"
+import CreatePlaylistForm from "../AddPlaylistModal/PlaylistForm"
 
 
 import { Navlink, Route, useParams, Switch } from 'react-router-dom'
