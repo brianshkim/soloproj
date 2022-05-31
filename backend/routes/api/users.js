@@ -2,9 +2,11 @@ const express = require('express')
 const asyncHandler = require('express-async-handler');
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User } = require('../../db/models');
+const { User, Song, Playlist } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
+
+const { user } = require('pg/lib/defaults');
 
 const router = express.Router();
 
@@ -39,6 +41,8 @@ router.post('/', validateSignup, asyncHandler(async (req, res) => {
     });
 })
 );
+
+
 
 
 
