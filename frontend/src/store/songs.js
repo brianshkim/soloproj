@@ -6,6 +6,15 @@ const DELETE= "song/DELETE"
 
 
 
+const uploadSong = (payload) =>async dispatch=>{
+  const response = await csrfFetch(`api/songs/upload`, {
+    method: "post",
+    headers: "multipart/form-data"
+  })
+
+
+}
+
 const load = (list) => ({
     type: LOAD,
     list,

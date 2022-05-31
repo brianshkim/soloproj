@@ -7,6 +7,7 @@ import Songs from "./components/Songs/Songs"
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import Home from "./components/Home/Home"
+import Upload from "./components/Home/Upload"
 import Playlist from "./components/Home/Playlist"
 
 function App() {
@@ -17,11 +18,8 @@ function App() {
 
       <Switch>
        <Route path={["/", "/songs", '/signup']} exact><Songs /></Route>
-       <Route path="/home" exact><Home />
-          <Route path="upload" exact></Route>
-
-
-          </Route>
+       <Route path="/home" exact><Home /></Route>
+        <Route path="/upload" ><Upload /></Route>
        <Route path="/playlists"><Playlist /></Route>
 
 
