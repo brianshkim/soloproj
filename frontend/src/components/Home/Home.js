@@ -13,12 +13,12 @@ import ReactJkMusicPlayer from 'react-jinke-music-player'
 import 'react-jinke-music-player/assets/index.css'
 import { getAlbums } from "../../store/albums";
 
-
 import CreatePlaylistForm from "../AddPlaylistModal/PlaylistForm"
 
 
 import { Navlink, Route, useParams, Switch } from 'react-router-dom'
 import './Home.css'
+import AddPlaylistModal from "../AddPlaylistModal";
 
 const Home = () => {
     const dispatch = useDispatch()
@@ -27,7 +27,7 @@ const Home = () => {
     const sessionUser = useSelector(state => state.session.user);
     const [isUpload, setIsUpload] = useState(false)
     const [isPlaylist, setIsPlaylist] = useState(false)
-    const [playlist, setPlaylist] = useState([])
+
     const [url, setUrl] = useState("")
 
     const audioLists = [
@@ -60,6 +60,8 @@ const Home = () => {
 
     const songList = Object.values(songs)
     console.log(songList)
+    const [playlist, setPlaylist] = useState(songList)
+
 
 
 
@@ -144,7 +146,9 @@ const Home = () => {
                 </div>
 
                 <div className="background-songs" >
+
                     <AddSongModal />
+                    <span><AddPlaylistModal /></span>
                 </div>
 
                 <div className="song-list">
@@ -161,6 +165,7 @@ const Home = () => {
                                             <span class="track-buttons">
                                                 <button class="delete-track" id={song.id} onClick={onDelete}>Delete Song</button>
                                                 <EditSongModal id={song.id} />
+                                                <button class="add-to-playlist" id={song.id}>Add to a playlist</button>
                                             </span>
 
                                         </div>
