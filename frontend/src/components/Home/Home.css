@@ -82,12 +82,18 @@ background-size: 90px 46px;
 
 }
 
-.banner-songs{
+#banner-songs{
+    display: flex;
+    justify-content: center;
     height: 380px;
     margin: auto;
 
     width: 950px;
     background: linear-gradient(135deg, rgb(132, 132, 131) 0%, rgb(47, 45, 46) 100%);
+}
+
+.banner-title{
+
 }
 .background-songs{
     display:flex;

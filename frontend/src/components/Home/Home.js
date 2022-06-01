@@ -25,6 +25,7 @@ const Home = () => {
     const sessionUser = useSelector(state => state.session.user);
     const [isUpload, setIsUpload] = useState(false)
     const [isPlaylist, setIsPlaylist] = useState(false)
+    const [url, setUrl] = useState("")
 
     const audioLists = [
         {
@@ -62,6 +63,38 @@ const Home = () => {
 
     }
 
+    const imageclick = (e)=>{
+       setUrl(e.target.getAttribute('src'))
+       console.log(url)
+
+       let songdetails = e.target.id.split(",")
+       let songalbumname = songdetails[0]
+       let songartist = songdetails[1]
+       let songreleasedate = songdetails[2]
+       console.log(songdetails)
+
+       const banner = document.getElementById("banner-songs")
+       banner.innerHTML=`<img src=${url} height="380"></img>`
+
+       let bannerdiv = document.createElement("div")
+       let bannertitle = document.createElement('h1')
+       let bannerdetail = document.createElement('h2')
+       let bannerdetail2 = document.createElement('h3')
+
+       bannertitle.className = "banner-title"
+       bannertitle.innerText = songalbumname
+       bannerdetail.innerText=songartist
+       bannerdetail2.innerText=songreleasedate
+       bannerdiv.append(bannertitle)
+       bannerdiv.append(bannerdetail)
+       bannerdiv.append(bannerdetail2)
+       banner.append(bannerdiv)
+
+
+
+    }
+
+
 
     return (
         <app>
@@ -93,7 +126,8 @@ const Home = () => {
                 </div>
 
                 </header>
-                <div className="banner-songs">
+                <div id="banner-songs">
+
 
 
 
@@ -115,7 +149,7 @@ const Home = () => {
                                     {song.title &&
                                         <div className="trackitem">
                                             {song.imagePath &&
-                                            <span className="smallalbum"><img src={song.imagePath} height="30" width="30"></img></span>}
+                                            <span className="smallalbum"><button onClick={imageclick}><img id={`${song.albumName},${song.artist},${song.releaseDate}`} src={song.imagePath} height="30" width="30"></img></button></span>}
                                             {song.title}
                                             <span class="track-buttons">
                                                 <button class="delete-track" id={song.id} onClick={onDelete}>Delete Song</button>
