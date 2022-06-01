@@ -1,15 +1,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
-import { createSong, getSongs, deleteSong, getSongsUser } from "../../store/songs"
+import { uploadSong } from "../../store/songs"
 import ErrorMessage from "../ErrorMessage";
 import * as sessionActions from "../../store/session";
 import { ValidationError } from "../../utils/validationError";
-import CreateSongForm from "../SongFormModal/SongForm"
-import AddSongModal from "../SongFormModal";
-import EditSongModal from "../EditSongModal";
-import ReactJkMusicPlayer from 'react-jinke-music-player'
-import 'react-jinke-music-player/assets/index.css'
+
 
 
 import CreatePlaylistForm from "../AddPlaylistModal/PlaylistForm"
@@ -25,6 +21,7 @@ const Upload = () => {
     const sessionUser = useSelector(state => state.session.user);
     const [isUpload, setIsUpload] = useState(false)
     const [isPlaylist, setIsPlaylist] = useState(false)
+    const [image, setImage] = useState(null)
 
     const [playlists, setPlaylists] = useState([])
     const songs = useSelector(state => state.songs)
@@ -34,11 +31,18 @@ const Upload = () => {
     }, [dispatch]);
 
 
-    const clickhandle= ()=>{
+    const handleSubmit = (e)=>{
+        e.preventDefault();
+        dispatch(uploadSong(image))
+
 
     }
 
-
+    const updateFile = (e) => {
+        const file = e.target.files[0];
+        if (file) setImage(file);
+        console.log(file)
+      };
 
 
     return (
@@ -67,6 +71,7 @@ const Upload = () => {
                         <div className="search-header" role="search">
                             <form className="searchHeader">
 
+
                             </form>
 
                         </div>
@@ -75,7 +80,12 @@ const Upload = () => {
 
 
                 <div>
-                    <button>Upload</button>
+                    <form onSubmit={handleSubmit}>
+                        <label>
+                            <input type="file" onChange={updateFile} />
+                        </label>
+                        <button type="submit">Upload</button>
+                    </form>
                 </div>
 
 

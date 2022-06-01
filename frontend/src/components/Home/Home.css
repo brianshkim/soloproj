@@ -1,27 +1,84 @@
 .header-container{
     display:flex;
     justify-content: center;
+    height: 46px;
+    flex-direction: row-wrap;
 
 
 }
+
+
+
+
 footer{
     position: sticky;
 }
 header{
     background-color: gainsboro;
 }
+
+.left-nav-logo{
+width: 90px;
+
+background-size: 90px 46px;
+}
+.left-logo{
+    width: 90px;
+
+
+    background-size: 90px 46px;
+
+}
+.left-header{
+    margin: 0px;
+    padding: 0px;
+    background: #333;
+    font-family: Interstate,Lucida Grande,Arial,sans-serif;
+    font-weight: 100;
+    font-size: 14px;
+    line-height: 1.5;
+    width: 381;
+    height: 46px;
+
+}
+.leftnav{
+    display: block;
+    visibility: visible;
+    float: left;
+    background: #333;
+    font-family: Interstate,Lucida Grande,Arial,sans-serif;
+    font-weight: 100;
+    font-size: 14px;
+    line-height: 1.5;
+    width: 100%;
+    height: 46px;
+    color: #999;
+}
+
 .left-button{
-    display:inline-block;
+    display:block;
     height: 46px;
     width: 104px;
     border-right: 1px solid black;
     text-align: center;
-    padding: 12px 0;
-    background-color: #111;
+    padding: 0px;
+    background-color: #333;
     font-weight: 100;
     font-size: 14px;
     font-family: Interstate,Lucida Grande,Arial,sans-serif;
-    line-height: 1.5;
+    line-height: 3;
+    color: grey;
+}
+
+.left-header-box{
+    float: left;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+
+
+    color: #999;
 
 }
 
@@ -33,6 +90,10 @@ header{
     background: linear-gradient(135deg, rgb(132, 132, 131) 0%, rgb(47, 45, 46) 100%);
 }
 .background-songs{
+    display:flex;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
 
 
 }
@@ -87,5 +148,64 @@ header{
 li{
     list-style: none;
     margin:auto;
+    line-height: 1.5;
+    text-align: center;
 
+}
+
+.middle-header{
+    flex: 1;
+    display: block;
+    color: #999;
+
+    padding: 0px;
+    background: #333;
+    font-family: Interstate,Lucida Grande,Arial,sans-serif;
+    font-weight: 100;
+    font-size: 14px;
+    line-height: 1.5;
+    width: 100%;
+    height: 46px;
+    font: 12px/1.4 Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;
+}
+
+.searchbar{
+    margin-top: 7px;
+    width: 100%;
+    height: 25px;
+    border-radius:5px 0 0 5px;
+    background-color: rgb(229, 218, 218);
+}
+
+.searchHeader{
+
+    display: inline-block;
+    visibility: visible;
+    margin-left: 10px;
+
+    padding: 0px;
+    background: #333;
+    font-family: Interstate,Lucida Grande,Arial,sans-serif;
+    font-weight: 100;
+    font-size: 14px;
+    line-height: 1.5;
+    width: 100%;
+    height: 46px;
+    color: #999;
+    user-select: none;
+    cursor: default;
+    outline: 0;
+    font: 12px/1.4 Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;
+
+}
+
+
+.addsongbutton{
+    background-color: orange;
+    border: none;
+    border-radius: 5px 5px 5px 5px;
+    color: white;
+    width: 100px;
+    height: 30px;
+    box-shadow: 5px 8px #888;
 }

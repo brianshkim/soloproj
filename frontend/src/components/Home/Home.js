@@ -55,14 +55,6 @@ const Home = () => {
 
 
 
-    const uploadclick = (e) => {
-        setIsUpload(true)
-    }
-
-    const playlistclick = (e) => {
-        setIsPlaylist(true)
-    }
-
     const onDelete = (e) => {
         let id = e.target.id
         let child = e.target
@@ -76,37 +68,33 @@ const Home = () => {
             <header>
                 <div className="header-container">
                     <div className="left-nav-logo">
+                        <Link className="left-logo" to="/"><img src='https://t3.ftcdn.net/jpg/03/06/23/08/360_F_306230810_ROw7MaiXo82VjdlkKVrgs1M9wMG6T1ok.jpg' height="46" width="90"></img></Link>
                     </div>
                     <div className="left-header">
                         <nav class="leftnav" role="navigation">
-                            <span>
-                                <Link className="left-button" to="/home" >Home</Link>
-                            </span>
-                            <span>
-                                <Link className="left-button" to="/upload">Upload</Link>
-                            </span>
-                            <span>
-                                <Link className="left-button" to="/playlists">Playlists</Link>
-                            </span>
+                            <ul className="left-header-box">
+                                <li><Link className="left-button" to="/home" >Home</Link></li>
 
+                                <li><Link className="left-button" to="/upload">Upload</Link></li>
+
+                                <li><Link className="left-button" to="/playlists">Playlists</Link></li>
+                            </ul>
                         </nav>
-
-
                     </div>
                     <div className="middle-header">
                         <div className="search-header" role="search">
                             <form className="searchHeader">
-
+                                <input class="searchbar" placeholder="Search">
+                                </input>
                             </form>
 
                         </div>
                     </div>
                 </div>
-                <div>
 
-                </div>
+                </header>
                 <div className="banner-songs">
-                    <h2>Your Songs</h2>
+
 
 
 
@@ -126,6 +114,8 @@ const Home = () => {
                                 <li id={song.id}>
                                     {song.title &&
                                         <div className="trackitem">
+                                            {song.imagePath &&
+                                            <span className="smallalbum"><img src={song.imagePath} height="30" width="30"></img></span>}
                                             {song.title}
                                             <span class="track-buttons">
                                                 <button class="delete-track" id={song.id} onClick={onDelete}>Delete Song</button>
@@ -162,7 +152,7 @@ const Home = () => {
 
 
 
-            </header>
+
             <footer>
                 <ReactJkMusicPlayer
                     audioLists={audioLists} />

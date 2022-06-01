@@ -35,17 +35,6 @@ const Playlist = () => {
     }, [dispatch]);
 
 
-
-
-
-    const uploadclick = (e) =>{
-        setIsUpload(true)
-    }
-
-    const playlistclick=(e)=>{
-        setIsPlaylist(true)
-    }
-
     const onDelete = (e)=>{
        let id= e.target.id
        let child = e.target
@@ -86,7 +75,7 @@ const Playlist = () => {
 
             </div>
             <div className="banner-songs">
-            <h2>Your Songs</h2>
+            <h2></h2>
 
 
 
@@ -95,7 +84,7 @@ const Playlist = () => {
             </div>
 
                 <div className="background-songs" >
-                    <AddPlaylistModal />
+                    <span><AddPlaylistModal /></span>
                 </div>
 
                 <div className="song-list">
