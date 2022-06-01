@@ -17,6 +17,16 @@ router.get('/', requireAuth, restoreUser, asyncHandler(async(req,res)=>{
 
   }));
 
+router.get(':playlistId/songs', restoreUser, asyncHandler(async(req,res)=>{
+  const playlistsongs = await Playlist.findOne({
+    where:{
+      user_id:req.user.id
+    },
+    include:Song
+  })
+  res.json(playlistsongs)
+}))
+
   router.post('/', requireAuth, asyncHandler(async(req,res)=>{
     const {name} = req.body
     console.log(name)
@@ -29,6 +39,7 @@ router.get('/', requireAuth, restoreUser, asyncHandler(async(req,res)=>{
 
 
   }))
+
 
 
   router.put('/playlists/:playlistId', requireAuth, asyncHandler(async(req,res)=>{

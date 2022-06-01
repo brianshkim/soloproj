@@ -3,7 +3,7 @@ const asyncHandler = require('express-async-handler');
 const songValidation = require("../../validations/songValidation")
 
 const { setTokenCookie, requireAuth, restoreUser} = require('../../utils/auth');
-const { User, Song, Album } = require('../../db/models');
+const { User, Song, Album, Playlist } = require('../../db/models');
 const { check } = require('express-validator');
 const { singlePublicFileUpload, singleMulterUpload }= require('../../aws53');
 
@@ -28,6 +28,8 @@ router.get('/home', restoreUser, asyncHandler(async(req,res)=>{
   res.json(songs)
 
 }))
+
+
 
 
 
