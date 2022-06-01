@@ -16,7 +16,7 @@ const singlePublicFileUpload = async (file) => {
   // name of the file in your S3 bucket will be the date in ms plus the extension name
   const Key = new Date().getTime().toString() + path.extname(originalname);
   const uploadParams = {
-    Bucket: spectralwave,
+    Bucket: NAME_OF_BUCKET,
     Key,
     Body: buffer,
     ACL: "public-read",
@@ -43,7 +43,7 @@ const singlePrivateFileUpload = async (file) => {
   // name of the file in your S3 bucket will be the date in ms plus the extension name
   const Key = new Date().getTime().toString() + path.extname(originalname);
   const uploadParams = {
-    Bucket: spectralwave,
+    Bucket: NAME_OF_BUCKET,
     Key,
     Body: buffer,
   };
@@ -65,7 +65,7 @@ const retrievePrivateFile = (key) => {
   let fileUrl;
   if (key) {
     fileUrl = s3.getSignedUrl("getObject", {
-      Bucket: spectralwave,
+      Bucket: NAME_OF_BUCKET,
       Key: key,
     });
   }

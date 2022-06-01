@@ -4,12 +4,14 @@ import { useHistory, Link } from "react-router-dom";
 import { createSong, getSongs, deleteSong, getSongsUser } from "../../store/songs"
 import ErrorMessage from "../ErrorMessage";
 import * as sessionActions from "../../store/session";
+import { getPlaylists } from "../../store/playlist";
 import { ValidationError } from "../../utils/validationError";
 import CreateSongForm from "../SongFormModal/SongForm"
 import AddSongModal from "../SongFormModal";
 import EditSongModal from "../EditSongModal";
 import ReactJkMusicPlayer from 'react-jinke-music-player'
 import 'react-jinke-music-player/assets/index.css'
+import { getAlbums } from "../../store/albums";
 
 
 import CreatePlaylistForm from "../AddPlaylistModal/PlaylistForm"
@@ -25,6 +27,7 @@ const Home = () => {
     const sessionUser = useSelector(state => state.session.user);
     const [isUpload, setIsUpload] = useState(false)
     const [isPlaylist, setIsPlaylist] = useState(false)
+    const [playlist, setPlaylist] = useState([])
     const [url, setUrl] = useState("")
 
     const audioLists = [
@@ -38,8 +41,9 @@ const Home = () => {
 
       ];
 
-    const [playlists, setPlaylists] = useState([])
+
     const songs = useSelector(state => state.songs)
+    const playlists = useSelector(state=>state.playlists)
 
     useEffect(() => {
         dispatch(getSongsUser())
@@ -48,6 +52,10 @@ const Home = () => {
     useEffect(() => {
         dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
     }, [dispatch]);
+
+    useEffect(()=>{
+        dispatch(getAlbums())
+    },[dispatch])
 
 
     const songList = Object.values(songs)
@@ -89,7 +97,6 @@ const Home = () => {
        bannerdiv.append(bannerdetail)
        bannerdiv.append(bannerdetail2)
        banner.append(bannerdiv)
-
 
 
     }
@@ -149,7 +156,7 @@ const Home = () => {
                                     {song.title &&
                                         <div className="trackitem">
                                             {song.imagePath &&
-                                            <span className="smallalbum"><button onClick={imageclick}><img id={`${song.albumName},${song.artist},${song.releaseDate}`} src={song.imagePath} height="30" width="30"></img></button></span>}
+                                            <span className="smallalbum"><button className="smallalbumimage"onClick={imageclick}><img id={`${song.albumName},${song.artist},${song.releaseDate}`} className="buttonimage" src={song.imagePath} height="30" width="30"></img></button></span>}
                                             {song.title}
                                             <span class="track-buttons">
                                                 <button class="delete-track" id={song.id} onClick={onDelete}>Delete Song</button>

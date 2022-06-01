@@ -1,7 +1,7 @@
 const express = require('express')
 const asyncHandler = require('express-async-handler');
 
-const { setTokenCookie, requireAuth } = require('../../utils/auth');
+const { setTokenCookie, requireAuth, restoreUser } = require('../../utils/auth');
 const { User, Song, Album } = require('../../db/models');
 const { check } = require('express-validator');
 
@@ -16,8 +16,18 @@ router.get('/', asyncHandler(async (req,res)=>{
     })
 )
 
-router.post('/', requireAuth, asyncHandler(async(req,res)=>{
-    const {title, releaseDate, user_id, imagePath} = req.body
+router.get('/user', restoreUser, asyncHandler(async (req,res)=>{
+
+    const album = await Album.findAll({where: {
+        user_id:req.user.id
+}})
+
+    res.json(album)
+    })
+)
+
+router.post('/', requireAuth, restoreUser, asyncHandler(async(req,res)=>{
+    const {title, releaseDate, imagePath} = req.body
 
     const album = await Album.create({
       title,

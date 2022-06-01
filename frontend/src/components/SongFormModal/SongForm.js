@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import { createSong } from "../../store/songs"
 import ErrorMessage from "../ErrorMessage";
 import * as sessionActions from "../../store/session";
+import { getAlbums } from "../../store/albums";
 import { ValidationError } from "../../utils/validationError";
 import Navigation from "../Navigation"
 import SignupFormPage from "../SignupFormPage";
@@ -23,9 +24,10 @@ const CreateSongForm = () => {
   const [imagePath, setImagePath] = useState("")
   const [userId, setUserId] = useState(0)
   const [albumName, setAlbumName] = useState("")
-  const [albumId, setAlbumId] = useState(null)
+
   const [playlistId, setPlaylistId] = useState(0)
   const [isLoaded, setIsLoaded] = useState(false)
+  const [image, setImage] = useState(null)
 
 
   const updateTitle = (e) => setTitle(e.target.value);
@@ -42,9 +44,32 @@ const CreateSongForm = () => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
 
+
+
   const sessionUser = useSelector((state) => state.session.user);
+ const albums = useSelector((state)=>state.albums)
+  const albumobj = Object.values(albums)
+  console.log(albumobj)
+  const [albumId, setAlbumId] = useState(albumobj[0].id)
+
+  const updateFile = (e) => {
+    const file = e.target.files[0];
+    if (file) setImage(file);
+    console.log(file)
+  };
+
+  const onselect = (e) =>{
+    console.log(e.target.value)
+    let index = e.target.selectedIndex;
+    var optionElement = e.target.childNodes[index].getAttribute('id')
+    console.log(optionElement)
+
+      setAlbumName(e.target.value)
+      setAlbumId(optionElement)
 
 
+
+  }
 
 
   const handleSubmit = async (e) => {
@@ -54,90 +79,112 @@ const CreateSongForm = () => {
       title,
       artist,
       releaseDate,
-      songPath,
+      image,
       imagePath,
       user_id: sessionUser.id,
       albumName,
-      albumId,
+      album_id:albumId,
     };
 
-  return dispatch(createSong(payload)).catch(async (res) => {
-    const data = await res.json();
-    if (data && data.errors) setErrorMessages(data.errors);
-  });
+    return dispatch(createSong(payload)).catch(async (res) => {
+      const data = await res.json();
+      if (data && data.errors) setErrorMessages(data.errors);
+    }).then(() => {
+      setTitle("");
+      setArtist("");
+      setReleaseDate("");
+      setSongPath("");
+      setImagePath('');
+      setSongPath("");
+      setUserId(0);
+      setAlbumId(0)
+    });
+
+
 
   };
 
-  console.log(typeof(errorMessages))
-
+  console.log(typeof (albums))
+  console.log(sessionUser.id)
 
   return (
-  <div>
-    <div className="new-form-holder">
-      <ErrorMessage message={errorMessages.overall} />
-      <form className="create-song" onSubmit={handleSubmit}>
+    <div>
+      <div className="new-form-holder">
+        <ErrorMessage message={errorMessages.overall} />
+        <form className="create-song" onSubmit={handleSubmit}>
 
-        <label>Song Title: </label>
-        <input
-          type="text"
-          placeholder="Song Title"
-          required
-          value={title}
-          onChange={updateTitle}
-        />
+          <label>Song Title: </label>
+          <input
+            type="text"
+            placeholder="Song Title"
+            required
+            value={title}
+            onChange={updateTitle}
+          />
 
-        <ErrorMessage label={"title"} message={errorMessages.title} />
-        <label>Artist: </label>
-        <input
-          type="text"
-          placeholder="Artist"
-          required
-          value={artist}
-          onChange={updateArtist}
-       />
+          <ErrorMessage label={"title"} message={errorMessages.title} />
+          <label>Artist: </label>
+          <input
+            type="text"
+            placeholder="Artist"
+            required
+            value={artist}
+            onChange={updateArtist}
+          />
 
-        <ErrorMessage label={"artist"} message={errorMessages.artist} />
-        <label>Release Date: </label>
-        <input
-          type="date"
-          placeholder="Release Date"
-          required
-          value={releaseDate}
-          onChange={updateReleaseDate}
-        />
-        <ErrorMessage label={"releaseDate"} message={errorMessages.releaseDate} />
-        <label>Image URL: </label>
-        <input
-          type="text"
-          placeholder="Image URL"
-          value={imagePath}
-          onChange={updateImagePath}
-        />
+          <ErrorMessage label={"artist"} message={errorMessages.artist} />
+          <label>Release Date: </label>
+          <input
+            type="date"
+            placeholder="Release Date"
+            required
+            value={releaseDate}
+            onChange={updateReleaseDate}
+          />
+          <ErrorMessage label={"releaseDate"} message={errorMessages.releaseDate} />
+          <label>Image URL: </label>
+          <input
+            type="text"
+            placeholder="Image URL"
+            value={imagePath}
+            onChange={updateImagePath}
+          />
 
-        <ErrorMessage label={"imagePath"} message={errorMessages.imagePath} />
-        <label>Song URL </label>
-        <input
-          type="text"
-          placeholder="Song URL"
-          value={songPath}
-          onChange={updateSongPath}
-        />
-        <ErrorMessage label={"songPath"} message={errorMessages.songPath} />
-        <label>Album Name: </label>
-        <input
-          type="text"
-          placeholder="Album Name"
-          value={albumName}
-          onChange={updateAlbumName}
-        />
+          <ErrorMessage label={"imagePath"} message={errorMessages.imagePath} />
+          <label>Song URL </label>
+          <input
+            type="file"
+            placeholder="Song URL"
+            onChange={updateFile}
+          />
+          <ErrorMessage label={"songPath"} message={errorMessages.songPath} />
+          <label>New Album Name: </label>
+          <input
+            type="text"
+            placeholder="Album Name"
+            value={albumName}
+            onChange={updateAlbumName}
+          />
+          <ErrorMessage label={"albumName"} message={errorMessages.albumName} />
+          <label>Choose an existing album:</label>
+          <select
+          onChange={onselect}
+          >
+            {albumobj.map(album=>(
+              <option key={album.id} id={album.id}>
 
-        <ErrorMessage label={"albumName"} message={errorMessages.albumName} />
+              {album.title}</option>
+           ))
 
-        <button type="submit">Add new Song</button>
+          }
 
-      </form>
+          </select>
+
+          <button type="submit">Add new Song</button>
+
+        </form>
+      </div>
     </div>
-  </div>
   );
 
 };

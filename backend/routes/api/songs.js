@@ -30,24 +30,21 @@ router.get('/home', restoreUser, asyncHandler(async(req,res)=>{
 }))
 
 
-router.post('/upload', requireAuth, singleMulterUpload, asyncHandler(async(req,res)=>{
-  const song = await singlePublicFileUpload(req.file);
-  return res.json(song)
-}))
 
-
-router.post('/', requireAuth, songValidation.validateCreate, asyncHandler(async(req,res)=>{
-    const {title, releaseDate, artist, songPath, imagePath, albumName, user_id} = req.body
+router.post('/', requireAuth, singleMulterUpload('image'), songValidation.validateCreate, asyncHandler(async(req,res)=>{
+    const {title, releaseDate, artist, imagePath, albumName, user_id, album_id} = req.body
+    const songPath = await singlePublicFileUpload(req.file)
 
 
     let newSong = await Song.create({
       title,
       releaseDate,
       artist,
-      songPath,
+      songPath: songPath,
       imagePath,
       albumName,
       user_id,
+      album_id
 
     })
 
