@@ -81,6 +81,17 @@ router.post('/', requireAuth, singleMulterUpload('image'), songValidation.valida
 
   }))
 
+  router.put('/:songid/addtoplaylist', requireAuth, asyncHandler(async(req,res)=>{
+    const id = parseInt(req.params.songid, 10)
+    const song = await Song.findByPk(id)
+    const {playlist_id} = req.body
+    await song.update({
+      playlist_id
+    })
+    await song.save()
+    return res.json(song)
+  }))
+
   router.delete('/:songId', requireAuth, asyncHandler(async(req,res)=>{
     const id = req.params.songId
       let deleted = await Song.findByPk(id)
