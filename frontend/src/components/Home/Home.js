@@ -5,6 +5,8 @@ import { createSong, getSongs, deleteSong, getSongsUser } from "../../store/song
 import ErrorMessage from "../ErrorMessage";
 import * as sessionActions from "../../store/session";
 import { getPlaylists } from "../../store/playlist";
+import { deletePlaylist } from "../../store/playlist";
+import { getPlaylistSongs } from "../../store/playlistsongs";
 import { ValidationError } from "../../utils/validationError";
 import CreateSongForm from "../SongFormModal/SongForm"
 import AddSongModal from "../SongFormModal";
@@ -25,46 +27,76 @@ const Home = () => {
     const history = useHistory()
     const [isLoaded, setIsLoaded] = useState(false)
     const sessionUser = useSelector(state => state.session.user);
-    const [isUpload, setIsUpload] = useState(false)
-    const [isPlaylist, setIsPlaylist] = useState(false)
+
 
     const [url, setUrl] = useState("")
 
     const audioLists = [
         {
-          name: "Shiki No Uta",
-          singer: "Luis Fonsi",
-          musicSrc:
-            "https://ia800700.us.archive.org/5/items/ShikiNoUta/ShikiNoUta-Minmi.mp3"
+            name: "Shiki No Uta",
+            singer: "Luis Fonsi",
+            musicSrc:
+                "https://ia800700.us.archive.org/5/items/ShikiNoUta/ShikiNoUta-Minmi.mp3"
         },
 
 
-      ];
+    ];
 
 
-    const songs = useSelector(state => state.songs)
-    const playlists = useSelector(state=>state.playlists)
+
 
     useEffect(() => {
         dispatch(getSongsUser())
-    }, dispatch)
+    }, [dispatch])
+
+    useEffect(() => {
+        dispatch(getPlaylists())
+    }, [dispatch])
+
+    const songList = useSelector(state => state.songs.list)
+    const playlists = useSelector(state => state.playlists)
+    const [playlistId, setPlaylistId] = useState(0)
+    const [playlist, setPlaylist] = useState([songList])
+    const playlistid = playlist.list
+    const playlistsongs = useSelector(state=>state.playlistsongs.list)
 
     useEffect(() => {
         dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
     }, [dispatch]);
 
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(getAlbums())
-    },[dispatch])
+    }, [dispatch])
+
+    useEffect(() => {
+        console.log(playlistId)
+        dispatch(getPlaylistSongs(playlistId))
+        setPlaylist(playlistsongs)
+
+    }, [dispatch, playlistId])
 
 
-    const songList = Object.values(songs)
-    console.log(songList)
-    const [playlist, setPlaylist] = useState(songList)
+
+    const onselect = (e) => {
+        let index = e.target.selectedIndex;
+        var optionElement = e.target.childNodes[index].getAttribute('id')
 
 
+        if (optionElement === "all") {
+            setPlaylist(songList)
 
+        }
 
+        else{
+            setPlaylistId(optionElement)
+
+        }
+    }
+
+    const onclick = (e)=>{
+        dispatch(deletePlaylist(playlistId))
+
+    }
 
     const onDelete = (e) => {
         let id = e.target.id
@@ -73,32 +105,32 @@ const Home = () => {
 
     }
 
-    const imageclick = (e)=>{
-       setUrl(e.target.getAttribute('src'))
-       console.log(url)
+    const imageclick = (e) => {
+        setUrl(e.target.getAttribute('src'))
+        console.log(url)
 
-       let songdetails = e.target.id.split(",")
-       let songalbumname = songdetails[0]
-       let songartist = songdetails[1]
-       let songreleasedate = songdetails[2]
-       console.log(songdetails)
+        let songdetails = e.target.id.split(",")
+        let songalbumname = songdetails[0]
+        let songartist = songdetails[1]
+        let songreleasedate = songdetails[2]
+        console.log(songdetails)
 
-       const banner = document.getElementById("banner-songs")
-       banner.innerHTML=`<img src=${url} height="380"></img>`
+        const banner = document.getElementById("banner-songs")
+        banner.innerHTML = `<img src=${url} height="380"></img>`
 
-       let bannerdiv = document.createElement("div")
-       let bannertitle = document.createElement('h1')
-       let bannerdetail = document.createElement('h2')
-       let bannerdetail2 = document.createElement('h3')
+        let bannerdiv = document.createElement("div")
+        let bannertitle = document.createElement('h1')
+        let bannerdetail = document.createElement('h2')
+        let bannerdetail2 = document.createElement('h3')
 
-       bannertitle.className = "banner-title"
-       bannertitle.innerText = songalbumname
-       bannerdetail.innerText=songartist
-       bannerdetail2.innerText=songreleasedate
-       bannerdiv.append(bannertitle)
-       bannerdiv.append(bannerdetail)
-       bannerdiv.append(bannerdetail2)
-       banner.append(bannerdiv)
+        bannertitle.className = "banner-title"
+        bannertitle.innerText = songalbumname
+        bannerdetail.innerText = songartist
+        bannerdetail2.innerText = songreleasedate
+        bannerdiv.append(bannertitle)
+        bannerdiv.append(bannerdetail)
+        bannerdiv.append(bannerdetail2)
+        banner.append(bannerdiv)
 
 
     }
@@ -134,56 +166,70 @@ const Home = () => {
                     </div>
                 </div>
 
-                </header>
-                <div id="banner-songs">
+            </header>
+            <div id="banner-songs">
 
 
 
 
 
 
+            </div>
 
-                </div>
-
-                <div className="background-songs" >
-
-                    <AddSongModal />
-                    <span><AddPlaylistModal /></span>
-                </div>
-
-                <div className="song-list">
-                    <div className="song-list-area">
-                        <div className="tracks">
-                            <ul className="tracklist"></ul>
-                            {songList.map((song) => (
-                                <li id={song.id}>
-                                    {song.title &&
-                                        <div className="trackitem">
-                                            {song.imagePath &&
-                                            <span className="smallalbum"><button className="smallalbumimage"onClick={imageclick}><img id={`${song.albumName},${song.artist},${song.releaseDate}`} className="buttonimage" src={song.imagePath} height="30" width="30"></img></button></span>}
-                                            {song.title}
-                                            <span class="track-buttons">
-                                                <button class="delete-track" id={song.id} onClick={onDelete}>Delete Song</button>
-                                                <EditSongModal id={song.id} />
-                                                <button class="add-to-playlist" id={song.id}>Add to a playlist</button>
-                                            </span>
-
-                                        </div>
-                                    }
-                                </li>
-                            ))}
+            <div className="background-songs" >
+                <form id="playlists-dropdown">
+                    <select id="playlist-dropdown"
+                    onChange={onselect}
+                    >
+                        <option id="all">All Songs</option>
+                        {playlists.list.map((playlist) => (
+                            <option key={playlist.id} id={playlist.id}>{playlist.name}</option>
+                        ))}
 
 
 
+                    </select>
+                    <button onClick={onclick}>Delete Playlist</button>
+                </form>
 
+                <AddSongModal />
 
-                        </div>
+                <span><AddPlaylistModal /></span>
+            </div>
+
+            <div className="song-list">
+                <div className="song-list-area">
+                    <div className="tracks">
+                        <ul className="tracklist"></ul>
+                        {playlist.map((song) => (
+                            <li id={song.id}>
+                                {song.title &&
+                                    <div className="trackitem">
+                                        {song.imagePath &&
+                                            <span className="smallalbum"><button className="smallalbumimage" onClick={imageclick}><img id={`${song.albumName},${song.artist},${song.releaseDate}`} className="buttonimage" src={song.imagePath} height="30" width="30"></img></button></span>}
+                                        {song.title}
+                                        <span class="track-buttons">
+                                            <button class="delete-track" id={song.id} onClick={onDelete}>Delete Song</button>
+                                            <EditSongModal id={song.id} />
+                                            <button class="add-to-playlist" id={song.id} name="">Add to a playlist</button>
+                                        </span>
+
+                                    </div>
+                                }
+                            </li>
+                        ))}
+
 
 
 
 
                     </div>
+
+
+
+
                 </div>
+            </div>
 
 
 
@@ -201,7 +247,8 @@ const Home = () => {
 
             <footer>
                 <ReactJkMusicPlayer
-                    audioLists={audioLists} />
+                    audioLists={audioLists}
+                    autoPlay={false}  />
 
 
 

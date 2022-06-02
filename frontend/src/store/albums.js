@@ -27,7 +27,6 @@ const sortList = (list) => {
       .sort((a, b) => {
         return a - b;
       })
-      .map((song) => song.id);
   };
 const initialState = { list: [] }
 
