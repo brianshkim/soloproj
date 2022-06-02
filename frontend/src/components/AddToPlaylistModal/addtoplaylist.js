@@ -6,16 +6,17 @@ import ErrorMessage from "../ErrorMessage";
 import * as sessionActions from "../../store/session";
 import { ValidationError } from "../../utils/validationError";
 import { createPlaylist } from "../../store/playlist";
-import {addtoplaylist} from "../../store/songs"
+import { addtoplaylist } from "../../store/songs"
 
 
-const AddToPlaylistForm = ({id}) => {
+const AddToPlaylistForm = ({ id }) => {
   const dispatch = useDispatch()
   const history = useHistory()
   const [isLoaded, setIsLoaded] = useState(false)
 
   const [errorMessages, setErrorMessages] = useState({})
   const [name, setName] = useState("")
+  const [listid, setListId] = useState(0)
 
   const updateName = (e) => setName(e.target.value);
 
@@ -23,30 +24,47 @@ const AddToPlaylistForm = ({id}) => {
 
 
   const sessionUser = useSelector((state) => state.session.user);
-  const playlists = useSelector((state)=>state.playlists.list)
+  const playlists = useSelector((state) => state.playlists.list)
 
-  const onselectplaylist = async (e) => {
+  const onselectplaylist =() => {
+    console.log(listid)
 
+
+
+    const payload = {
+      playlist_id: listid,
     }
+    dispatch(addtoplaylist(id, payload))
+
+  }
+
+  const ondropdown = (e) => {
+    let index = e.target.selectedIndex;
+    setListId(Number(e.target.childNodes[index].getAttribute('id')))
+
+
+
+  }
 
 
 
   return (
     <div className="addtoplaylist">
       <form id="playlists-dropdown">
-                    <select id="playlist-dropdown"
-                        onChange={(e)=>onselect(e)}>
-                        {playlists &&
+        <select id="playlist-dropdown"
+          onChange={ondropdown}
 
-                            playlists.map((playlist) => (
-                                <option id={playlist.id}>{playlist.name}</option>
-                            ))
-                        }
+        >
+          {playlists &&
 
+            playlists.map((playlist) => (
+              <option id={playlist.id} name="playlistoption" >{playlist.name}</option>
+            ))
+          }
 
-
-                    </select>
-                    </form>
+        </select>
+        <button onClick={onselectplaylist}>Add</button>
+      </form>
 
     </div>
   )

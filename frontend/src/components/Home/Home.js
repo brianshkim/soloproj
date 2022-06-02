@@ -242,7 +242,7 @@ const Home = () => {
                                                 <span class="track-buttons">
                                                     <button class="delete-track" id={song.id} onClick={onDelete}>Delete Song</button>
                                                     <EditSongModal id={song.id} />
-                                                    <AddToPlaylistModal id={song.id} />
+
                                                 </span>
 
                                             </div>
@@ -263,7 +263,7 @@ const Home = () => {
                                                 <span class="track-buttons">
                                                     <button class="delete-track" id={song.id} onClick={onDelete}>Delete Song</button>
                                                     <EditSongModal id={song.id} />
-                                                    <button class="add-to-playlist" id={song.id} name="">Add to a playlist</button>
+                                                    <AddToPlaylistModal id={song.id} />
                                                 </span>
 
                                             </div>

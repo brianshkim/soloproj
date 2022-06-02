@@ -97,6 +97,7 @@ const addSong = (song) => {
 
 
 export const addtoplaylist = (id, data) => async (dispatch) => {
+  console.log(id)
   const response = await csrfFetch(`/api/songs/${id}/addtoplaylist`, {
     method: "put",
     headers: {
