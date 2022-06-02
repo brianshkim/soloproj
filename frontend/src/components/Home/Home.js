@@ -22,6 +22,17 @@ import { Navlink, Route, useParams, Switch } from 'react-router-dom'
 import './Home.css'
 import AddPlaylistModal from "../AddPlaylistModal";
 
+let audioLists = [
+    //{
+    //    name: "Shiki No Uta",
+    //    singer: "Luis Fonsi",
+    //    musicSrc:
+    //        "https://ia800700.us.archive.org/5/items/ShikiNoUta/ShikiNoUta-Minmi.mp3"
+    //},
+
+
+];
+
 const Home = () => {
     const dispatch = useDispatch()
     const history = useHistory()
@@ -32,16 +43,7 @@ const Home = () => {
 
     const [url, setUrl] = useState("")
 
-    const audioLists = [
-        //{
-        //    name: "Shiki No Uta",
-        //    singer: "Luis Fonsi",
-        //    musicSrc:
-        //        "https://ia800700.us.archive.org/5/items/ShikiNoUta/ShikiNoUta-Minmi.mp3"
-        //},
 
-
-    ];
 
 
     useEffect(() => {
@@ -57,10 +59,9 @@ const Home = () => {
     }, [dispatch])
 
     const songList = useSelector(state => state.songs.list)
-    const playlists = useSelector(state => state.playlists)
+    const playlists = useSelector(state => state.playlists.list)
     const [playlistId, setPlaylistId] = useState(0)
     const [playlist, setPlaylist] = useState(songList)
-    const playlistid = playlist.list
     let playlistsongs = useSelector(state=>state.playlistsongs.list)
 
 
@@ -110,9 +111,10 @@ const Home = () => {
 
             })
         })
-        console.log(audioLists)
 
     }
+    console.log(audioLists)
+
 
     const onDelete = (e) => {
         let id = e.target.id
@@ -187,13 +189,13 @@ const Home = () => {
                 <button onClick={allsongs}>All Songs</button>
                 <form id="playlists-dropdown">
                     <select id="playlist-dropdown"
-                    onChange={onselect}
+                    onChange={onselect}>
+                        {playlists &&
 
-                    >
-
-                        {playlists.list.map((playlist) => (
-                            <option key={playlist.id} id={playlist.id}>{playlist.name}</option>
-                        ))}
+                        playlists.map((playlist) => (
+                            <option  id={playlist.id}>{playlist.name}</option>
+                        ))
+}
 
 
 

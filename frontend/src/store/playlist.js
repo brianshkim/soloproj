@@ -17,7 +17,7 @@ const addPlaylist = (playlist) => {
 
   return {
     type: ADD,
-    playlist: playlist,
+    playlist,
   };
 };
 
@@ -118,17 +118,6 @@ const PlaylistReducer = (state = initialState, action) => {
         list: sortList(action.list),
       };
     case ADD:
-      console.log('IN REDUCER ADD ONE CASE - ACTION -> ', action);
-      if (!state[action.playlist.id]) {
-        const newState = {
-          ...state,
-          [action.playlist.id]: action.playlist,
-        };
-        const playlistList = newState.list.map((id) => newState[id]);
-        playlistList.push(action.playlist);
-        newState.list = sortList(playlistList);
-        return newState;
-      }
       return {
         ...state,
         [action.playlist.id]: {
