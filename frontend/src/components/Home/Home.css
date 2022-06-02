@@ -142,7 +142,7 @@ background-size: 90px 46px;
     height: 50px;
     border-width: 0px;
     border-top: none;
-    border-bottom: 1px solid #f2f2f2;
+    border-bottom: 1px solid #c7bbbb;
     justify-content: flex-start;
 
 
@@ -158,6 +158,8 @@ background-size: 90px 46px;
     display: block;
     list-style: none;
     margin:auto;
+    text-align: left;
+
 
 
 }
@@ -230,4 +232,9 @@ li{
 #playlists-dropdown{
     margin-right:50px;
 
+}
+
+
+.tracks-area{
+    display:block;
 }

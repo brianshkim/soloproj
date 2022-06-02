@@ -229,7 +229,7 @@ const Home = () => {
 
             <div className="song-list">
                 <div className="song-list-area">
-                    <div className="tracks">
+                    <div className="tracks-area">
                         {!pressed &&
                             <ul className="tracklist">
                                 {playlistsongs.map((song) => (
