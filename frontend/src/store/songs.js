@@ -95,6 +95,22 @@ const addSong = (song) => {
   };
 };
 
+
+export const addtoplaylist = (id, data) => async (dispatch) => {
+  const response = await csrfFetch(`/api/songs/${id}/addtoplaylist`, {
+    method: "put",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (response.ok) {
+    const song = await response.json()
+    dispatch(addSong(song))
+  }
+}
+
 export const updateSong = (id, data) => async (dispatch) => {
   const response = await csrfFetch(`/api/songs/${id}`, {
     method: "put",

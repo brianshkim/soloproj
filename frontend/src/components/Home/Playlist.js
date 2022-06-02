@@ -54,9 +54,6 @@ const Playlist = () => {
                         <span>
                             <Link className="left-button" to="/upload">Upload</Link>
                         </span>
-                        <span>
-                            <Link className="left-button" to="/playlists">Playlists</Link>
-                        </span>
 
                     </nav>
 
