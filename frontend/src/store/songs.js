@@ -153,7 +153,7 @@ export const createSong = (data) => async (dispatch) => {
   if (album_id) {
     formdata.append("albumId", album_id)
   }
-  console.log(formdata)
+
   const response = await csrfFetch(`/api/songs`, {
 
     method: "post",
@@ -178,8 +178,7 @@ const sortList = (list) => {
   return list
     .sort((a, b) => {
       return a - b;
-    })
-    .map((song) => song.id);
+    });
 };
 
 
@@ -189,7 +188,7 @@ const initialState = { list: [] }
 const songReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOAD:
-      console.log(action.list)
+
       const Songs = {};
       action.list.forEach((song) => {
         Songs[song.id] = song

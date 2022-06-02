@@ -5,6 +5,7 @@ import { createSong, getSongs, deleteSong, getSongsUser } from "../../store/song
 import ErrorMessage from "../ErrorMessage";
 import * as sessionActions from "../../store/session";
 import { getPlaylists } from "../../store/playlist";
+import { deletePlaylist } from "../../store/playlist";
 import { getPlaylistSongs } from "../../store/playlistsongs";
 import { ValidationError } from "../../utils/validationError";
 import CreateSongForm from "../SongFormModal/SongForm"
@@ -26,8 +27,7 @@ const Home = () => {
     const history = useHistory()
     const [isLoaded, setIsLoaded] = useState(false)
     const sessionUser = useSelector(state => state.session.user);
-    const [isUpload, setIsUpload] = useState(false)
-    const [isPlaylist, setIsPlaylist] = useState(false)
+
 
     const [url, setUrl] = useState("")
 
@@ -43,17 +43,22 @@ const Home = () => {
     ];
 
 
-    const songs = useSelector(state => state.songs)
-    const playlists = useSelector(state => state.playlists)
 
 
     useEffect(() => {
         dispatch(getSongsUser())
-    }, dispatch)
+    }, [dispatch])
 
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(getPlaylists())
-    },[dispatch])
+    }, [dispatch])
+
+    const songList = useSelector(state => state.songs.list)
+    const playlists = useSelector(state => state.playlists)
+    const [playlistId, setPlaylistId] = useState(0)
+    const [playlist, setPlaylist] = useState([songList])
+    const playlistid = playlist.list
+    const playlistsongs = useSelector(state=>state.playlistsongs.list)
 
     useEffect(() => {
         dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
@@ -63,26 +68,35 @@ const Home = () => {
         dispatch(getAlbums())
     }, [dispatch])
 
+    useEffect(() => {
+        console.log(playlistId)
+        dispatch(getPlaylistSongs(playlistId))
+        setPlaylist(playlistsongs)
+
+    }, [dispatch, playlistId])
 
 
 
-    const songList = Object.values(songs)
-    console.log(songList)
-    const playlistList = Object.values(playlists)
-    const [playlist, setPlaylist] = useState(null)
+    const onselect = (e) => {
+        let index = e.target.selectedIndex;
+        var optionElement = e.target.childNodes[index].getAttribute('id')
 
-    const onselect = (e) =>{
-        setPlaylist()
+
+        if (optionElement === "all") {
+            setPlaylist(songList)
+
+        }
+
+        else{
+            setPlaylistId(optionElement)
+
+        }
     }
-    useEffect(()=>{
-        dispatch(getPlaylistSongs(playlistList[0].id))
 
-    }, [dispatch])
+    const onclick = (e)=>{
+        dispatch(deletePlaylist(playlistId))
 
-    console.log(playlist)
-
-
-
+    }
 
     const onDelete = (e) => {
         let id = e.target.id
@@ -163,15 +177,19 @@ const Home = () => {
             </div>
 
             <div className="background-songs" >
-                <form>
+                <form id="playlists-dropdown">
                     <select id="playlist-dropdown"
-
+                    onChange={onselect}
                     >
-                        {playlistList.map((playlist)=>(
+                        <option id="all">All Songs</option>
+                        {playlists.list.map((playlist) => (
                             <option key={playlist.id} id={playlist.id}>{playlist.name}</option>
                         ))}
 
+
+
                     </select>
+                    <button onClick={onclick}>Delete Playlist</button>
                 </form>
 
                 <AddSongModal />
@@ -183,7 +201,7 @@ const Home = () => {
                 <div className="song-list-area">
                     <div className="tracks">
                         <ul className="tracklist"></ul>
-                        {songList.map((song) => (
+                        {playlist.map((song) => (
                             <li id={song.id}>
                                 {song.title &&
                                     <div className="trackitem">
@@ -229,7 +247,8 @@ const Home = () => {
 
             <footer>
                 <ReactJkMusicPlayer
-                    audioLists={audioLists} />
+                    audioLists={audioLists}
+                    autoPlay={false}  />
 
 
 
