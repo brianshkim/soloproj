@@ -6,33 +6,6 @@ const DELETE = "song/DELETE"
 
 
 
-export const uploadSong = (payload) => async dispatch => {
-  const { title, releaseDate, artist, image, user_id, albumName, albumId } = payload
-  const formdata = new FormData();
-  formdata.append(title)
-  formdata.append(releaseDate)
-  formdata.append(artist)
-  formdata.append(user_id)
-  formdata.append(albumName)
-  formdata.append(title)
-  formdata.append('image', payload)
-  if (albumId) {
-    formdata.append(albumId)
-  }
-  console.log(formdata)
-  const response = await csrfFetch(`/api/songs`, {
-
-    method: "post",
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-    body: formdata
-  })
-
-  console.log(await response.json());
-
-
-}
 
 const load = (list) => ({
   type: LOAD,
@@ -147,8 +120,7 @@ export const createSong = (data) => async (dispatch) => {
   formdata.append("artist", artist)
   formdata.append("user_id", user_id)
   formdata.append("albumName", albumName)
-  formdata.append("imagePath", imagePath
-  )
+  formdata.append("imagePath", imagePath)
   if (image) formdata.append('image', image)
   if (album_id) {
     formdata.append("albumId", album_id)

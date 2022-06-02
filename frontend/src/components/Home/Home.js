@@ -27,23 +27,26 @@ const Home = () => {
     const history = useHistory()
     const [isLoaded, setIsLoaded] = useState(false)
     const sessionUser = useSelector(state => state.session.user);
+    const [pressed, setPressed] = useState(false)
 
 
     const [url, setUrl] = useState("")
 
     const audioLists = [
-        {
-            name: "Shiki No Uta",
-            singer: "Luis Fonsi",
-            musicSrc:
-                "https://ia800700.us.archive.org/5/items/ShikiNoUta/ShikiNoUta-Minmi.mp3"
-        },
+        //{
+        //    name: "Shiki No Uta",
+        //    singer: "Luis Fonsi",
+        //    musicSrc:
+        //        "https://ia800700.us.archive.org/5/items/ShikiNoUta/ShikiNoUta-Minmi.mp3"
+        //},
 
 
     ];
 
 
-
+    useEffect(() => {
+        dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+    }, [dispatch]);
 
     useEffect(() => {
         dispatch(getSongsUser())
@@ -56,45 +59,58 @@ const Home = () => {
     const songList = useSelector(state => state.songs.list)
     const playlists = useSelector(state => state.playlists)
     const [playlistId, setPlaylistId] = useState(0)
-    const [playlist, setPlaylist] = useState([songList])
+    const [playlist, setPlaylist] = useState(songList)
     const playlistid = playlist.list
-    const playlistsongs = useSelector(state=>state.playlistsongs.list)
+    let playlistsongs = useSelector(state=>state.playlistsongs.list)
 
-    useEffect(() => {
-        dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
-    }, [dispatch]);
+
 
     useEffect(() => {
         dispatch(getAlbums())
     }, [dispatch])
 
-    useEffect(() => {
-        console.log(playlistId)
-        dispatch(getPlaylistSongs(playlistId))
-        setPlaylist(playlistsongs)
+   // useEffect(() => {
+   //     console.log(playlistId)
+   //     dispatch(getPlaylistSongs(playlistId))
+//
+   //     setPlaylist(playlistsongs)
+//
+//
+   // }, [dispatch, playlistId])
 
-    }, [dispatch, playlistId])
-
+    console.log(playlist)
 
 
     const onselect = (e) => {
+        setPressed(false)
         let index = e.target.selectedIndex;
         var optionElement = e.target.childNodes[index].getAttribute('id')
+        console.log(optionElement)
 
+            //setPlaylistId(optionElement)
+            dispatch(getPlaylistSongs(optionElement))
+           // setPlaylist(playlistsongs)
+            //console.log(playlistsongs)
 
-        if (optionElement === "all") {
-            setPlaylist(songList)
-
-        }
-
-        else{
-            setPlaylistId(optionElement)
-
-        }
     }
 
     const onclick = (e)=>{
         dispatch(deletePlaylist(playlistId))
+
+    }
+    const allsongs = (e) =>{
+        setPressed(true)
+        audioLists = [];
+        songList.forEach(song=>{
+            audioLists.push({
+                name: song.title,
+                singer: song.artist,
+                musicSrc: song.songPath
+
+
+            })
+        })
+        console.log(audioLists)
 
     }
 
@@ -102,6 +118,7 @@ const Home = () => {
         let id = e.target.id
         let child = e.target
         dispatch(deleteSong(id))
+        child.parentElement.parentElement.remove()
 
     }
 
@@ -131,11 +148,7 @@ const Home = () => {
         bannerdiv.append(bannerdetail)
         bannerdiv.append(bannerdetail2)
         banner.append(bannerdiv)
-
-
     }
-
-
 
     return (
         <app>
@@ -165,23 +178,19 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
-
             </header>
             <div id="banner-songs">
-
-
-
-
-
 
             </div>
 
             <div className="background-songs" >
+                <button onClick={allsongs}>All Songs</button>
                 <form id="playlists-dropdown">
                     <select id="playlist-dropdown"
                     onChange={onselect}
+
                     >
-                        <option id="all">All Songs</option>
+
                         {playlists.list.map((playlist) => (
                             <option key={playlist.id} id={playlist.id}>{playlist.name}</option>
                         ))}
@@ -200,8 +209,9 @@ const Home = () => {
             <div className="song-list">
                 <div className="song-list-area">
                     <div className="tracks">
-                        <ul className="tracklist"></ul>
-                        {playlist.map((song) => (
+                    {!pressed &&
+                        <ul className="tracklist">
+                        {playlistsongs.map((song) => (
                             <li id={song.id}>
                                 {song.title &&
                                     <div className="trackitem">
@@ -217,32 +227,37 @@ const Home = () => {
                                     </div>
                                 }
                             </li>
+
                         ))}
+                        </ul>}
+                        {pressed && songList &&
+                        <ul className="tracklist">
+                        {songList.map((song) => (
+                            <li id={song.id}>
+                                {song.title &&
+                                    <div className="trackitem">
+                                        {song.imagePath &&
+                                            <span className="smallalbum"><button className="smallalbumimage" onClick={imageclick}><img id={`${song.albumName},${song.artist},${song.releaseDate}`} className="buttonimage" src={song.imagePath} height="30" width="30"></img></button></span>}
+                                        {song.title}
+                                        <span class="track-buttons">
+                                            <button class="delete-track" id={song.id} onClick={onDelete}>Delete Song</button>
+                                            <EditSongModal id={song.id} />
+                                            <button class="add-to-playlist" id={song.id} name="">Add to a playlist</button>
+                                        </span>
 
+                                    </div>
+                                }
+                            </li>
 
-
+                        ))}
+                        </ul>
+}
 
 
                     </div>
 
-
-
-
                 </div>
             </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
             <footer>

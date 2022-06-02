@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
-import { uploadSong } from "../../store/songs"
+
 import ErrorMessage from "../ErrorMessage";
 import * as sessionActions from "../../store/session";
 import { ValidationError } from "../../utils/validationError";
@@ -33,7 +33,7 @@ const Upload = () => {
 
     const handleSubmit = (e)=>{
         e.preventDefault();
-        dispatch(uploadSong(image))
+
 
 
     }

@@ -21,12 +21,15 @@ router.get('/', requireAuth, restoreUser, asyncHandler(async (req, res) => {
 router.get('/:playlistId/songs', restoreUser, asyncHandler(async (req, res) => {
 
   const playlistid = parseInt(req.params.playlistId, 10)
+  console.log(playlistid)
 
   const playlistsongs = await Song.findAll({
     where: {
       playlist_id: playlistid
     }
   })
+
+  console.log(playlistsongs)
 
 
   res.json(playlistsongs)
