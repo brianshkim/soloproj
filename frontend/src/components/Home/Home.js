@@ -15,6 +15,7 @@ import ReactJkMusicPlayer from 'react-jinke-music-player'
 import 'react-jinke-music-player/assets/index.css'
 import { getAlbums } from "../../store/albums";
 import AddToPlaylistModal from "../AddToPlaylistModal";
+import EditPlaylistModal from "../EditPlaylist/";
 
 import CreatePlaylistForm from "../AddPlaylistModal/PlaylistForm"
 
@@ -40,6 +41,7 @@ const Home = () => {
     const [isLoaded, setIsLoaded] = useState(false)
     const sessionUser = useSelector(state => state.session.user);
     const [pressed, setPressed] = useState(true)
+    const [id, setid] = useState(null)
 
 
     const [url, setUrl] = useState("")
@@ -95,15 +97,15 @@ const Home = () => {
         var optionElement = e.target.childNodes[index].getAttribute('id')
         console.log(optionElement)
 
-        if (optionElement===null) setPressed(true)
+        if (optionElement === null) setPressed(true)
 
 
 
-            setPlaylistId(optionElement)
-            dispatch(getPlaylistSongs(optionElement))
-           // setPlaylist(playlistsongs)
-            //console.log(playlistsongs)
-            const audioListtemp = [];
+        setPlaylistId(optionElement)
+        dispatch(getPlaylistSongs(optionElement))
+        // setPlaylist(playlistsongs)
+        //console.log(playlistsongs)
+        const audioListtemp = [];
         playlistsongs.forEach(song => {
             audioListtemp.push({
                 name: song.title,
@@ -115,13 +117,21 @@ const Home = () => {
         })
         setAudioLists(audioListtemp)
 
+       setid(optionElement)
+
+
     }
 
-    const onclick = (e)=>{
+    const onclick = (e) => {
         console.log(playlistId)
         dispatch(deletePlaylist(playlistId))
 
     }
+
+
+
+
+
     const allsongs = (e) => {
         setPressed(true)
         const audioListtemp = [];
@@ -136,7 +146,7 @@ const Home = () => {
         })
         setAudioLists(audioListtemp)
 
-        document.getElementById("playlist-dropdown").value="null"
+        document.getElementById("playlist-dropdown").value = "null"
 
 
     }
@@ -146,10 +156,9 @@ const Home = () => {
 
     const onDelete = (e) => {
         let id = e.target.parentElement.id
-        console.log(id)
         let child = e.target
         dispatch(deleteSong(id))
-       // child.parentElement.parentElement.remove()
+        // child.parentElement.parentElement.remove()
 
     }
 
@@ -218,8 +227,8 @@ const Home = () => {
                 <h2 id="playlisth2">PLAYLISTS:</h2>
                 <form id="playlists-dropdown">
                     <select id="playlist-dropdown"
-                        onChange={(e)=>onselect(e)}>
-                            <option value="null"></option>
+                        onChange={(e) => onselect(e)}>
+                        <option value="null"></option>
                         {playlists &&
 
                             playlists.map((playlist) => (
@@ -230,7 +239,11 @@ const Home = () => {
 
 
                     </select>
-                    <button onClick={onclick} class="deleteplaylistbutton">Delete Playlist</button>
+                    <div id="playlistbuttonsdiv">
+                        <button onClick={onclick} class="deleteplaylistbutton">Delete Playlist</button>
+                        {id && <EditPlaylistModal id={id}/>}
+
+                    </div>
                 </form>
 
                 <AddSongModal />
@@ -241,51 +254,51 @@ const Home = () => {
             <div className="song-list">
                 <div className="song-list-area">
                     <div className="tracks">
-                    {!pressed &&
-                        <ul className="tracklist">
-                        {playlistsongs.map((song) => (
-                            <li id={song.id} className="tracksongid">
-                                {song.title &&
-                                    <div className="trackitem">
-                                        {song.imagePath &&
-                                            <span className="smallalbum"><button className="smallalbumimage" onClick={imageclick}><img id={`${song.albumName},${song.artist},${song.releaseDate}`} className="buttonimage" src={song.imagePath} height="30" width="30"></img></button></span>}
-                                            <span className="songartist">{song.artist}</span>
-                                        {song.title}
-                                        <span class="track-buttons">
-                                            <button class="delete-track" id={song.id} onClick={onDelete}><i class="fa-solid fa-trash-can"></i></button>
-                                            <EditSongModal id={song.id} />
-                                            <AddToPlaylistModal id={song.id} />
-                                        </span>
+                        {!pressed &&
+                            <ul className="tracklist">
+                                {playlistsongs.map((song) => (
+                                    <li id={song.id} className="tracksongid">
+                                        {song.title &&
+                                            <div className="trackitem">
+                                                {song.imagePath &&
+                                                    <span className="smallalbum"><button className="smallalbumimage" onClick={imageclick}><img id={`${song.albumName},${song.artist},${song.releaseDate}`} className="buttonimage" src={song.imagePath} height="30" width="30"></img></button></span>}
+                                                <span className="songartist">{song.artist}</span>
+                                                {song.title}
+                                                <span class="track-buttons">
+                                                    <button class="delete-track" id={song.id} onClick={onDelete}><i class="fa-solid fa-trash-can"></i></button>
+                                                    <EditSongModal id={song.id} />
+                                                    <AddToPlaylistModal id={song.id} />
+                                                </span>
 
-                                    </div>
-                                }
-                            </li>
+                                            </div>
+                                        }
+                                    </li>
 
-                        ))}
-                        </ul>}
+                                ))}
+                            </ul>}
                         {pressed && songList &&
-                        <ul className="tracklist">
-                        {songList.map((song) => (
-                            <li id={song.id} class="tracksongid">
-                                {song.title &&
-                                    <div className="trackitem">
-                                        {song.imagePath &&
-                                            <span className="smallalbum"><button className="smallalbumimage" onClick={imageclick}><img id={`${song.albumName},${song.artist},${song.releaseDate}`} className="buttonimage" src={song.imagePath} height="30" width="30"></img></button></span>}
-                                             <span className="songartist">{`${song.artist}`}</span>
-                                              {`-${song.title}`}
-                                        <span class="track-buttons">
-                                            <button class="delete-track" id={song.id} onClick={onDelete}><i class="fa-solid fa-trash-can"></i></button>
-                                            <EditSongModal id={song.id} />
-                                            <AddToPlaylistModal id={song.id} />
-                                        </span>
+                            <ul className="tracklist">
+                                {songList.map((song) => (
+                                    <li id={song.id} class="tracksongid">
+                                        {song.title &&
+                                            <div className="trackitem">
+                                                {song.imagePath &&
+                                                    <span className="smallalbum"><button className="smallalbumimage" onClick={imageclick}><img id={`${song.albumName},${song.artist},${song.releaseDate}`} className="buttonimage" src={song.imagePath} height="30" width="30"></img></button></span>}
+                                                <span className="songartist">{`${song.artist}`}</span>
+                                                {`-${song.title}`}
+                                                <span class="track-buttons">
+                                                    <button class="delete-track" id={song.id} onClick={onDelete}><i class="fa-solid fa-trash-can"></i></button>
+                                                    <EditSongModal id={song.id} />
+                                                    <AddToPlaylistModal id={song.id} />
+                                                </span>
 
-                                    </div>
-                                }
-                            </li>
+                                            </div>
+                                        }
+                                    </li>
 
-                        ))}
-                        </ul>
-}
+                                ))}
+                            </ul>
+                        }
 
 
                     </div>

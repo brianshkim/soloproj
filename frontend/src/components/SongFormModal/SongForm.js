@@ -86,10 +86,12 @@ const CreateSongForm = ({closeModal}) => {
       album_id:albumId,
     };
 
-    return dispatch(createSong(payload)).catch(async (res) => {
+    await dispatch(createSong(payload)).catch(async (res) => {
       const data = await res.json();
       if (data && data.errors) setErrorMessages(data.errors);
-    }).then(()=>closeModal())
+
+
+
     //then(() => {
     //  setTitle("");
     //  setArtist("");
@@ -105,7 +107,9 @@ const CreateSongForm = ({closeModal}) => {
 
 
 
-  };
+    })
+
+    closeModal()};
 
   console.log(typeof (albums))
   console.log(sessionUser.id)

@@ -2,7 +2,7 @@ import { ValidationError } from "../utils/validationError"
 import { csrfFetch } from './csrf';
 const LOAD = "playlist/LOAD";
 const ADD = "playlist/ADD";
-
+const UPDATE = "playlist/UPDATE"
 const DELETE = "playlist/DELETE"
 
 
@@ -20,6 +20,11 @@ const addPlaylist = (playlist) => {
     playlist,
   };
 };
+
+const update = (playlist) => ({
+  type: UPDATE,
+  playlist
+})
 
 const remove = (playlistId) => ({
   type: DELETE,
@@ -48,6 +53,21 @@ export const deletePlaylist = (playlistId) => async dispatch => {
     return playlistId
   }
 
+}
+
+export const updatePlaylist = (id, data) => async (dispatch) => {
+  const response = await csrfFetch(`/api/playlists/${id}`, {
+    method: "put",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (response.ok) {
+    const playlist = await response.json()
+    dispatch(update(playlist))
+  }
 }
 
 
@@ -124,6 +144,13 @@ const PlaylistReducer = (state = {}, action) => {
           ...action.playlist,
         },
       };
+
+      case UPDATE:
+        return {
+          ...state,
+          [action.playlist.id]: action.playlist
+        };
+
     case DELETE:
       const newState = { ...state };
       delete newState[action.playlistId]
