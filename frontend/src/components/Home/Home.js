@@ -173,8 +173,6 @@ const Home = () => {
                             <ul className="left-header-box">
                                 <li><Link className="left-button" to="/home" >Home</Link></li>
 
-                                <li><Link className="left-button" to="/upload">Upload</Link></li>
-
                             </ul>
                         </nav>
                     </div>
