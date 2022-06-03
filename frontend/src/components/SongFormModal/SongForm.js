@@ -10,7 +10,7 @@ import Navigation from "../Navigation"
 import SignupFormPage from "../SignupFormPage";
 import { Navlink, Route, useParams, Switch } from 'react-router-dom'
 
-const CreateSongForm = (closeModal) => {
+const CreateSongForm = ({closeModal}) => {
   const dispatch = useDispatch()
   const history = useHistory()
 
