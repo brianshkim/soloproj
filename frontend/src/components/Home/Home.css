@@ -327,3 +327,12 @@ background-size: 90px 46px;
     margin-left: 5px;
 
 }
+
+
+.songartist{
+
+    font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;
+    font-weight: 100;
+    color: black;
+    font-size: 13px;
+}

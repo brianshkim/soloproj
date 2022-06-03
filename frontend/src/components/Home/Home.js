@@ -70,6 +70,7 @@ const Home = () => {
     const playlistsongs = Object.values(getplaylistsongs)
 
 
+
     useEffect(() => {
         dispatch(getAlbums())
     }, [dispatch])
@@ -87,7 +88,8 @@ const Home = () => {
 
 
     const onselect = async (e) => {
-        setAudioLists([])
+        const empty = []
+        setAudioLists(empty)
         setPressed(false)
         let index = e.target.selectedIndex;
         var optionElement = e.target.childNodes[index].getAttribute('id')
@@ -101,6 +103,17 @@ const Home = () => {
             dispatch(getPlaylistSongs(optionElement))
            // setPlaylist(playlistsongs)
             //console.log(playlistsongs)
+            const audioListtemp = [];
+        playlistsongs.forEach(song => {
+            audioListtemp.push({
+                name: song.title,
+                singer: song.artist,
+                musicSrc: song.songPath
+
+
+            })
+        })
+        setAudioLists(audioListtemp)
 
     }
 
@@ -122,6 +135,9 @@ const Home = () => {
             })
         })
         setAudioLists(audioListtemp)
+
+        document.getElementById("playlist-dropdown").value="null"
+
 
     }
     console.log(audioLists)
@@ -203,7 +219,7 @@ const Home = () => {
                 <form id="playlists-dropdown">
                     <select id="playlist-dropdown"
                         onChange={(e)=>onselect(e)}>
-                            <option></option>
+                            <option value="null"></option>
                         {playlists &&
 
                             playlists.map((playlist) => (
@@ -233,6 +249,7 @@ const Home = () => {
                                     <div className="trackitem">
                                         {song.imagePath &&
                                             <span className="smallalbum"><button className="smallalbumimage" onClick={imageclick}><img id={`${song.albumName},${song.artist},${song.releaseDate}`} className="buttonimage" src={song.imagePath} height="30" width="30"></img></button></span>}
+                                            <span className="songartist">{song.artist}</span>
                                         {song.title}
                                         <span class="track-buttons">
                                             <button class="delete-track" id={song.id} onClick={onDelete}><i class="fa-solid fa-trash-can"></i></button>
@@ -254,7 +271,8 @@ const Home = () => {
                                     <div className="trackitem">
                                         {song.imagePath &&
                                             <span className="smallalbum"><button className="smallalbumimage" onClick={imageclick}><img id={`${song.albumName},${song.artist},${song.releaseDate}`} className="buttonimage" src={song.imagePath} height="30" width="30"></img></button></span>}
-                                        {song.title}
+                                             <span className="songartist">{`${song.artist}`}</span>
+                                              {`-${song.title}`}
                                         <span class="track-buttons">
                                             <button class="delete-track" id={song.id} onClick={onDelete}><i class="fa-solid fa-trash-can"></i></button>
                                             <EditSongModal id={song.id} />
@@ -279,7 +297,8 @@ const Home = () => {
             <footer>
                 <ReactJkMusicPlayer
                     audioLists={audioLists}
-                    autoPlay={false} />
+                    autoPlay={false}
+                    clearPriorAudioLists={true} />
 
 
 
