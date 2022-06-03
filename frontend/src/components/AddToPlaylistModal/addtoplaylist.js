@@ -13,22 +13,23 @@ const AddToPlaylistForm = ({ id, closeModal }) => {
   const dispatch = useDispatch()
   const history = useHistory()
   const [isLoaded, setIsLoaded] = useState(false)
-
-  const [errorMessages, setErrorMessages] = useState({})
-  const [name, setName] = useState("")
-  const [listid, setListId] = useState(0)
-
-  const updateName = (e) => setName(e.target.value);
-
-
-
-
   const sessionUser = useSelector((state) => state.session.user);
 
   const getplaylists = useSelector((state) => state.playlists)
 
   const playlists = Object.values(getplaylists)
   console.log(playlists)
+
+  const [errorMessages, setErrorMessages] = useState({})
+  const [name, setName] = useState("")
+  const [listid, setListId] = useState(playlists[0].id)
+
+  const updateName = (e) => setName(e.target.value);
+
+
+
+
+
 
   const onselectplaylist =() => {
     console.log(listid)
