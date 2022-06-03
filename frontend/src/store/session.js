@@ -16,6 +16,15 @@ const removeUser = () => {
   };
 };
 
+
+
+export const demouser = () => async (dispatch) => {
+  const response = await fetch('/api//set-token-cookie')
+  const data = await response.json();
+  dispatch(setUser(data.user));
+  return response;
+};
+
 export const login = (user) => async (dispatch) => {
   const { credential, password } = user;
   const response = await csrfFetch('/api/session', {

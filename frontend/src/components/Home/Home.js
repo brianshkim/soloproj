@@ -209,7 +209,7 @@ const Home = () => {
 
 
                     </select>
-                    <button onClick={onclick}>Delete Playlist</button>
+                    <button onClick={onclick} class="deleteplaylistbutton">Delete Playlist</button>
                 </form>
 
                 <AddSongModal />

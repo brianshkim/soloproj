@@ -10,11 +10,11 @@
 
 
 #playlisth2{
-    margin-right: -80px;
+    margin-right: -30px;
     font-size: 24px;
     font-weight: 100;
     font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;
-    color: #333;
+    background-color: #f2f0ec;
 }
 
 .smallalbumimage{
@@ -263,7 +263,11 @@ background-size: 90px 46px;
 }
 
 #playlist-dropdown{
-    width: 100%;
+    width: 200px;
+    height: 30px;
+    font-size: 20px;
+    background-color: #CCD6D8;
+
 }
 
 .tracks{
@@ -299,4 +303,27 @@ background-size: 90px 46px;
 
 .tracks-area{
     display:block;
+}
+
+.addplaylistbutton{
+    background: linear-gradient(135deg, rgb(132, 132, 131) 0%, rgb(47, 45, 46) 100%);
+    border: none;
+    border-radius: 5px 5px 5px 5px;
+    color: white;
+    width: 100px;
+    height: 30px;
+    box-shadow: 5px 8px #888;
+
+}
+
+.deleteplaylistbutton{
+    background: linear-gradient(135deg, rgb(132, 132, 131) 0%, rgb(47, 45, 46) 100%);
+    border: none;
+    border-radius: 5px 5px 5px 5px;
+    color: white;
+    width: 100px;
+    height: 30px;
+    box-shadow: 5px 8px #888;
+    margin-left: 5px;
+
 }

@@ -60,7 +60,7 @@ const CreatePlaylistForm = () => {
         />
 
         <ErrorMessage label={"name"} message={errorMessages.name} />
-        <button type="submit">Add new Playlist</button>
+        <button type="submit" >Add new Playlist</button>
       </form>
 
     </div>

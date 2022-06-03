@@ -7,7 +7,7 @@ function AddPlaylistModal({id}) {
 
   return (
     <>
-      <button onClick={() => setShowModal(true)}>Add Playlist</button>
+      <button onClick={() => setShowModal(true) } class="addplaylistbutton">Add Playlist</button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
           <CreatePlaylistForm />
