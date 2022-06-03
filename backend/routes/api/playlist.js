@@ -70,7 +70,7 @@ router.delete('/:playlistId', requireAuth, asyncHandler(async (req, res) => {
 
   const playlist_id = parseInt(req.params.playlistId, 10)
   const songs = await Song.findAll()
-  console.log(songs)
+  console.log(playlist_id, "<<<<<<<<<<<")
   for (let song of songs) {
     console.log(song.playlist_id)
     if (song.playlist_id===playlist_id){

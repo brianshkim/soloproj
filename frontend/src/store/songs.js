@@ -126,6 +126,7 @@ export const createSong = (data) => async (dispatch) => {
     formdata.append("albumId", album_id)
   }
 
+
   const response = await csrfFetch(`/api/songs`, {
 
     method: "post",
@@ -172,16 +173,6 @@ const songReducer = (state = initialState, action) => {
       };
     case ADD:
       console.log('IN REDUCER ADD ONE CASE - ACTION -> ', action);
-      if (!state[action.song.id]) {
-        const newState = {
-          ...state,
-          [action.song.id]: action.song,
-        };
-        const songList = newState.list.map((id) => newState[id]);
-        songList.push(action.song);
-        newState.list = sortList(songList);
-        return newState;
-      }
       return {
         ...state,
         [action.song.id]: {

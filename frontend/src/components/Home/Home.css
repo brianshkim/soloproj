@@ -7,6 +7,9 @@
 
 }
 
+#playlisth2{
+    margin-right: -50px;
+}
 
 .smallalbumimage{
     width:30px;
@@ -108,9 +111,11 @@ background-size: 90px 46px;
 }
 .background-songs{
     display:flex;
-    justify-content: center;
+    justify-content: space-around;
     margin-top: 10px;
     margin-bottom: 10px;
+    width: 950px;
+    margin-left: 500px;
 
 
 }
@@ -127,7 +132,7 @@ background-size: 90px 46px;
 
 
 .trackitem{
-    display: block;
+    display: flex;
     cursor: point;
     text-align: 1.5px;
     border-radius: 4px;
@@ -142,7 +147,7 @@ background-size: 90px 46px;
     height: 50px;
     border-width: 0px;
     border-top: none;
-    border-bottom: 1px solid #f2f2f2;
+
     justify-content: flex-start;
 
 
@@ -150,23 +155,34 @@ background-size: 90px 46px;
 
 .track-buttons{
     width: 100%;
+    margin-left: -50px;
     display: flex;
     justify-content: flex-end;
+
 }
 
 .tracklist{
+
+    overflow-x:hidden;
     display: block;
     list-style: none;
     margin:auto;
+    white-space: nowrap;
+    height: 100%;
+    width: 100%;
 
 
 }
 
-li{
+.tracksongid{
+    display: list-item;
+
+    vertical-align:text-t;
     list-style: none;
-    margin:auto;
+
     line-height: 1.5;
     text-align: center;
+    width:950px;
 
 }
 
@@ -216,7 +232,16 @@ li{
 
 }
 
+.allsongsbutton{
 
+    background-color: orange;
+    border: none;
+    border-radius: 5px 5px 5px 5px;
+    color: white;
+    width: 100px;
+    height: 30px;
+    box-shadow: 5px 8px #888;
+}
 .addsongbutton{
     background-color: orange;
     border: none;
@@ -229,5 +254,38 @@ li{
 
 #playlists-dropdown{
     margin-right:50px;
+}
+
+#playlist-dropdown{
+    width: 100%;
+}
+
+.tracks{
+
+}
+
+.delete-track{
+    height: 30px;
+    width: 30px;
+    background-color:rgb(242, 240, 234);
+    border: 0px solid black;
+    border-radius: 5px 5px 5px 5px;
+}
+
+#editbuttontrack{
+    height: 30px;
+    width: 30px;
+    background-color:rgb(242, 240, 234);
+    border: 0px solid black;
+    border-radius: 5px 5px 5px 5px;
+
+}
+
+.add-to-playlist{
+    height: 30px;
+    width: 30px;
+    background-color:rgb(242, 240, 234);
+    border: 0px solid black;
+    border-radius: 5px 5px 5px 5px;
 
 }

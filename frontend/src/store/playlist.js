@@ -21,9 +21,9 @@ const addPlaylist = (playlist) => {
   };
 };
 
-const remove = (songId) => ({
+const remove = (playlistId) => ({
   type: DELETE,
-  songId
+  playlistId
 })
 
 export const getPlaylists = () => async (dispatch) => {
@@ -127,7 +127,7 @@ const PlaylistReducer = (state = initialState, action) => {
       };
     case DELETE:
       const newState = { ...state };
-      delete newState[action.songId]
+      delete newState[action.playlistId]
       return newState;
 
     default:
