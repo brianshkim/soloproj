@@ -13,6 +13,7 @@ export const getPlaylistSongs = (playlistid) => async (dispatch) => {
 
   if (response.ok) {
     const list = await response.json();
+    console.log(list)
     dispatch(load(list))
     return list;
   }

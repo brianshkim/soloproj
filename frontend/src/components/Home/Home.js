@@ -14,6 +14,7 @@ import EditSongModal from "../EditSongModal";
 import ReactJkMusicPlayer from 'react-jinke-music-player'
 import 'react-jinke-music-player/assets/index.css'
 import { getAlbums } from "../../store/albums";
+import AddToPlaylistModal from "../AddToPlaylistModal";
 
 import CreatePlaylistForm from "../AddPlaylistModal/PlaylistForm"
 
@@ -46,6 +47,7 @@ const Home = () => {
 
 
 
+
     useEffect(() => {
         dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
     }, [dispatch]);
@@ -62,7 +64,8 @@ const Home = () => {
     const playlists = useSelector(state => state.playlists.list)
     const [playlistId, setPlaylistId] = useState(0)
     const [playlist, setPlaylist] = useState(songList)
-    let playlistsongs = useSelector(state=>state.playlistsongs.list)
+    const [audioLists, setAudioLists] = useState([])
+    let playlistsongs = useSelector(state => state.playlistsongs.list)
 
 
 
@@ -70,19 +73,20 @@ const Home = () => {
         dispatch(getAlbums())
     }, [dispatch])
 
-   // useEffect(() => {
-   //     console.log(playlistId)
-   //     dispatch(getPlaylistSongs(playlistId))
-//
-   //     setPlaylist(playlistsongs)
-//
-//
-   // }, [dispatch, playlistId])
+    // useEffect(() => {
+    //     console.log(playlistId)
+    //     dispatch(getPlaylistSongs(playlistId))
+    //
+    //     setPlaylist(playlistsongs)
+    //
+    //
+    // }, [dispatch, playlistId])
 
 
 
 
-    const onselect = (e) => {
+    const onselect = async (e) => {
+        setAudioLists([])
         setPressed(false)
         let index = e.target.selectedIndex;
         var optionElement = e.target.childNodes[index].getAttribute('id')
@@ -102,11 +106,11 @@ const Home = () => {
         dispatch(deletePlaylist(playlistId))
 
     }
-    const allsongs = (e) =>{
+    const allsongs = (e) => {
         setPressed(true)
-        audioLists = [];
-        songList.forEach(song=>{
-            audioLists.push({
+        const audioListtemp = [];
+        songList.forEach(song => {
+            audioListtemp.push({
                 name: song.title,
                 singer: song.artist,
                 musicSrc: song.songPath
@@ -114,9 +118,11 @@ const Home = () => {
 
             })
         })
+        setAudioLists(audioListtemp)
 
     }
     console.log(audioLists)
+
 
 
     const onDelete = (e) => {
@@ -166,6 +172,9 @@ const Home = () => {
                         <nav class="leftnav" role="navigation">
                             <ul className="left-header-box">
                                 <li><Link className="left-button" to="/home" >Home</Link></li>
+
+                                <li><Link className="left-button" to="/upload">Upload</Link></li>
+
                             </ul>
                         </nav>
                     </div>
@@ -191,13 +200,13 @@ const Home = () => {
                 <h2 id="playlisth2">PLAYLISTS:</h2>
                 <form id="playlists-dropdown">
                     <select id="playlist-dropdown"
-                    onChange={onselect}>
+                        onChange={(e)=>onselect(e)}>
                         {playlists &&
 
-                        playlists.map((playlist) => (
-                            <option  id={playlist.id}>{playlist.name}</option>
-                        ))
-}
+                            playlists.map((playlist) => (
+                                <option id={playlist.id}>{playlist.name}</option>
+                            ))
+                        }
 
 
 
@@ -267,7 +276,7 @@ const Home = () => {
             <footer>
                 <ReactJkMusicPlayer
                     audioLists={audioLists}
-                    autoPlay={false}  />
+                    autoPlay={false} />
 
 
 
