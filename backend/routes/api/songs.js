@@ -1,7 +1,7 @@
 const express = require('express')
 const asyncHandler = require('express-async-handler');
 const songValidation = require("../../validations/songValidation")
-
+const {Op} = require("sequelize")
 const { setTokenCookie, requireAuth, restoreUser} = require('../../utils/auth');
 const { User, Song, Album, Playlist } = require('../../db/models');
 const { check } = require('express-validator');
@@ -33,16 +33,37 @@ router.get('/home', restoreUser, asyncHandler(async(req,res)=>{
 
 
 
-router.post('/', requireAuth, singleMulterUpload('image'), songValidation.validateCreate, asyncHandler(async(req,res)=>{
-    const {title, releaseDate, artist, imagePath, albumName, user_id, album_id} = req.body
+router.post('/', singleMulterUpload('image'), songValidation.validateCreate, requireAuth, restoreUser, asyncHandler(async(req,res, next)=>{
+   let{title, releaseDate, artist, imagePath, albumName, user_id, album_id} = req.body
     const songPath = await singlePublicFileUpload(req.file)
+
+
+    let album = await Album.findOne({
+      where:{
+        title:{
+        [Op.iLike]:albumName
+        }
+      }
+    })
+    if(album) album_id=album.id
+    else{
+      newalbum = await Album.create({
+        title: albumName,
+        user_id: req.user.id,
+        releaseDate
+      })
+      album_id = newalbum.id
+
+    }
+
+
 
 
     let newSong = await Song.create({
       title,
       releaseDate,
       artist,
-      songPath: songPath,
+      songPath,
       imagePath,
       albumName,
       user_id,

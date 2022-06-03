@@ -18,7 +18,7 @@ const albumName = check('albumName')
   .isLength({min:2, max:200})
   .withMessage('must be greater than 2 characters and less than 200')
 const imagePath = check("imagePath")
-  .isURL({ require_protocol: false, require_host: false })
+  .isURL()
   .withMessage('must be a valid url address')
 
 

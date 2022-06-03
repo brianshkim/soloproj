@@ -13,7 +13,6 @@ module.exports = {
         type: Sequelize.STRING(200)
       },
       releaseDate: {
-        allowNull: false,
         type: Sequelize.DATEONLY
       },
       user_id: {
