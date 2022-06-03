@@ -8,7 +8,7 @@ import { ValidationError } from "../../utils/validationError";
 import { createPlaylist } from "../../store/playlist";
 
 
-const CreatePlaylistForm = () => {
+const CreatePlaylistForm = (closeModal) => {
   const dispatch = useDispatch()
   const history = useHistory()
   const [isLoaded, setIsLoaded] = useState(false)
@@ -42,6 +42,7 @@ const CreatePlaylistForm = () => {
       setErrorMessages({});
      // history.push(`/song/${newSong.id}`);
     }
+    closeModal();
 
   };
 

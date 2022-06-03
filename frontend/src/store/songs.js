@@ -3,6 +3,7 @@ import { csrfFetch } from './csrf';
 const LOAD = "song/LOAD";
 const ADD = "song/ADD";
 const DELETE = "song/DELETE"
+const UPDATE = "song/UPDATE"
 
 
 
@@ -15,6 +16,11 @@ const load = (list) => ({
 const remove = (songId) => ({
   type: DELETE,
   songId
+})
+
+const update = (song) => ({
+  type: UPDATE,
+  song
 })
 
 export const deleteSong = (songId) => async dispatch => {
@@ -123,7 +129,7 @@ export const updateSong = (id, data) => async (dispatch) => {
 
   if (response.ok) {
     const song = await response.json()
-    dispatch(addSong(song))
+    dispatch(update(song))
   }
 }
 
@@ -175,7 +181,7 @@ const sortList = (list) => {
 const initialState = { list: [] }
 
 
-const songReducer = (state = initialState, action) => {
+const songReducer = (state = {}, action) => {
   switch (action.type) {
     case LOAD:
 
@@ -186,8 +192,8 @@ const songReducer = (state = initialState, action) => {
       return {
         ...Songs,
         ...state,
-        list: sortList(action.list),
-      };
+
+      }
     case ADD:
       console.log('IN REDUCER ADD ONE CASE - ACTION -> ', action);
       return {
@@ -197,6 +203,13 @@ const songReducer = (state = initialState, action) => {
           ...action.song,
         },
       };
+
+    case UPDATE:
+      return {
+        ...state,
+        [action.song.id]: action.song
+      };
+
     case DELETE:
       const newState = { ...state };
       delete newState[action.songId]

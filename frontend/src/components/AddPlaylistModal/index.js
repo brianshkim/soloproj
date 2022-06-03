@@ -10,7 +10,7 @@ function AddPlaylistModal({id}) {
       <button onClick={() => setShowModal(true) } class="addplaylistbutton">Add Playlist</button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
-          <CreatePlaylistForm />
+          <CreatePlaylistForm closeModal={() => setShowModal(false)} />
         </Modal>
       )}
     </>

@@ -9,7 +9,7 @@ import Navigation from "../Navigation"
 import SignupFormPage from "../SignupFormPage";
 import { Navlink, Route, useParams, Switch } from 'react-router-dom'
 
-const EditSong = ({id}) => {
+const EditSong = ({id, closeModal}) => {
   const dispatch = useDispatch()
   const history = useHistory()
   const song = useSelector(state=>state.songs[id])
@@ -62,12 +62,23 @@ const EditSong = ({id}) => {
       imagePath,
       albumName,
       albumId,
+      user_id:sessionUser.id
     };
 
   return dispatch(updateSong(id, payload)).catch(async (res) => {
     const data = await res.json();
     if (data && data.errors) setErrorMessages(data.errors);
-  });
+    if (data.errors.length < 1 ){
+      closeModal()
+    }
+
+
+
+  })
+
+
+
+
 
   };
 
@@ -133,7 +144,7 @@ const EditSong = ({id}) => {
 
         <ErrorMessage label={"albumName"} message={errorMessages.albumName} />
 
-        <button type="submit">Add new Song</button>
+        <button type="submit" className="submiteditbutton">Submit Edit</button>
 
       </form>
     </div>

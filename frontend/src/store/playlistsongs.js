@@ -19,21 +19,20 @@ export const getPlaylistSongs = (playlistid) => async (dispatch) => {
   }
 }
 
-const initialState = { list: [] }
 
 
-const playlistSongsReducer = (state = initialState, action) => {
+
+const playlistSongsReducer = (state = {}, action) => {
   switch (action.type) {
     case LOAD:
-      console.log(action.list)
       const playlistSongs = {};
       action.list.forEach((playlist) => {
         playlistSongs[playlist.id] = playlist
       });
       return {
         ...playlistSongs,
-        ...state,
-        list: action.list,
+
+
       };
     default:
       return state;

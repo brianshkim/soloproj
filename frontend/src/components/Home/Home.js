@@ -39,7 +39,7 @@ const Home = () => {
     const history = useHistory()
     const [isLoaded, setIsLoaded] = useState(false)
     const sessionUser = useSelector(state => state.session.user);
-    const [pressed, setPressed] = useState(false)
+    const [pressed, setPressed] = useState(true)
 
 
     const [url, setUrl] = useState("")
@@ -59,14 +59,15 @@ const Home = () => {
     useEffect(() => {
         dispatch(getPlaylists())
     }, [dispatch])
-
-    const songList = useSelector(state => state.songs.list)
-    const playlists = useSelector(state => state.playlists.list)
+    const getsongs = useSelector(state => state.songs)
+    const songList = Object.values(getsongs)
+    const getplaylists = useSelector(state => state.playlists)
+    const playlists = Object.values(getplaylists)
     const [playlistId, setPlaylistId] = useState(0)
-    const [playlist, setPlaylist] = useState(songList)
+    const [playlist, setPlaylist] = useState(false)
     const [audioLists, setAudioLists] = useState([])
-    let playlistsongs = useSelector(state => state.playlistsongs.list)
-
+    let getplaylistsongs = useSelector(state => state.playlistsongs)
+    const playlistsongs = Object.values(getplaylistsongs)
 
 
     useEffect(() => {
@@ -91,6 +92,8 @@ const Home = () => {
         let index = e.target.selectedIndex;
         var optionElement = e.target.childNodes[index].getAttribute('id')
         console.log(optionElement)
+
+        if (optionElement===null) setPressed(true)
 
 
 
@@ -126,10 +129,11 @@ const Home = () => {
 
 
     const onDelete = (e) => {
-        let id = e.target.id
+        let id = e.target.parentElement.id
+        console.log(id)
         let child = e.target
         dispatch(deleteSong(id))
-        child.parentElement.parentElement.remove()
+       // child.parentElement.parentElement.remove()
 
     }
 
@@ -199,6 +203,7 @@ const Home = () => {
                 <form id="playlists-dropdown">
                     <select id="playlist-dropdown"
                         onChange={(e)=>onselect(e)}>
+                            <option></option>
                         {playlists &&
 
                             playlists.map((playlist) => (
@@ -232,7 +237,7 @@ const Home = () => {
                                         <span class="track-buttons">
                                             <button class="delete-track" id={song.id} onClick={onDelete}><i class="fa-solid fa-trash-can"></i></button>
                                             <EditSongModal id={song.id} />
-                                            <button class="add-to-playlist" id={song.id} name=""><i class="fa-solid fa-scroll"></i></button>
+                                            <AddToPlaylistModal id={song.id} />
                                         </span>
 
                                     </div>
@@ -253,7 +258,7 @@ const Home = () => {
                                         <span class="track-buttons">
                                             <button class="delete-track" id={song.id} onClick={onDelete}><i class="fa-solid fa-trash-can"></i></button>
                                             <EditSongModal id={song.id} />
-                                            <button class="add-to-playlist" id={song.id} name=""><i class="fa-solid fa-scroll"></i></button>
+                                            <AddToPlaylistModal id={song.id} />
                                         </span>
 
                                     </div>

@@ -78,7 +78,7 @@ router.post('/', singleMulterUpload('image'), songValidation.validateCreate, req
   }))
 
 
-  router.put('/:songid', requireAuth, asyncHandler(async(req,res)=>{
+  router.put('/:songid', requireAuth, songValidation.validateCreate, asyncHandler(async(req,res)=>{
 
     const id = parseInt(req.params.songid, 10)
     console.log(id)

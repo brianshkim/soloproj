@@ -7,10 +7,10 @@ function AddToPlaylistModal({id}) {
 
   return (
     <>
-      <button onClick={() => setShowModal(true)}>Add to a playlist</button>
+      <button className="add-to-playlist" onClick={() => setShowModal(true)}><i class="fa-solid fa-scroll"></i></button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
-          <AddToPlaylistForm id={id}/>
+          <AddToPlaylistForm id={id} closeModal={() => setShowModal(false)}/>
         </Modal>
       )}
     </>

@@ -10,7 +10,7 @@ function AddSongModal() {
       <button className="addsongbutton" onClick={() => setShowModal(true)}>Add Song</button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
-          <CreateSongForm />
+          <CreateSongForm closeModal={() => setShowModal(false)} />
         </Modal>
       )}
     </>

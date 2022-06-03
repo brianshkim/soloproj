@@ -104,10 +104,9 @@ const sortList = (list) => {
 const initialState = { list: [] }
 
 
-const PlaylistReducer = (state = initialState, action) => {
+const PlaylistReducer = (state = {}, action) => {
   switch (action.type) {
     case LOAD:
-      console.log(action.list)
       const Playlists = {};
       action.list.forEach((playlist) => {
         Playlists[playlist.id] = playlist
@@ -115,8 +114,8 @@ const PlaylistReducer = (state = initialState, action) => {
       return {
         ...Playlists,
         ...state,
-        list: sortList(action.list),
-      };
+
+      }
     case ADD:
       return {
         ...state,

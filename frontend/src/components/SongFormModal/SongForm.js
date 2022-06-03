@@ -10,7 +10,7 @@ import Navigation from "../Navigation"
 import SignupFormPage from "../SignupFormPage";
 import { Navlink, Route, useParams, Switch } from 'react-router-dom'
 
-const CreateSongForm = () => {
+const CreateSongForm = (closeModal) => {
   const dispatch = useDispatch()
   const history = useHistory()
 
@@ -89,16 +89,19 @@ const CreateSongForm = () => {
     return dispatch(createSong(payload)).catch(async (res) => {
       const data = await res.json();
       if (data && data.errors) setErrorMessages(data.errors);
-    }).then(() => {
-      setTitle("");
-      setArtist("");
-      setReleaseDate("");
-      setSongPath("");
-      setImagePath('');
-      setSongPath("");
-      setUserId(0);
-      setAlbumId(0)
-    });
+    }).then(()=>closeModal())
+    //then(() => {
+    //  setTitle("");
+    //  setArtist("");
+    //  setReleaseDate("");
+    //  setSongPath("");
+    //  setImagePath('');
+    //  setSongPath("");
+    //  setUserId(0);
+    //  setAlbumId(0)
+    //});
+//
+
 
 
 

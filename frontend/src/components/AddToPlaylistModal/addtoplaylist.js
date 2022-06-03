@@ -9,7 +9,7 @@ import { createPlaylist } from "../../store/playlist";
 import { addtoplaylist } from "../../store/songs"
 
 
-const AddToPlaylistForm = ({ id }) => {
+const AddToPlaylistForm = ({ id, closeModal }) => {
   const dispatch = useDispatch()
   const history = useHistory()
   const [isLoaded, setIsLoaded] = useState(false)
@@ -24,7 +24,11 @@ const AddToPlaylistForm = ({ id }) => {
 
 
   const sessionUser = useSelector((state) => state.session.user);
-  const playlists = useSelector((state) => state.playlists.list)
+
+  const getplaylists = useSelector((state) => state.playlists)
+
+  const playlists = Object.values(getplaylists)
+  console.log(playlists)
 
   const onselectplaylist =() => {
     console.log(listid)
@@ -35,6 +39,7 @@ const AddToPlaylistForm = ({ id }) => {
       playlist_id: listid,
     }
     dispatch(addtoplaylist(id, payload))
+    closeModal();
 
   }
 
