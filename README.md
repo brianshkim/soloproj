@@ -1,4 +1,4 @@
-# Busy Bees
+# SPECTRAL WAVES
 ## Technologies Used:
 * Javascript
 * REACT
