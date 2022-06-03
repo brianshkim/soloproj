@@ -35,8 +35,8 @@ Spectral Waves is a clone of Soundcloud that utilizes one page to render the use
         * `npx dotenv sequelize db:create`
         * `npx dotenv sequelize db:migrate`
         * `npx dotenv sequelize db:seed:all`
-5. Start the local server in your terminal by running `npm start`.
-6. Navigate to `http://localhost:8080/` in Google Chrome.
+5. Start the local server in your terminal by running `npm start` on two terminals in your folders called /backend and /frontend.
+6. Navigate to `http://localhost:3000/` in Google Chrome.
 
 ***
 
