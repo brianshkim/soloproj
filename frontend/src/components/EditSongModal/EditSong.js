@@ -7,6 +7,7 @@ import * as sessionActions from "../../store/session";
 import { ValidationError } from "../../utils/validationError";
 import Navigation from "../Navigation"
 import SignupFormPage from "../SignupFormPage";
+
 import { Navlink, Route, useParams, Switch } from 'react-router-dom'
 
 const EditSong = ({id, closeModal}) => {
@@ -46,6 +47,36 @@ const EditSong = ({id, closeModal}) => {
 
   const sessionUser = useSelector((state) => state.session.user);
 
+  useEffect(()=>{
+    const errors = []
+
+function checkURL(url) {
+  if (typeof url !== 'string') return false;
+  return (url.match(/\.(jpg|jpeg|gif|png)$/) != null);
+}
+    if (title.length < 1){
+      errors.push('Title cannot be empty')
+    }
+
+    if (artist.length < 1){
+      errors.push("Artist cannot be empty")
+    }
+    if (!releaseDate instanceof Date){
+      errors.push("Must be a valid date")
+    }
+    if (!imagePath.isURL && imagePath.length>0){
+      errors.push("Must be a valid URL")
+    }
+
+    if (albumName.length < 1){
+      errors.push('Album Name cannot be empty')
+    }
+
+    setErrorMessages(errors)
+
+
+  }, [title, artist, releaseDate, imagePath, albumName])
+
 
 
 
@@ -53,6 +84,7 @@ const EditSong = ({id, closeModal}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
 
     const payload = {
       title,
@@ -67,6 +99,7 @@ const EditSong = ({id, closeModal}) => {
 
   return dispatch(updateSong(id, payload)).catch(async (res) => {
     const data = await res.json();
+    console.log(data.errors)
     if (data && data.errors) setErrorMessages(data.errors);
     if (data.errors.length < 1 ){
       closeModal()
@@ -87,8 +120,17 @@ const EditSong = ({id, closeModal}) => {
 
   return (
   <div>
-    <div className="new-form-holder">
-      <ErrorMessage message={errorMessages.overall} />
+
+
+      <div className="new-form-holder">
+        <div className="errors">
+          <ul>
+            {errorMessages.map(error=>(
+              <li>{error}</li>
+            ))}
+          </ul>
+        </div>
+
       <form className="create-song" onSubmit={handleSubmit}>
 
         <label>Song Title: </label>
@@ -133,7 +175,7 @@ const EditSong = ({id, closeModal}) => {
           value={songPath}
           onChange={updateSongPath}
         />
-        <ErrorMessage label={"songPath"} message={errorMessages.songPath} />
+        <ErrorMessage label={"albumName"} message={errorMessages.albumName} />
         <label>Album Name: </label>
         <input
           type="text"
@@ -142,9 +184,9 @@ const EditSong = ({id, closeModal}) => {
           onChange={updateAlbumName}
         />
 
-        <ErrorMessage label={"albumName"} message={errorMessages.albumName} />
 
-        <button type="submit" className="submiteditbutton">Submit Edit</button>
+
+        <button type="submit" className="submiteditbutton" disabled={!!errorMessages.length}>Submit Edit</button>
 
       </form>
     </div>

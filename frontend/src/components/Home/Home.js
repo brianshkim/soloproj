@@ -205,15 +205,8 @@ const Home = () => {
                             </ul>
                         </nav>
                     </div>
-                    <div className="middle-header">
-                        <div className="search-header" role="search">
-                            <form className="searchHeader">
-                                <input class="searchbar" placeholder="Search">
-                                </input>
-                            </form>
 
-                        </div>
-                    </div>
+
                 </div>
             </header>
             <div id="banner-songs">

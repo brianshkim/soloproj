@@ -41,11 +41,11 @@ const EditPlaylist = ({id, closeModal}) => {
 
     };
 
-  return dispatch(updatePlaylist(id, payload)).catch(async (res) => {
+  await dispatch(updatePlaylist(id, payload)).catch(async (res) => {
     const data = await res.json();
     if (data && data.errors) setErrorMessages(data.errors);
-    if (data.errors.length < 1 ){
-      closeModal()
+    else{
+
     }
 
 

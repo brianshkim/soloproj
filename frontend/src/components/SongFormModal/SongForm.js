@@ -9,8 +9,9 @@ import { ValidationError } from "../../utils/validationError";
 import Navigation from "../Navigation"
 import SignupFormPage from "../SignupFormPage";
 import { Navlink, Route, useParams, Switch } from 'react-router-dom'
+import isURL from 'validator/lib/isURL';
 
-const CreateSongForm = ({closeModal}) => {
+const CreateSongForm = ({setShowModal}) => {
   const dispatch = useDispatch()
   const history = useHistory()
 
@@ -49,7 +50,7 @@ const CreateSongForm = ({closeModal}) => {
   const sessionUser = useSelector((state) => state.session.user);
  const albums = useSelector((state)=>state.albums)
   const albumobj = Object.values(albums)
-  console.log(albumobj)
+
   const [albumId, setAlbumId] = useState(albumobj[0].id)
 
   const updateFile = (e) => {
@@ -71,6 +72,31 @@ const CreateSongForm = ({closeModal}) => {
 
   }
 
+  useEffect(()=>{
+    const errors = []
+    if (title.length < 1){
+      errors.push('Title cannot be empty')
+    }
+
+    if (artist.length < 1){
+      errors.push("Artist cannot be empty")
+    }
+    if (!releaseDate instanceof Date){
+      errors.push("Must be a valid date")
+    }
+    if (!imagePath.isURL && imagePath.length>0){
+      errors.push("Must be a valid URL")
+    }
+
+    if (albumName.length < 1){
+      errors.push('Album Name cannot be empty')
+    }
+
+    setErrorMessages(errors)
+
+
+  }, [title, artist, releaseDate, imagePath, albumName])
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -86,39 +112,25 @@ const CreateSongForm = ({closeModal}) => {
       album_id:albumId,
     };
 
-    await dispatch(createSong(payload)).catch(async (res) => {
-      const data = await res.json();
-      if (data && data.errors) setErrorMessages(data.errors);
 
+    dispatch(createSong(payload))
+    setErrorMessages([]);
+    setShowModal(false)
+  }
 
-
-    //then(() => {
-    //  setTitle("");
-    //  setArtist("");
-    //  setReleaseDate("");
-    //  setSongPath("");
-    //  setImagePath('');
-    //  setSongPath("");
-    //  setUserId(0);
-    //  setAlbumId(0)
-    //});
-//
-
-
-
-
-    })
-
-    closeModal()};
-
-  console.log(typeof (albums))
-  console.log(sessionUser.id)
 
   return (
     <div>
       <div className="new-form-holder">
-        <ErrorMessage message={errorMessages.overall} />
-        <form className="create-song" onSubmit={handleSubmit}>
+        <div className="errors">
+          <ul>
+            {errorMessages.map(error=>(
+              <li>{error}</li>
+            ))}
+          </ul>
+        </div>
+
+        <form id="create-song" onSubmit={handleSubmit}>
 
           <label>Song Title: </label>
           <input
@@ -129,7 +141,7 @@ const CreateSongForm = ({closeModal}) => {
             onChange={updateTitle}
           />
 
-          <ErrorMessage label={"title"} message={errorMessages.title} />
+
           <label>Artist: </label>
           <input
             type="text"
@@ -139,7 +151,8 @@ const CreateSongForm = ({closeModal}) => {
             onChange={updateArtist}
           />
 
-          <ErrorMessage label={"artist"} message={errorMessages.artist} />
+
+
           <label>Release Date: </label>
           <input
             type="date"
@@ -148,7 +161,6 @@ const CreateSongForm = ({closeModal}) => {
             value={releaseDate}
             onChange={updateReleaseDate}
           />
-          <ErrorMessage label={"releaseDate"} message={errorMessages.releaseDate} />
           <label>Image URL: </label>
           <input
             type="text"
@@ -157,14 +169,14 @@ const CreateSongForm = ({closeModal}) => {
             onChange={updateImagePath}
           />
 
-          <ErrorMessage label={"imagePath"} message={errorMessages.imagePath} />
+
           <label>Song URL </label>
           <input
             type="file"
             placeholder="Song URL"
             onChange={updateFile}
           />
-          <ErrorMessage label={"songPath"} message={errorMessages.songPath} />
+
           <label>New Album Name: </label>
           <input
             type="text"
@@ -172,7 +184,7 @@ const CreateSongForm = ({closeModal}) => {
             value={albumName}
             onChange={updateAlbumName}
           />
-          <ErrorMessage label={"albumName"} message={errorMessages.albumName} />
+
           <label>Choose an existing album:</label>
           <select
           onChange={onselect}
@@ -187,7 +199,9 @@ const CreateSongForm = ({closeModal}) => {
 
           </select>
 
-          <button type="submit">Add new Song</button>
+          <button
+          disabled={!!errorMessages.length}
+          type="submit">Add new Song</button>
 
         </form>
       </div>
