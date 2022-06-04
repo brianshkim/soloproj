@@ -258,7 +258,7 @@ const Home = () => {
                                                 <span className="songartist">{song.artist}</span>
                                                 {song.title}
                                                 <span class="track-buttons">
-                                                    <button class="delete-track" id={song.id} onClick={onDelete}><i class="fa-solid fa-trash-can"></i></button>
+
                                                     <EditSongModal id={song.id} />
                                                     <AddToPlaylistModal id={song.id} />
                                                 </span>

@@ -8,12 +8,14 @@ import { ValidationError } from "../../utils/validationError";
 import { createPlaylist } from "../../store/playlist";
 
 
-const CreatePlaylistForm = (closeModal) => {
+const CreatePlaylistForm = ({closeModal}) => {
   const dispatch = useDispatch()
   const history = useHistory()
-  const [isLoaded, setIsLoaded] = useState(false)
 
-  const [errorMessages, setErrorMessages] = useState({})
+  const [isLoaded, setIsLoaded] = useState(false)
+  const [errorMessages, setErrorMessages] = useState([])
+
+
   const [name, setName] = useState("")
 
   const updateName = (e) => setName(e.target.value);
@@ -22,6 +24,13 @@ const CreatePlaylistForm = (closeModal) => {
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
+
+  useEffect(()=>{
+    const errors = []
+    if (name.length < 1){
+      errors.push('Name cannot be empty')}
+      setErrorMessages(errors)
+    }, [name])
 
   const sessionUser = useSelector((state) => state.session.user);
 
@@ -33,22 +42,22 @@ const CreatePlaylistForm = (closeModal) => {
       user_id: sessionUser.id
     };
 
-    let playlist;
+    dispatch(createPlaylist(payload))
 
-      playlist = dispatch(createPlaylist(payload));
-      console.log('COMPONENT TRY BLOCK - AFTER DISPATCH - THIS IS createdPokemon ->', createSong)
-
-    if (playlist) {
-      setErrorMessages({});
-     // history.push(`/song/${newSong.id}`);
-    }
     closeModal();
 
   };
 
   return (
     <div className="new-form-holder">
-      <ErrorMessage message={errorMessages.overall} />
+      <div className="errors">
+          <ul>
+            {errorMessages.map(error=>(
+              <li>{error}</li>
+            ))}
+          </ul>
+        </div>
+
       <form className="create-song" onSubmit={handleSubmit}>
 
         <label>Name: </label>
@@ -60,8 +69,8 @@ const CreatePlaylistForm = (closeModal) => {
           onChange={updateName}
         />
 
-        <ErrorMessage label={"name"} message={errorMessages.name} />
-        <button type="submit" >Add new Playlist</button>
+
+        <button type="submit" disabled={!!errorMessages.length} >Add new Playlist</button>
       </form>
 
     </div>
