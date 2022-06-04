@@ -49,7 +49,8 @@ router.get('/home', restoreUser, asyncHandler(async (req, res) => {
   const songs = await Song.findAll({
     where: {
       user_id: req.user.id
-    }
+    },
+    include:Album
   })
   res.json(songs)
 

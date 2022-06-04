@@ -62,7 +62,7 @@ const Home = () => {
     let getplaylistsongs = useSelector(state => state.playlistsongs)
     const playlistsongs = Object.values(getplaylistsongs)
 
-    console.log(id)
+
 
     useEffect(() => {
         dispatch(getAlbums())
@@ -125,6 +125,7 @@ const Home = () => {
 
     const allsongs = (e) => {
         setPressed(true)
+        setAudioLists([])
         const audioListtemp = [];
         songList.forEach(song => {
             audioListtemp.push({
@@ -136,12 +137,13 @@ const Home = () => {
             })
         })
         setAudioLists(audioListtemp)
+        console.log(audioLists)
 
         document.getElementById("playlist-dropdown").value = "null"
 
 
     }
-    console.log(audioLists)
+
 
 
 
@@ -154,30 +156,52 @@ const Home = () => {
     }
 
     const imageclick = (e) => {
+        e.preventDefault()
         setUrl(e.target.getAttribute('src'))
         console.log(url)
+        setAudioLists([])
+
+
 
         let songdetails = e.target.id.split(",")
+        console.log(songdetails)
         let songalbumname = songdetails[0]
         let songartist = songdetails[1]
         let songreleasedate = songdetails[2]
-        console.log(songdetails)
+        let songimage = songdetails[3]
+        let songname = songdetails[4]
+        let songpath = songdetails[5].split(" ")
+        let songpath1 = songpath[1]
+        console.log(songpath1)
+        setAudioLists([])
+        const tempAudioList = [{
+            name: songname,
+            singer:songartist,
+            musicSrc:songpath1
+        }]
+
+        setAudioLists(tempAudioList)
+        console.log(audioLists)
+
 
         const banner = document.getElementById("banner-songs")
-        banner.innerHTML = `<img src=${url} height="380"></img>`
+        banner.innerHTML = `<img src=${songimage} height="380"></img>`
 
         let bannerdiv = document.createElement("div")
         let bannertitle = document.createElement('h1')
         let bannerdetail = document.createElement('h2')
         let bannerdetail2 = document.createElement('h3')
+        let bannerdetail3 = document.createElement('h1')
 
         bannertitle.className = "banner-title"
         bannertitle.innerText = songalbumname
         bannerdetail.innerText = songartist
         bannerdetail2.innerText = songreleasedate
+        bannerdetail3.innerText = songname
         bannerdiv.append(bannertitle)
         bannerdiv.append(bannerdetail)
         bannerdiv.append(bannerdetail2)
+        bannerdiv.append(bannerdetail3)
         banner.append(bannerdiv)
     }
 
@@ -249,7 +273,7 @@ const Home = () => {
                                         {song.title &&
                                             <div className="trackitem">
                                                 {song.imagePath &&
-                                                    <span className="smallalbum"><button className="smallalbumimage" onClick={imageclick}><img id={`${song.albumName},${song.artist},${song.releaseDate}`} className="buttonimage" src={song.imagePath} height="30" width="30"></img></button></span>}
+                                                    <span className="smallalbum"><button className="smallalbumimage" onClick={imageclick}><img id={`${song.albumName},${song.artist},${song.releaseDate}, ${song.imagePath}, ${song.title}, ${song.songPath}`} className="buttonimage" src={song.imagePath} height="30" width="30"></img></button></span>}
                                                 <span className="songartist">{song.artist}</span>
                                                 {song.title}
                                                 <span class="track-buttons">
@@ -271,7 +295,7 @@ const Home = () => {
                                         {song.title &&
                                             <div className="trackitem">
                                                 {song.imagePath &&
-                                                    <span className="smallalbum"><button className="smallalbumimage" onClick={imageclick}><img id={`${song.albumName},${song.artist},${song.releaseDate}`} className="buttonimage" src={song.imagePath} height="30" width="30"></img></button></span>}
+                                                    <span className="smallalbum"><button className="smallalbumimage" onClick={imageclick}><img id={`${song.albumName},${song.artist},${song.releaseDate}, ${song.imagePath}, ${song.title}, ${song.songPath}`} className="buttonimage" src={song.imagePath} height="30" width="30"></img></button></span>}
                                                 <span className="songartist">{`${song.artist}`}</span>
                                                 {`-${song.title}`}
                                                 <span class="track-buttons">
@@ -297,9 +321,11 @@ const Home = () => {
 
             <footer>
                 <ReactJkMusicPlayer
-                    audioLists={audioLists}
-                    autoPlay={false}
-                    clearPriorAudioLists={true} />
+                clearPriorAudioLists
+                quietUpdate
+                audioLists={audioLists}
+
+                     />
 
 
 

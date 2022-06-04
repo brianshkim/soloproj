@@ -10,15 +10,17 @@ import SignupFormPage from "../SignupFormPage";
 import { Navlink, Route, useParams, Switch } from 'react-router-dom'
 import { updatePlaylist } from "../../store/playlist";
 import {idContext} from "../Home/Home"
+import './editplaylist.css'
 const EditPlaylist = ({ id, closeModal}) => {
   const dispatch = useDispatch()
   const history = useHistory()
   const [errorMessages, setErrorMessages] = useState([])
-  const [name, setName] = useState("")
+
 
 
 const playlists = useSelector(state=>state.playlists[id])
 console.log(playlists)
+const [name, setName] = useState(playlists.name)
 
 
   console.log(id)
@@ -57,7 +59,7 @@ closeModal()
 
   return (
   <div>
-    <div className="new-form-holder">
+    <div className="edit-list-form">
     <div className="errors">
           <ul>
             {errorMessages.map(error=>(

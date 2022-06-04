@@ -1,0 +1,48 @@
+.new-form-holder{
+    display:flex;
+    height: 500px;
+    width: 800px;
+    padding: 30px;
+    background-size: 700px 600px;
+    font-size: 15px;
+    font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif
+}
+
+.formimgdiv{
+    height: 400px;
+    width: 400px;
+
+    background-size: 700px 500px;
+    float:left;
+
+}
+
+#allinputs{
+
+    height: 20px;
+    width: 300px;
+    border-radius: 5px 5px 5px 5px;
+}
+
+#create-song{
+    float:right;
+    margin-top: -20px;
+    margin-right: -50px;
+    width:500px;
+    background: linear-gradient(132deg, rgb(251, 165, 116) 0.00%, rgb(216, 245, 251) 100.00%);
+}
+
+.errors{
+    width: 300px;
+    font-size: 15px;
+    color: rgb(215, 22, 22);
+
+}
+
+.allLabels{
+    margin-left: 20px;
+}
+
+#songsubmitbutton:{
+    width: 300px;
+}

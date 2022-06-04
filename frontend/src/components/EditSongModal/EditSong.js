@@ -7,6 +7,7 @@ import * as sessionActions from "../../store/session";
 import { ValidationError } from "../../utils/validationError";
 import Navigation from "../Navigation"
 import SignupFormPage from "../SignupFormPage";
+import './editsong.css'
 
 import { Navlink, Route, useParams, Switch } from 'react-router-dom'
 
@@ -116,6 +117,9 @@ const EditSong = ({ id, closeModal }) => {
 
   return (
     <div>
+      <div className="formimgdiv">
+        <img src="https://i.pinimg.com/originals/31/26/18/3126181a93dcc3bdee56c3c0d4ec140e.jpg" height="550px" width="750px"></img>
+        </div>
 
 
       <div className="new-form-holder">
@@ -127,62 +131,86 @@ const EditSong = ({ id, closeModal }) => {
           </ul>
         </div>
 
-        <form className="create-song" onSubmit={handleSubmit}>
+        <form id="create-songedit" onSubmit={handleSubmit}>
 
-          <label>Song Title: </label>
+          <label className="allLabels">Song Title: </label>
           <input
+
+          id="allinputs"
             type="text"
             placeholder="edit title"
             value={title}
             onChange={updateTitle}
           />
+             <br></br>
+          <br></br>
+          <br></br>
 
-          <ErrorMessage label={"title"} message={errorMessages.title} />
-          <label>Artist: </label>
+          <label className="allLabels">Artist: </label>
           <input
+          id="allinputs"
             type="text"
             placeholder="edit artist"
             value={artist}
             onChange={updateArtist}
           />
+             <br></br>
+          <br></br>
+          <br></br>
 
-          <ErrorMessage label={"artist"} message={errorMessages.artist} />
-          <label>Release Date: </label>
+          <label className="allLabels">Release Date: </label>
           <input
+          id="allinputs"
             type="edit date"
             placeholder="Release Date"
             value={releaseDate}
             onChange={updateReleaseDate}
           />
-          <ErrorMessage label={"releaseDate"} message={errorMessages.releaseDate} />
-          <label>Image URL: </label>
+          <br></br>
+          <br></br>
+          <br></br>
+
+          <label className="allLabels">Image URL: </label>
           <input
+          id="allinputs"
             type="text"
             placeholder="edit Image URL"
             value={imagePath}
             onChange={updateImagePath}
           />
+          <br></br>
+          <br></br>
+          <br></br>
 
-          <ErrorMessage label={"imagePath"} message={errorMessages.imagePath} />
-          <label>Song URL </label>
+
+          <label className="allLabels">Song URL </label>
           <input
+          id="allinputs"
             type="text"
             placeholder="edit Song URL"
             value={songPath}
             onChange={updateSongPath}
           />
-          <ErrorMessage label={"albumName"} message={errorMessages.albumName} />
-          <label>Album Name: </label>
+             <br></br>
+          <br></br>
+          <br></br>
+
+          <label className="allLabels">Album Name: </label>
           <input
+          id="allinputs"
             type="text"
             placeholder="edit album Name"
             value={albumName}
             onChange={updateAlbumName}
           />
 
+<br></br>
+          <br></br>
+          <br></br>
 
 
-          <button type="submit" className="submiteditbutton" disabled={!!errorMessages.length}>Submit Edit</button>
+
+          <button type="submit" id="songsubmitbutton" disabled={!!errorMessages.length}>Submit Edit</button>
 
         </form>
       </div>

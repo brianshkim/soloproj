@@ -9,6 +9,7 @@ import { ValidationError } from "../../utils/validationError";
 import Navigation from "../Navigation"
 import SignupFormPage from "../SignupFormPage";
 import { Navlink, Route, useParams, Switch } from 'react-router-dom'
+import "./songform.css"
 
 
 
@@ -62,7 +63,7 @@ const CreateSongForm = ({setShowModal}) => {
   };
 
   const onselect = (e) =>{
-    console.log(e.target.value)
+
     let index = e.target.selectedIndex;
     var optionElement = e.target.childNodes[index].getAttribute('id')
     console.log(optionElement)
@@ -76,6 +77,10 @@ const CreateSongForm = ({setShowModal}) => {
 
   useEffect(()=>{
     const errors = []
+    function checkURL(url) {
+      if (typeof url !== 'string') return false;
+      return (url.match(/\.(jpg|jpeg|gif|png)$/) != null);
+    }
     if (title.length < 1){
       errors.push('Title cannot be empty')
     }
@@ -86,12 +91,17 @@ const CreateSongForm = ({setShowModal}) => {
     if (!releaseDate instanceof Date){
       errors.push("Must be a valid date")
     }
-    if (!imagePath.isURL && imagePath.length>0){
+    if (!checkURL(imagePath) && imagePath.length>0){
+
       errors.push("Must be a valid URL")
     }
 
     if (albumName.length < 1){
       errors.push('Album Name cannot be empty')
+    }
+
+    if(!image){
+      errors.push("Please upload a song")
     }
 
     setErrorMessages(errors)
@@ -123,74 +133,108 @@ const CreateSongForm = ({setShowModal}) => {
 
   return (
     <div>
+       <div className="formimgdiv">
+        <img src="https://www.desktopbackground.org/p/2014/09/11/823099_black-and-white-wallpapers-music-hd-hd-images-new_1600x1000_h.jpg" height="500" width="600x"></img>
+        </div>
+
       <div className="new-form-holder">
         <div className="errors">
-          <ul>
+          {!!errorMessages && <>Errors:</>}
+          <ol>
             {errorMessages.map(error=>(
               <li>{error}</li>
             ))}
-          </ul>
+          </ol>
         </div>
+        <br></br>
+
 
         <form id="create-song" onSubmit={handleSubmit}>
 
-          <label>Song Title: </label>
+          <label className="allLabels">Song Title:  </label>
           <input
+          id="allinputs"
             type="text"
             placeholder="Song Title"
             required
             value={title}
             onChange={updateTitle}
           />
+          <br></br>
+          <br></br>
+          <br></br>
 
 
-          <label>Artist: </label>
+          <label className="allLabels">Artist: </label>
           <input
+          id="allinputs"
             type="text"
             placeholder="Artist"
             required
             value={artist}
             onChange={updateArtist}
           />
+          <br></br>
+          <br></br>
+          <br></br>
 
-
-
-          <label>Release Date: </label>
+          <label className="allLabels">Release Date: </label>
           <input
+          id="allinputs"
             type="date"
             placeholder="Release Date"
             required
             value={releaseDate}
             onChange={updateReleaseDate}
           />
-          <label>Image URL: </label>
+          <br></br>
+          <br></br>
+
+          <label className="allLabels">Image URL: </label>
           <input
+          id="allinputs"
             type="text"
             placeholder="Image URL"
             value={imagePath}
             onChange={updateImagePath}
           />
+          <br></br>
+          <br></br>
+          <br></br>
 
 
-          <label>Song URL </label>
+
+          <label className="allLabels">Song Upload </label>
           <input
+          id="allinputs"
             type="file"
             placeholder="Song URL"
             onChange={updateFile}
           />
+          <br></br>
+          <br></br>
+          <br></br>
 
-          <label>New Album Name: </label>
+
+          <label className="allLabels"l>New Album Name: </label>
           <input
+          id="allinputs"
             type="text"
             placeholder="Album Name"
             value={albumName}
             onChange={updateAlbumName}
           />
+               <br></br>
+          <br></br>
+          <br></br>
 
-          <label>Choose an existing album:</label>
+
+
+          <label className="allLabels">Choose an existing album:</label>
           <select
           onChange={onselect}
           >
+            <option></option>
             {albumobj.map(album=>(
               <option key={album.id} id={album.id}>
 
@@ -200,8 +244,12 @@ const CreateSongForm = ({setShowModal}) => {
           }
 
           </select>
+          <br></br>
+          <br></br>
+          <br></br>
 
           <button
+          id="songsubmitbutton"
           disabled={!!errorMessages.length}
           type="submit">Add new Song</button>
 

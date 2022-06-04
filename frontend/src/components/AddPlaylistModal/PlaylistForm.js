@@ -50,6 +50,7 @@ const CreatePlaylistForm = ({closeModal}) => {
 
   return (
     <div className="new-form-holder">
+
       <div className="errors">
           <ul>
             {errorMessages.map(error=>(
