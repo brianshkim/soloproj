@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { createSong, updateSong } from "../../store/songs"
@@ -9,48 +9,42 @@ import Navigation from "../Navigation"
 import SignupFormPage from "../SignupFormPage";
 import { Navlink, Route, useParams, Switch } from 'react-router-dom'
 import { updatePlaylist } from "../../store/playlist";
-const EditPlaylist = ({id, closeModal}) => {
+import {idContext} from "../Home/Home"
+const EditPlaylist = ({ id, closeModal}) => {
   const dispatch = useDispatch()
   const history = useHistory()
-
-  console.log(id)
-
-
-
   const [errorMessages, setErrorMessages] = useState([])
   const [name, setName] = useState("")
 
 
+const playlists = useSelector(state=>state.playlists[id])
+console.log(playlists)
+
+
+  console.log(id)
+  useEffect(()=>{
+    const errors = []
+    if (name.length < 1){
+      errors.push('Name cannot be empty')}
+      setErrorMessages(errors)
+    }, [name])
+
   const updateName = (e) => setName(e.target.value);
-
-
-
 
   const sessionUser = useSelector((state) => state.session.user);
 
-
-
-
-
-
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    console.log(id)
 
     const payload = {
       name
 
     };
 
-  await dispatch(updatePlaylist(id, payload)).catch(async (res) => {
-    const data = await res.json();
-    if (data && data.errors) setErrorMessages(data.errors);
-    else{
-
-    }
-
-
-
-  })
+dispatch(updatePlaylist(id, payload))
+closeModal()
 
 
 
@@ -64,8 +58,15 @@ const EditPlaylist = ({id, closeModal}) => {
   return (
   <div>
     <div className="new-form-holder">
-      <ErrorMessage message={errorMessages.overall} />
-      <form className="create-song" onSubmit={handleSubmit}>
+    <div className="errors">
+          <ul>
+            {errorMessages.map(error=>(
+              <li>{error}</li>
+            ))}
+          </ul>
+        </div>
+
+      <form className="edit-playlist" onSubmit={handleSubmit}>
 
         <label>Edit Name: </label>
         <input
@@ -75,10 +76,10 @@ const EditPlaylist = ({id, closeModal}) => {
           onChange={updateName}
         />
 
-        <ErrorMessage label={"title"} message={errorMessages.title} />
 
 
-        <button type="submit" className="submiteditbutton">Submit Edit</button>
+
+        <button type="submit" className="submiteditbutton" disabled={!!errorMessages.length}>Submit Edit</button>
 
       </form>
     </div>

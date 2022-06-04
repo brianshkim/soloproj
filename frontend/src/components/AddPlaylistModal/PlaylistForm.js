@@ -58,7 +58,7 @@ const CreatePlaylistForm = ({closeModal}) => {
           </ul>
         </div>
 
-      <form className="create-song" onSubmit={handleSubmit}>
+      <form className="create-playlist" onSubmit={handleSubmit}>
 
         <label>Name: </label>
         <input

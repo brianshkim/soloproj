@@ -53,13 +53,16 @@ router.post('/', requireAuth, asyncHandler(async (req, res) => {
 router.put('/:playlistId', requireAuth, asyncHandler(async (req, res) => {
 
   const { name } = req.body
-  let id = parseInt(req.params.id, 10)
-  const playlist = await Playlist.update(
-    name,
-    {
-      where: id
-    }
+  let id = parseInt(req.params.playlistId, 10)
+  const playlist = await Playlist.findOne({
+    where: id}
   )
+
+playlist.update({
+  name
+})
+
+
 
   return res.json(playlist)
 

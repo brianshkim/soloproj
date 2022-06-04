@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext, createContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 import { createSong, getSongs, deleteSong, getSongsUser } from "../../store/songs"
@@ -24,16 +24,7 @@ import { Navlink, Route, useParams, Switch } from 'react-router-dom'
 import './Home.css'
 import AddPlaylistModal from "../AddPlaylistModal";
 
-let audioLists = [
-    //{
-    //    name: "Shiki No Uta",
-    //    singer: "Luis Fonsi",
-    //    musicSrc:
-    //        "https://ia800700.us.archive.org/5/items/ShikiNoUta/ShikiNoUta-Minmi.mp3"
-    //},
-
-
-];
+export const idContext = createContext();
 
 const Home = () => {
     const dispatch = useDispatch()
@@ -41,7 +32,7 @@ const Home = () => {
     const [isLoaded, setIsLoaded] = useState(false)
     const sessionUser = useSelector(state => state.session.user);
     const [pressed, setPressed] = useState(true)
-    const [id, setid] = useState(null)
+    let [id, setid] = useState(null)
 
 
     const [url, setUrl] = useState("")
@@ -71,7 +62,7 @@ const Home = () => {
     let getplaylistsongs = useSelector(state => state.playlistsongs)
     const playlistsongs = Object.values(getplaylistsongs)
 
-
+    console.log(id)
 
     useEffect(() => {
         dispatch(getAlbums())
@@ -234,10 +225,14 @@ const Home = () => {
                     </select>
                     <div id="playlistbuttonsdiv">
                         <button onClick={onclick} class="deleteplaylistbutton">Delete Playlist</button>
-                        {id && <EditPlaylistModal id={id}/>}
+
+
 
                     </div>
+
                 </form>
+                <EditPlaylistModal id={id}/>
+
 
                 <AddSongModal />
 

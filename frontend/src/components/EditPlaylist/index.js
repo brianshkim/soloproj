@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Modal } from '../../context/Modal';
 import EditPlaylist from './EditPlaylist'
+import { idContext } from '../Home/Home';
 
-function EditSongModal({id}) {
+function EditPlaylistModal({id}) {
   const [showModal, setShowModal] = useState(false);
+
+
 
   return (
     <>
@@ -17,4 +20,4 @@ function EditSongModal({id}) {
   );
 }
 
-export default EditSongModal;
+export default EditPlaylistModal;
