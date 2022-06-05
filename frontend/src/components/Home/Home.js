@@ -295,7 +295,7 @@ const Home = () => {
                     <div id="playlistbuttonsdiv">
                         {id &&
                         <>                        <button onClick={onclick} class="deleteplaylistbutton">Delete Playlist</button>
-                        <button onClick={playPlaylist} class="play-playlist">Play</button></>}
+                        <button onClick={playPlaylist} class="deleteplaylistbutton play-playlist">Play</button></>}
 
 
 
