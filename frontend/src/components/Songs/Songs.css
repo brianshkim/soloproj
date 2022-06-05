@@ -4,11 +4,11 @@
     height: 100%;
 
 
-    margin-left: 18%;
-
-    background-image:url("https://c1.wallpaperflare.com/preview/601/574/492/black-player-record-vinyl.jpg");
-    height: 500px;
-    width: 950px;
+    background-image:url("https://images.unsplash.com/photo-1526269982786-96fcd6b53d45?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80");
+    height: 1080px;
+    width: 1920PX;
+    background-repeat: none;
+    scroll-snap-type: y mandatory
 }
 
 app{
@@ -57,7 +57,7 @@ margin-left: 10px;
 
 
     height: 50px;
-    width: 950px;
+    width: 1980px;
 
     background-color: black;
 
@@ -65,7 +65,8 @@ margin-left: 10px;
 .navigation .nav1 {
     display: flex;
     justify-content: flex-end;
-    width: 950px;
+    width: 1880px;
+
 
 
 }

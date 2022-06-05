@@ -248,14 +248,14 @@ const Home = () => {
 
                     </select>
                     <div id="playlistbuttonsdiv">
-                        <button onClick={onclick} class="deleteplaylistbutton">Delete Playlist</button>
-
+                        {id &&
+                        <button onClick={onclick} class="deleteplaylistbutton">Delete Playlist</button>}
 
 
                     </div>
 
                 </form>
-                <EditPlaylistModal id={id}/>
+                {id && <EditPlaylistModal id={id}/>}
 
 
                 <AddSongModal />
@@ -277,6 +277,7 @@ const Home = () => {
                                                 <span className="songartist">{song.artist}</span>
                                                 {song.title}
                                                 <span class="track-buttons">
+
 
                                                     <EditSongModal id={song.id} />
                                                     <AddToPlaylistModal id={song.id} />

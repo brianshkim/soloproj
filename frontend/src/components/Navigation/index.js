@@ -5,6 +5,7 @@ import ProfileButton from './ProfileButton';
 import { demouser } from '../../store/session';
 import LoginFormModal from '../LoginFormModal';
 import './Navigation.css';
+import SignupModal from '../SignupFormPage';
 
 
 function Navigation({ isLoaded }){
@@ -26,8 +27,8 @@ function Navigation({ isLoaded }){
     sessionLinks = (
       <>
         <LoginFormModal />
-        <NavLink to="/signup">Sign Up</NavLink>
-        <button onClick={onclickdemo}>Demo User</button>
+        <SignupModal />
+        <button class="demouser" id="splashpagebuttons"onClick={onclickdemo}>Demo User</button>
       </>
     );
   }

@@ -7,7 +7,7 @@ import * as sessionActions from "../../store/session";
 import { getAlbums } from "../../store/albums";
 import { ValidationError } from "../../utils/validationError";
 import Navigation from "../Navigation"
-import SignupFormPage from "../SignupFormPage";
+
 import { Navlink, Route, useParams, Switch } from 'react-router-dom'
 import "./songform.css"
 
@@ -107,7 +107,7 @@ const CreateSongForm = ({setShowModal}) => {
     setErrorMessages(errors)
 
 
-  }, [title, artist, releaseDate, imagePath, albumName])
+  }, [title, artist, releaseDate, imagePath, albumName, image])
 
 
   const handleSubmit = async (e) => {

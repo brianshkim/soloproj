@@ -6,7 +6,7 @@ import ErrorMessage from "../ErrorMessage";
 import * as sessionActions from "../../store/session";
 import { ValidationError } from "../../utils/validationError";
 import Navigation from "../Navigation"
-import SignupFormPage from "../SignupFormPage";
+
 import { Navlink, Route, useParams, Switch } from 'react-router-dom'
 import { updatePlaylist } from "../../store/playlist";
 import {idContext} from "../Home/Home"

@@ -69,43 +69,8 @@ function ViewSongs() {
                 <div id='image-div'>
                     <div className="navigation">
                         <Navigation isLoaded={isLoaded} />
-                        {isLoaded && (
-                            <Switch>
-                                <Route path="/signup">
-                                    <SignupFormPage />
-                                </Route>
-                                <Route path="/" exact>
 
-                                </Route>
-                            </Switch>
-                        )}
                     </div>
-                </div>
-                <div className="SearchBarHeader">
-                    <span className="SearchBar">
-                        <span>
-                            <form
-                            className="searchinput"
-                            onSubmit={handleSubmit}>
-                            <input
-                                className="headerSearch"
-                                placeholder="Search for artists, bands, tracks, podcasts"
-                                type="search"
-                                value={search}
-                                onInput={(e) => setSearch(e.target.value)}
-
-                            />
-                            <button className="searchSubmit"><i className="fa-solid fa-file-waveform"></i></button>
-
-                            </form>
-
-
-                        </span>
-                    </span>
-
-
-
-
                 </div>
 
             </div>

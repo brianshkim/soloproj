@@ -1,0 +1,21 @@
+#splashpagebuttons{
+background-color: rgb(135, 129, 120);
+border-style: none;
+border-radius: 3px 3px 3px 3px;
+color: white;
+width: 80px;
+height: 25px;
+
+}
+
+
+
+.loginbutton{
+
+    margin-right: 15px;
+}
+
+
+.signupbutton{
+    margin-right: 15px;
+}

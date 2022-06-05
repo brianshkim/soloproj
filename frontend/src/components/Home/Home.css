@@ -132,8 +132,10 @@ background-size: 90px 46px;
     display: flex;
     margin:auto;
 
+
     background-color: ghostwhite;
-    width: 950px;
+    width: 700px;
+
 
 
 }
@@ -155,16 +157,21 @@ background-size: 90px 46px;
     height: 50px;
     border-width: 0px;
     border-top: none;
-    justify-content: flex-start;
+    justify-content: space-start;
+
 
 
 }
 
 .track-buttons{
-    width: 100%;
-    margin-left: -50px;
-    display: flex;
+    display:flex;
     justify-content: flex-end;
+    width: 550px;
+
+
+    position: relative;
+
+
 
 }
 
@@ -179,17 +186,19 @@ background-size: 90px 46px;
     width: 100%;
 
 
+
 }
 
 .tracksongid{
     display: list-item;
+    margin-left: -180px;
 
     vertical-align:text-t;
     list-style: none;
 
     line-height: 1.5;
     text-align: center;
-    width:950px;
+    width:1000px;
 
 }
 
@@ -277,6 +286,7 @@ background-size: 90px 46px;
 }
 
 .delete-track{
+    margin-left: -40px;
     height: 30px;
     width: 30px;
     background-color:rgb(242, 240, 234);
@@ -285,6 +295,7 @@ background-size: 90px 46px;
 }
 
 #editbuttontrack{
+    margin-left:40px;
     height: 30px;
     width: 30px;
     background-color:rgb(242, 240, 234);
@@ -294,6 +305,7 @@ background-size: 90px 46px;
 }
 
 .add-to-playlist{
+    margin-left:10px;
     height: 30px;
     width: 30px;
     background-color:rgb(242, 240, 234);
