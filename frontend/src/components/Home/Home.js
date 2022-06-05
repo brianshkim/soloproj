@@ -372,7 +372,7 @@ const Home = () => {
                 clearPriorAudioLists
                 quietUpdate
                 audioLists={audioLists}
-                autoPlay={false}
+                autoPlay
 
                      />
 

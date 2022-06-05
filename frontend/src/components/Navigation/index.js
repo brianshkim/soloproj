@@ -39,6 +39,7 @@ function Navigation({ isLoaded }) {
 
 
       <div className='nav1'>
+      <a className="github" href="https://github.com/brianshkim/soloproj"><i class="fa-brands fa-github fa-2xl"></i></a>
       <a className="github" href="https://www.linkedin.com/in/brian-kim-2217ba125/"><i class="fa-brands fa-linkedin fa-2xl"></i></a>
 
         {isLoaded && sessionLinks}
