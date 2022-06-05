@@ -1,0 +1,17 @@
+#addtoaplaylistbutton{
+    width: 100%;
+    background-color: orange;
+    border-style: none;
+    color:white;
+    font-size: 15px;
+
+}
+
+.addtoplaylist{
+    width:  200px;
+}
+
+#addtoplaylistselect{
+    width: 100%;
+    font-size: 20px;
+}

@@ -7,15 +7,18 @@ import * as sessionActions from "../../store/session";
 import { ValidationError } from "../../utils/validationError";
 import { createPlaylist } from "../../store/playlist";
 import { addtoplaylist } from "../../store/songs"
+import "./addtoplaylist.css"
 
 
 const AddToPlaylistForm = ({ id, closeModal }) => {
   const dispatch = useDispatch()
   const history = useHistory()
+  console.log(id)
   const [isLoaded, setIsLoaded] = useState(false)
   const sessionUser = useSelector((state) => state.session.user);
 
   const getplaylists = useSelector((state) => state.playlists)
+  console.log(getplaylists)
 
   const playlists = Object.values(getplaylists)
   console.log(playlists)
@@ -56,8 +59,8 @@ const AddToPlaylistForm = ({ id, closeModal }) => {
 
   return (
     <div className="addtoplaylist">
-      <form id="playlists-dropdown">
-        <select id="playlist-dropdown"
+      <form id="addtoplaylistform">
+        <select id="addtoplaylistselect"
           onChange={ondropdown}
 
         >
@@ -69,7 +72,7 @@ const AddToPlaylistForm = ({ id, closeModal }) => {
           }
 
         </select>
-        <button onClick={onselectplaylist}>Add</button>
+        <button id="addtoaplaylistbutton"onClick={onselectplaylist}>Add To Playlist</button>
       </form>
 
     </div>

@@ -6,7 +6,7 @@ import ErrorMessage from "../ErrorMessage";
 import * as sessionActions from "../../store/session";
 import { getPlaylists } from "../../store/playlist";
 import { deletePlaylist } from "../../store/playlist";
-import { getPlaylistSongs } from "../../store/playlistsongs";
+import { deleteAllPlaylistSongs, getPlaylistSongs } from "../../store/playlistsongs";
 import { ValidationError } from "../../utils/validationError";
 import CreateSongForm from "../SongFormModal/SongForm"
 import AddSongModal from "../SongFormModal";
@@ -16,6 +16,7 @@ import 'react-jinke-music-player/assets/index.css'
 import { getAlbums } from "../../store/albums";
 import AddToPlaylistModal from "../AddToPlaylistModal";
 import EditPlaylistModal from "../EditPlaylist/";
+
 
 import CreatePlaylistForm from "../AddPlaylistModal/PlaylistForm"
 
@@ -57,11 +58,14 @@ const Home = () => {
     const songList = Object.values(getsongs)
     const getplaylists = useSelector(state => state.playlists)
     const playlists = Object.values(getplaylists)
+    console.log(playlists)
     const [playlistId, setPlaylistId] = useState(0)
     const [playlist, setPlaylist] = useState(false)
     const [audioLists, setAudioLists] = useState([])
     let getplaylistsongs = useSelector(state => state.playlistsongs)
     const playlistsongs = Object.values(getplaylistsongs)
+
+    console.log(playlistsongs)
 
 
 
@@ -69,7 +73,7 @@ const Home = () => {
         dispatch(getAlbums())
     }, [dispatch])
 
-    if (!sessionUser) return history.push('/')
+
 
     // useEffect(() => {
     //     console.log(playlistId)
@@ -92,6 +96,9 @@ const Home = () => {
         console.log(optionElement)
 
         if (optionElement === null) setPressed(true)
+        console.log(playlists)
+        let foundplaylist = playlists.find(playlist=>playlist.id===optionElement)
+        console.log(foundplaylist)
 
 
 
@@ -100,6 +107,7 @@ const Home = () => {
         // setPlaylist(playlistsongs)
         //console.log(playlistsongs)
         const audioListtemp = [];
+        console.log(playlistsongs)
         playlistsongs.forEach(song => {
             audioListtemp.push({
                 name: song.title,
@@ -111,6 +119,8 @@ const Home = () => {
         })
         setAudioLists(audioListtemp)
 
+        console.log(audioLists)
+
        setid(optionElement)
 
 
@@ -120,7 +130,7 @@ const Home = () => {
         e.preventDefault()
         setid(null)
         dispatch(deletePlaylist(playlistId))
-
+        dispatch(deleteAllPlaylistSongs())
     }
 
 
@@ -131,6 +141,7 @@ const Home = () => {
         setPressed(true)
         setid(null)
         setAudioLists([])
+
         const audioListtemp = [];
         songList.forEach(song => {
             audioListtemp.push({
@@ -293,7 +304,7 @@ const Home = () => {
 
 
                                                     <EditSongModal id={song.id} />
-                                                    <AddToPlaylistModal id={song.id} />
+                                                     <AddToPlaylistModal playlists={song.id} id={song.id} />
                                                 </span>
 
                                             </div>
@@ -315,7 +326,7 @@ const Home = () => {
                                                 <span class="track-buttons">
                                                     <button class="delete-track" id={song.id} onClick={onDelete}><i class="fa-solid fa-trash-can"></i></button>
                                                     <EditSongModal id={song.id} />
-                                                    <AddToPlaylistModal id={song.id} />
+                                                    <AddToPlaylistModal playlists={playlists} id={song.id} />
                                                 </span>
 
                                             </div>

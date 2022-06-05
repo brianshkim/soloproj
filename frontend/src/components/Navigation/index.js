@@ -8,10 +8,10 @@ import './Navigation.css';
 import SignupModal from '../SignupFormPage';
 
 
-function Navigation({ isLoaded }){
+function Navigation({ isLoaded }) {
   const dispatch = useDispatch()
   const sessionUser = useSelector(state => state.session.user);
-  const onclickdemo = (e) =>{
+  const onclickdemo = (e) => {
     dispatch(demouser())
   }
 
@@ -19,23 +19,28 @@ function Navigation({ isLoaded }){
   if (sessionUser) {
     sessionLinks = (
       <>
-      <ProfileButton user={sessionUser} />
+        <ProfileButton user={sessionUser} />
 
-       </>
+      </>
     );
   } else {
     sessionLinks = (
       <>
         <LoginFormModal />
         <SignupModal />
-        <button class="demouser" id="splashpagebuttons"onClick={onclickdemo}>Demo User</button>
+        <button class="demouser" id="splashpagebuttons" onClick={onclickdemo}>Demo User</button>
       </>
     );
   }
 
   return (
+    <div>
+
+
 
       <div className='nav1'>
+      <a className="github" href="https://www.linkedin.com/in/brian-kim-2217ba125/"><i class="fa-brands fa-linkedin fa-2xl"></i></a>
+
         {isLoaded && sessionLinks}
 
 
@@ -44,6 +49,7 @@ function Navigation({ isLoaded }){
 
 
       </div>
+    </div>
 
   );
 }

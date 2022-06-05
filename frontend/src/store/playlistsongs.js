@@ -1,10 +1,21 @@
+
+
 const LOAD = "playlistsongs/LOAD";
+const REMOVE = "playlistsongs/REMOVE"
 
 
 const load = (list) => ({
   type: LOAD,
   list,
 });
+
+const remove = ()=>({
+  type: REMOVE
+});
+
+export const deleteAllPlaylistSongs = () => async(dispatch)=>{
+  dispatch(remove())
+}
 
 export const getPlaylistSongs = (playlistid) => async (dispatch) => {
   console.log(playlistid)
@@ -34,6 +45,10 @@ const playlistSongsReducer = (state = {}, action) => {
 
 
       };
+
+    case REMOVE:{
+      return {}
+    }
     default:
       return state;
   }
