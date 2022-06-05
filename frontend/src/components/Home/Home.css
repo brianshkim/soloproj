@@ -76,6 +76,10 @@ background-size: 90px 46px;
     height: 46px;
     color: #999;
 }
+.logout-header{
+    cursor:pointer;
+
+}
 
 .left-button{
     display:block;

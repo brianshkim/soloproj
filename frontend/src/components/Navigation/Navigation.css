@@ -1,0 +1,26 @@
+.profile-dropdown{
+    margin-right: 100px;
+    color: white;
+}
+
+.homelink{
+
+}
+
+.splashhome{
+    width: 125px;
+    height: 129%;
+    background-color: darkgray;
+}
+
+.logoutsplash{
+    width: 100%;
+    background-color: darkgrey;
+}
+
+.profilebutton{
+    height: 46px;
+    width: 10%;
+    background-color: orange;
+
+}

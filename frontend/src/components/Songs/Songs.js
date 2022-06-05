@@ -70,7 +70,9 @@ function ViewSongs() {
                     <div className="navigation">
                         <Navigation isLoaded={isLoaded} />
                     </div>
-                    <div>
+
+
+                    <div className="splash-title">
                         SPECTRAL WAVES
                     </div>
 

@@ -1,5 +1,5 @@
 #image-div{
-    display: flex;
+
     position: relative;
     height: 100%;
 
@@ -69,4 +69,14 @@ margin-left: 10px;
 
 
 
+}
+
+
+.splash-title{
+    mix-blend-mode:luminosity;
+    opacity: 75%;
+    font-style: quantum;
+
+
+    font-size: 300px;
 }

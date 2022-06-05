@@ -35,6 +35,7 @@ const Home = () => {
     let [id, setid] = useState(null)
 
 
+
     const [url, setUrl] = useState("")
 
 
@@ -67,6 +68,8 @@ const Home = () => {
     useEffect(() => {
         dispatch(getAlbums())
     }, [dispatch])
+
+    if (!sessionUser) return history.push('/')
 
     // useEffect(() => {
     //     console.log(playlistId)
@@ -114,7 +117,8 @@ const Home = () => {
     }
 
     const onclick = (e) => {
-        console.log(playlistId)
+        e.preventDefault()
+        setid(null)
         dispatch(deletePlaylist(playlistId))
 
     }
@@ -125,6 +129,7 @@ const Home = () => {
 
     const allsongs = (e) => {
         setPressed(true)
+        setid(null)
         setAudioLists([])
         const audioListtemp = [];
         songList.forEach(song => {
@@ -154,6 +159,11 @@ const Home = () => {
         // child.parentElement.parentElement.remove()
 
     }
+
+    const logout = (e) => {
+        e.preventDefault();
+        dispatch(sessionActions.logout());
+      };
 
     const imageclick = (e) => {
         e.preventDefault()
@@ -216,6 +226,9 @@ const Home = () => {
                         <nav class="leftnav" role="navigation">
                             <ul className="left-header-box">
                                 <li><Link className="left-button" to="/home" >Home</Link></li>
+                                <li>
+                                <div className="left-button logout-header" onClick={logout}>Log Out</div>
+          </li>
 
                             </ul>
                         </nav>
