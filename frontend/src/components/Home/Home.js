@@ -149,6 +149,8 @@ const Home = () => {
 
     const onclick = (e) => {
         e.preventDefault()
+        let dropdown = document.getElementById("playlist-dropdown")
+        dropdown.value="null"
         setid(null)
         dispatch(deletePlaylist(playlistId))
         dispatch(deleteAllPlaylistSongs())
