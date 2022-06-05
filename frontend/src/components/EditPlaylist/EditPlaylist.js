@@ -70,14 +70,17 @@ closeModal()
 
       <form className="edit-playlist" onSubmit={handleSubmit}>
 
-        <label>Edit Name: </label>
+        <label>Edit Playlist Name: </label>
         <input
+        id = "editinput"
           type="text"
           placeholder="edit title"
           value={name}
           onChange={updateName}
         />
 
+        <br></br>
+        <br></br>
 
 
 

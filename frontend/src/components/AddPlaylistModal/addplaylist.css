@@ -1,0 +1,11 @@
+.newplaylistform{
+    height: 100px;
+    width: 200px;
+    font-family: Interstate,Lucida Grande,Arial,sans-serif;
+    font-size: 14px;
+
+
+}
+#newplaylistname{
+    width:96%
+}

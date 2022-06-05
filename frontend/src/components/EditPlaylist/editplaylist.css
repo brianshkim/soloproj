@@ -1,5 +1,19 @@
 .edit-list-form{
-
+    font-family: Interstate,Lucida Grande,Arial,sans-serif;
+    font-size:15px;
     width: 200px;
-    height: 300px;
+    height: 65px;
+    background:
+}
+
+.submiteditbutton{
+    width: 100%;
+    background-color: rgb(206, 141, 21);
+    border-style: none;
+    height: 30px;
+    color: white;
+}
+#editinput {
+    width: 95%;
+
 }

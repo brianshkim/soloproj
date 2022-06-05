@@ -55,8 +55,8 @@ function ViewSongs() {
 
     }
 
-    const pressEnter = e =>{
-        if(e.keyCode===13){
+    const pressEnter = e => {
+        if (e.keyCode === 13) {
             handleSubmit();
         }
     }
@@ -69,11 +69,20 @@ function ViewSongs() {
                 <div id='image-div'>
                     <div className="navigation">
                         <Navigation isLoaded={isLoaded} />
-
                     </div>
+                    <div>
+                        SPECTRAL WAVES
+                    </div>
+
+
                 </div>
 
+
+
+
+
             </div>
+
 
 
 

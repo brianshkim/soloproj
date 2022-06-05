@@ -6,6 +6,7 @@ import ErrorMessage from "../ErrorMessage";
 import * as sessionActions from "../../store/session";
 import { ValidationError } from "../../utils/validationError";
 import { createPlaylist } from "../../store/playlist";
+import "./addplaylist.css"
 
 
 const CreatePlaylistForm = ({closeModal}) => {
@@ -49,7 +50,7 @@ const CreatePlaylistForm = ({closeModal}) => {
   };
 
   return (
-    <div className="new-form-holder">
+    <div className="newplaylistform">
 
       <div className="errors">
           <ul>
@@ -61,17 +62,19 @@ const CreatePlaylistForm = ({closeModal}) => {
 
       <form className="create-playlist" onSubmit={handleSubmit}>
 
-        <label>Name: </label>
-        <input
+        <label>New Playlist Name: </label>
+        <input id="newplaylistname"
           type="text"
           placeholder="Playlist Name"
           required
           value={name}
           onChange={updateName}
         />
+        <br></br>
+        <br></br>
 
 
-        <button type="submit" disabled={!!errorMessages.length} >Add new Playlist</button>
+        <button type="submit" class="submiteditbutton" disabled={!!errorMessages.length} >Add new Playlist</button>
       </form>
 
     </div>
