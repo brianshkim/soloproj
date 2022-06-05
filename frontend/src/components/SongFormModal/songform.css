@@ -29,7 +29,7 @@
     margin-top: -20px;
     margin-right: -50px;
     width:500px;
-    background: linear-gradient(132deg, rgb(251, 165, 116) 0.00%, rgb(216, 245, 251) 100.00%);
+    background-image: linear-gradient(132deg, rgb(251, 165, 116) 0.00%, rgb(216, 245, 251) 100.00%);
 }
 
 .errors{
