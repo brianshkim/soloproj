@@ -73,9 +73,12 @@ margin-left: 10px;
 
 
 .splash-title{
-    mix-blend-mode:luminosity;
-    opacity: 75%;
-    font-style: quantum;
+    position: absolute;
+    mix-blend-mode:soft-light;
+    text-align: center;
+    margin-left: 10%;
+    opacity: 100%;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 
 
     font-size: 300px;
