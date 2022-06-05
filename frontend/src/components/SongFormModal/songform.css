@@ -5,13 +5,12 @@
     padding: 30px;
     background-size: 700px 600px;
     font-size: 15px;
-    font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif
+    font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;
 }
 
 .formimgdiv{
     height: 400px;
     width: 400px;
-
     background-size: 700px 500px;
     float:left;
 
@@ -29,7 +28,7 @@
     margin-top: -20px;
     margin-right: -50px;
     width:500px;
-    /*background-image: linear-gradient(132deg, rgb(251, 165, 116) 0.00%, rgb(216, 245, 251) 100.00%);*/
+    background-image: linear-gradient(132deg, rgb(251, 165, 116) 0.00%, rgb(216, 245, 251) 100.00%);
 }
 
 .errors{
@@ -43,6 +42,6 @@
     margin-left: 20px;
 }
 
-#songsubmitbutton:{
+#songsubmitbutton{
     width: 300px;
 }

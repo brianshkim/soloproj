@@ -1,9 +1,6 @@
 #image-div{
-
     position: relative;
     height: 100%;
-
-
     background-image:url("https://images.unsplash.com/photo-1526269982786-96fcd6b53d45?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80");
     height: 1080px;
     width: 1920PX;
@@ -14,7 +11,6 @@
 app{
     display: block;
 }
-
 .searchinput{
 margin-left: 10px;
 
@@ -58,7 +54,6 @@ margin-left: 10px;
 
     height: 50px;
     width: 1980px;
-
     background-color: black;
 
 }
@@ -66,8 +61,6 @@ margin-left: 10px;
     display: flex;
     justify-content: flex-end;
     width: 1880px;
-
-
 
 }
 
@@ -79,7 +72,5 @@ margin-left: 10px;
     margin-left: 10%;
     opacity: 100%;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-
-
     font-size: 300px;
 }

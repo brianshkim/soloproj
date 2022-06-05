@@ -30,7 +30,7 @@
     margin-right: -50px;
     width:520px;
     height: 540px;
-    /*background: linear-gradient(132deg, rgb(251, 165, 116) 0.00%, rgb(216, 245, 251) 100.00%);*/
+    background: linear-gradient(132deg, rgb(251, 165, 116) 0.00%, rgb(216, 245, 251) 100.00%);
 }
 
 .errors{
@@ -44,7 +44,7 @@
     margin-left: 20px;
 }
 
-#songsubmitbutton:{
+#songsubmitbutton{
      width: 300px;
-     margin-left: 300px;
+
 }
