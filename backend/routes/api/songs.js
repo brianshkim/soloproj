@@ -50,7 +50,7 @@ router.get('/home', restoreUser, asyncHandler(async (req, res) => {
     where: {
       user_id: req.user.id
     },
-    include:Album
+
   })
   res.json(songs)
 

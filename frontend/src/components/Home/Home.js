@@ -97,8 +97,9 @@ const Home = () => {
 
         if (optionElement === null) setPressed(true)
         console.log(playlists)
-        let foundplaylist = playlists.find(playlist=>playlist.id===optionElement)
+        let foundplaylist = songList.find(song=>song.playlist_id==optionElement)
         console.log(foundplaylist)
+        console.log(getplaylistsongs)
 
 
 
@@ -106,6 +107,28 @@ const Home = () => {
         dispatch(getPlaylistSongs(optionElement))
         // setPlaylist(playlistsongs)
         //console.log(playlistsongs)
+        //const audioListtemp = [];
+        //console.log(playlistsongs)
+        //playlistsongs.forEach(song => {
+        //    audioListtemp.push({
+        //        name: song.title,
+        //        singer: song.artist,
+        //        musicSrc: song.songPath
+//
+//
+        //    })
+        //})
+        //setAudioLists(audioListtemp)
+
+        //console.log(audioLists)
+
+       setid(optionElement)
+
+
+    }
+
+    const playPlaylist = (e) =>{
+        e.preventDefault();
         const audioListtemp = [];
         console.log(playlistsongs)
         playlistsongs.forEach(song => {
@@ -120,8 +143,6 @@ const Home = () => {
         setAudioLists(audioListtemp)
 
         console.log(audioLists)
-
-       setid(optionElement)
 
 
     }
@@ -273,7 +294,9 @@ const Home = () => {
                     </select>
                     <div id="playlistbuttonsdiv">
                         {id &&
-                        <button onClick={onclick} class="deleteplaylistbutton">Delete Playlist</button>}
+                        <>                        <button onClick={onclick} class="deleteplaylistbutton">Delete Playlist</button>
+                        <button onClick={playPlaylist} class="play-playlist">Play</button></>}
+
 
 
                     </div>
@@ -349,6 +372,7 @@ const Home = () => {
                 clearPriorAudioLists
                 quietUpdate
                 audioLists={audioLists}
+                autoPlay={false}
 
                      />
 
