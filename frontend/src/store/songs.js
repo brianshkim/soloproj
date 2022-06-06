@@ -4,9 +4,13 @@ const LOAD = "song/LOAD";
 const ADD = "song/ADD";
 const DELETE = "song/DELETE"
 const UPDATE = "song/UPDATE"
+const UNLOAD = "song/UNLOAD"
 
 
+const unload = () => ({
+  type: UNLOAD
 
+})
 
 const load = (list) => ({
   type: LOAD,
@@ -22,6 +26,10 @@ const update = (song) => ({
   type: UPDATE,
   song
 })
+
+export const unloadsongs = () => async dispatch=>{
+  dispatch(unload())
+}
 
 export const deleteSong = (songId) => async dispatch => {
   console.log(songId)
@@ -215,6 +223,9 @@ const songReducer = (state = {}, action) => {
       const newState = { ...state };
       delete newState[action.songId]
       return newState;
+    case UNLOAD:{
+      return {};
+    }
 
 
     default:

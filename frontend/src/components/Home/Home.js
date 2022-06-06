@@ -196,8 +196,9 @@ const Home = () => {
 
     const logout = (e) => {
         e.preventDefault();
-        dispatch(sessionActions.logout());
+        dispatch(sessionActions.logout()).then(history.push('/'))
       };
+
 
     const imageclick = (e) => {
         e.preventDefault()
@@ -261,7 +262,7 @@ const Home = () => {
                             <ul className="left-header-box">
                                 <li><Link className="left-button" to="/home" >Home</Link></li>
                                 <li>
-                                <div className="left-button logout-header" onClick={logout}>Log Out</div>
+
           </li>
 
                             </ul>

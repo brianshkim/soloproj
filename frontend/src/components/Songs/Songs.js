@@ -22,9 +22,7 @@ function ViewSongs() {
         dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
     }, [dispatch]);
 
-    useEffect(() => {
-        dispatch(songActions.getSongs())
-    }, [dispatch])
+
 
     let currentUser = useSelector((state) => state.session.user)
 
