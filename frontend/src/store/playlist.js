@@ -4,6 +4,13 @@ const LOAD = "playlist/LOAD";
 const ADD = "playlist/ADD";
 const UPDATE = "playlist/UPDATE"
 const DELETE = "playlist/DELETE"
+const UNLOAD = "playlist/UNLOAD"
+
+
+const unload = () => ({
+  type: UNLOAD
+
+})
 
 
 
@@ -30,6 +37,10 @@ const remove = (playlistId) => ({
   type: DELETE,
   playlistId
 })
+
+export const unloadplaylists = () => async dispatch=>{
+  dispatch(unload())
+}
 
 export const getPlaylists = () => async (dispatch) => {
   const response = await csrfFetch(`/api/playlists`);
@@ -146,16 +157,18 @@ const PlaylistReducer = (state = {}, action) => {
         },
       };
 
-      case UPDATE:
-        return {
-          ...state,
-          [action.playlist.id]: action.playlist
-        };
+    case UPDATE:
+      return {
+        ...state,
+        [action.playlist.id]: action.playlist
+      };
 
     case DELETE:
       const newState = { ...state };
       delete newState[action.playlistId]
       return newState;
+    case UNLOAD:
+      return {}
 
     default:
       return state;
