@@ -8,7 +8,7 @@
 * Express.js
 * PostgreSQL
 ***
-Busy Bees demo: https://soloproj.herokuapp.com/
+Spectral Waves demo: https://soloproj.herokuapp.com/
 
 Github wiki: https://github.com/brianshkim/soloproj/wiki
 ***
