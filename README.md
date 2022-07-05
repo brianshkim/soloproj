@@ -8,7 +8,7 @@
 * Express.js
 * PostgreSQL
 ***
-Busy Bees demo: https://busy-bees-attempt-2.herokuapp.com/
+Busy Bees demo: https://soloproj.herokuapp.com/
 
 Github wiki: https://github.com/brianshkim/soloproj/wiki
 ***
