@@ -29,7 +29,7 @@ Spectral Waves is a clone of Soundcloud that utilizes one page to render the use
 2. Install the necessary dependencies by running `npm install` in the terminal.
 3. Create an `.env` file in the root of the project. Input the corresponding information from the `.env.example` file.
 4. Create your local database.
-    * Create a user named `busy_bees_app` with db privileges with your desired password.
+    * Create a user named `sw_user` with db privileges with password password`.
     * Initialize sequelize with `npx dotenv sequelize init`.
     * Then run the following:
         * `npx dotenv sequelize db:create`
